@@ -65,13 +65,8 @@
         </li>
 
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-building"></i>
-            <a href="#about" class="hover:text-gray-500">حول</a>
-        </li>
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-phone"></i>
-            <a href="#contact" class="hover:text-gray-500">اتصل بنا</a>
+            <a href="{{url('/contacts')}}" class="hover:text-gray-500">اتصل بنا</a>
         </li>
 
         <!-- Login Item -->

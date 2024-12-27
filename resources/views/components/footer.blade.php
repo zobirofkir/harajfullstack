@@ -16,11 +16,8 @@
             </a>
         </div>
         <div class="flex justify-center gap-6 mt-4">
-            <a href="{{ route('cars.index') }}" class="text-gray-600 hover:text-gray-800">السيارات المتوفرة</a>
-            <a href="{{ route('categories.index') }}" class="text-gray-600 hover:text-gray-800">التصنيفات</a>
-            <a href="#about" class="text-gray-600 hover:text-gray-800">حول</a>
-            <a href="#contact" class="text-gray-600 hover:text-gray-800">اتصل بنا</a>
-            <a href="{{ url('/admin/login') }}" class="text-gray-600 hover:text-gray-800">تسجيل الدخول</a>
+            <a href="{{ url('/contacts') }}" class="text-gray-600 hover:text-gray-800 whitespace-nowrap">اتصل بنا</a>
+            <a href="{{ url('/admin/login') }}" class="text-gray-600 hover:text-gray-800 whitespace-nowrap">تسجيل الدخول</a>
         </div>
     </div>
 </footer>
