@@ -33,8 +33,14 @@
 
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-car"></i>
-            <a href="#cars" class="hover:text-gray-500">السيارات المتوفرة</a>
+            <a href="{{route('cars.index')}}" class="hover:text-gray-500">السيارات المتوفرة</a>
         </li>
+
+        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
+            <i class="fa-solid fa-list"></i>
+            <a href="{{route('categories.index')}}" class="hover:text-gray-500">التصنيفات</a>
+        </li>
+
 
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-money-check-dollar"></i>

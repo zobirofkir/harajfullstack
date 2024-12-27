@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Constructors;
 
+use App\Models\Car;
 use App\Models\Category;
 
 interface CategoryConstructor
@@ -18,6 +19,6 @@ interface CategoryConstructor
      * @param Category $category
      * @return array
      */
-    public function show(Category $category) : array;
+    public function show(string $slug) : array;
 }
 
