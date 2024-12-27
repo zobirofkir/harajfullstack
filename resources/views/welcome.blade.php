@@ -6,7 +6,6 @@
     @include('components.search')
 
     <div class="flex flex-col lg:flex-row">
-        <!-- Sidebar -->
         <div class="w-full lg:w-1/4 mb-8 lg:mb-0 lg:mr-4">
             <div class="bg-white shadow-md rounded-lg p-4">
                 <h2 class="text-xl font-bold text-gray-800 mb-4">الفئات</h2>
@@ -21,7 +20,6 @@
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="flex flex-col justify-center items-center space-y-8 p-4 w-full">
             @foreach (range(1, 20) as $item)
                 <div class="group flex flex-col lg:flex-row items-center gap-6 bg-white shadow-lg rounded-lg p-4 w-full max-w-md lg:max-w-4xl transform transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 hover:bg-primary-50">
@@ -29,7 +27,6 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiRMSZQd-eWCLMZCcCecDLlpsfnr1_T9lxEg&s" alt="voiture"
                              class="w-full h-full object-cover rounded-lg transform transition-all duration-300 ease-in-out group-hover:rotate-3 group-hover:scale-110">
                     </div>
-                    <!-- Content Section -->
                     <div class="flex-1 text-center lg:text-right">
                         <h1 class="text-base lg:text-lg font-semibold text-gray-800 group-hover:text-primary-600 transition-colors duration-300">
                             لوريم إيبسوم، دولور سيت أميت كونسيكتيتور أديبيسيسينغ إيليت. دوكيموس، ديبييتيس؟
