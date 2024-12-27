@@ -70,7 +70,7 @@
 
 
             <div class="p-8 mt-8 bg-blue-100 rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">أفضل وأسهل ومنطقي</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">أفضل سيارة بأداء مذهل وتصميم عصري</h2>
                 <div class="space-y-4">
                     <p class="text-lg text-gray-600">هذا القسم مخصص لتوضيح المزايا المذهلة للسيارة، بما في ذلك الأداء القوي، السعر التنافسي، والتصميم العصري.</p>
                     <ul class="list-disc pl-6 text-gray-800">
@@ -80,6 +80,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 

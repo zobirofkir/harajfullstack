@@ -20,7 +20,7 @@ class CategoryController extends Controller
         $cars = $response['cars'];
 
         if (!$category) {
-            abort(404, 'Category not found.');
+            abort(404, 'الفئة غير موجودة.');
         }
 
         return view('pages.categories.show', compact('category', 'cars'));

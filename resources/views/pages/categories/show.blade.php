@@ -12,7 +12,7 @@
                     </div>
                 </a>
             @empty
-                <p class="text-gray-600">No cars found in this category.</p>
+                <p class="text-gray-600">لا توجد سيارات في هذه الفئة.</p>
             @endforelse
         </div>
     </div>
