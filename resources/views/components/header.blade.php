@@ -26,7 +26,7 @@
     <ul class="mt-6 text-gray-700 p-4">
     <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
         <i class="fa-solid fa-building"></i>
-        <span class="font-bold">الشركة المغربية</span>
+        <span class="font-bold">Deenali</span>
     </li>
 
     <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
