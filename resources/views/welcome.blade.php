@@ -5,7 +5,7 @@
     @include('components.search')
 
     <div class="container mx-auto py-12 px-4 md:px-10 px-4">
-        
+
         <div class="flex flex-col lg:flex-row gap-8">
 
             <div class="lg:w-1/4 w-full">
@@ -62,7 +62,8 @@
             <div class="lg:w-3/4 w-full">
                 <h2 class="text-2xl font-semibold text-center text-primary-600 mb-8">استعرض السيارات المتاحة</h2>
                 <div class="flex flex-wrap justify-center gap-6">
-                    @foreach (range(1, 20) as $item)
+                    @foreach (range(1, 4) as $item)
+                    <a href="{{url('/cars/'.$item)}}">
                         <div class="group flex flex-col lg:flex-row items-center gap-6 bg-white shadow-lg rounded-lg p-6 w-full max-w-md lg:max-w-4xl transform transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 hover:bg-primary-50">
                             <div class="w-full lg:w-1/3 max-w-xs">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiRMSZQd-eWCLMZCcCecDLlpsfnr1_T9lxEg&s" alt="voiture"
@@ -77,6 +78,7 @@
                                 </h2>
                             </div>
                         </div>
+                    </a>
                     @endforeach
                 </div>
             </div>
