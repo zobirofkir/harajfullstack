@@ -41,27 +41,6 @@
             <a href="{{route('categories.index')}}" class="hover:text-gray-500">التصنيفات</a>
         </li>
 
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-money-check-dollar"></i>
-            <a href="#financing" class="hover:text-gray-500">تمويل السيارات</a>
-        </li>
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-location-pin"></i>
-            <a href="#locations" class="hover:text-gray-500">فروعنا</a>
-        </li>
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-shield-alt"></i>
-            <a href="#warranty" class="hover:text-gray-500">ضمان السيارات</a>
-        </li>
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-car-battery"></i>
-            <a href="#services" class="hover:text-gray-500">خدمات ما بعد البيع</a>
-        </li>
-
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-building"></i>
             <a href="#about" class="hover:text-gray-500">حول</a>
