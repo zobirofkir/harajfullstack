@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\enums\RolesEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -23,7 +24,7 @@ class UserResource extends Resource
 
     protected static ?string $pluralLabel = 'المستخدمون';
 
-    protected static ?string $navigationGroup = 'المستخدمون';
+    protected static ?string $navigation = 'المستخدمون';
 
     public static function form(Forms\Form $form): Forms\Form
     {
@@ -41,12 +42,15 @@ class UserResource extends Resource
                     ->label('كلمة المرور')
                     ->password()
                     ->required(),
-                Select::make('roles')
+
+                Select::make('role')
                     ->label('الدور')
-                    ->options(Role::all()->pluck('name', 'name')->toArray())
+                    ->options(
+                        Role::pluck('name', 'id')->toArray()
+                    )
                     ->required()
                     ->multiple(false)
-                    ->afterStateUpdated(fn ($state, $set, $get) => $set('roles', $state)),
+                    ->afterStateUpdated(fn ($state, $set, $get) => $set('role', $state)),
             ])->columns(1);
     }
 
@@ -65,9 +69,10 @@ class UserResource extends Resource
             ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make()->label('تعديل'),
+                Tables\Actions\DeleteAction::make()->label('حذف'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->label('حذف'),
+                //
             ]);
     }
 

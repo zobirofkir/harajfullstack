@@ -5,15 +5,14 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Auth;
 
 class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function getHeaderActions(): array
+    public static function canView(): bool
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return Auth::user()->can('update', User::class);
     }
 }

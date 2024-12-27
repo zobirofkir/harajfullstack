@@ -47,4 +47,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function scopeRole($query, $role)
+    {
+        return $query->where('role', $role);
+    }
 }
