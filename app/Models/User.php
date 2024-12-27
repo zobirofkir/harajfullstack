@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $query->where('role', $role);
     }
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
 }

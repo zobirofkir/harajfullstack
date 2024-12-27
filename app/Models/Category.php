@@ -11,4 +11,9 @@ class Category extends Model
         'title',
         'slug'
     ];
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
 }
