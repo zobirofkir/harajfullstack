@@ -1,7 +1,7 @@
 <header class="flex justify-between items-center bg-white shadow-md p-4">
     <div>
         <a href="{{url('/')}}">
-            <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10">
+            <img src="{{asset('assets/images/logo.png')}}" alt="Logo" class="w-10 h-10">
         </a>
     </div>
 
@@ -15,7 +15,7 @@
 <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-gray-50 shadow-lg sidebar-hidden sidebar-transition z-50">
     <div class="p-4 flex justify-center">
         <a href="{{url('/')}}">
-            <img src="https://via.placeholder.com/80" alt="Sidebar Logo" class="w-20 h-20 rounded-full">
+            <img src="{{asset('assets/images/logo.png')}}" alt="Sidebar Logo" class="w-20 h-20 rounded-full">
         </a>
     </div>
 
