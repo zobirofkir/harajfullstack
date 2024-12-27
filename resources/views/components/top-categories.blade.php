@@ -2,7 +2,7 @@
     $categories = App\Services\Facades\CategoryFacade::index()['categories'];
 @endphp
 
-<div class="py-4">
+<div>
     <div class="flex flex-row gap-4 overflow-x-auto px-4 sm:px-6 lg:px-8">
         @foreach ($categories as $category)
             <a href="{{ route('categories.show', $category->slug) }}">

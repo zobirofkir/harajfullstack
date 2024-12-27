@@ -2,6 +2,8 @@
     $categories = App\Services\Facades\CategoryFacade::index();
     $logos = App\Services\Facades\LogoFacade::index();
 
+    $figureFilter = request('figure');
+
     $categoryFilter = request('category');
     $startDate = request('start_date');
     $endDate = request('end_date');
@@ -12,6 +14,10 @@
 
     if ($categoryFilter) {
         $query->where('category_id', $categoryFilter);
+    }
+
+    if ($figureFilter) {
+        $query->where('logo_id', $figureFilter);
     }
 
     if ($startDate && $endDate) {
@@ -52,14 +58,14 @@
                             @foreach ($logos['logos'] as $figure)
                                 <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md whitespace-nowrap mt-2">
                                     <!-- Use different icons based on car type -->
-
                                     <img src="{{ asset('storage/'.$figure->image) }}" class="w-12 h-12 object-cover rounded-md" alt="">
 
-                                    <a href="{{ route('cars.index', ['figure' => $figure->id]) }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
-                                        {{ $figure->title }}
+                                    <a href="{{ route('cars.index', ['figure' => $figure->id] + request()->except('figure')) }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
+                                        {{ Str::limit($figure->title , 5) }}
                                     </a>
                                 </li>
                             @endforeach
+
                         </ul>
                     </div>
                 </div>
@@ -174,3 +180,18 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function toggleDropdown(id) {
+    const dropdown = document.getElementById(id);
+
+    if (dropdown.classList.contains('max-h-0')) {
+        dropdown.classList.remove('max-h-0');
+        dropdown.classList.add('max-h-screen');
+    } else {
+        dropdown.classList.remove('max-h-screen');
+        dropdown.classList.add('max-h-0');
+    }
+}
+</script>

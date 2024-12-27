@@ -2,8 +2,8 @@
     <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto">
         <!-- Contact Info -->
         <div class="flex gap-4 text-sm text-gray-600">
-            <span class="font-bold text-gray-700">اسم الموقع</span>
-            <span>example@email.com</span>
+            <span class="font-bold text-gray-700">دينالي</span>
+            <span>contact@deenali.com</span>
         </div>
 
         <!-- Social Media Icons -->
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<header class="flex justify-between items-center bg-white shadow-md p-4">
+<header class="flex justify-between items-center bg-white shadow-md p-4 md:px-20 px-8">
     <div>
         <a href="{{url('/')}}">
             <img src="{{asset('assets/images/logo.png')}}" alt="Logo" class="w-10 h-10">
@@ -77,7 +77,7 @@
         <!-- Login Item -->
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-user-circle"></i>
-            <a href="{{url('/login')}}" class="hover:text-gray-500">تسجيل الدخول</a>
+            <a href="{{url('/admin/login')}}" class="hover:text-gray-500">تسجيل الدخول</a>
         </li>
     </ul>
 </div>
