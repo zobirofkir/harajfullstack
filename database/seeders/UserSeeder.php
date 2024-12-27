@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\enums\RolesEnum;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -13,10 +14,15 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $role = Role::firstOrCreate(['name' => RolesEnum::ADMIN->value, 'guard_name' => 'web']);
+
+        $user = User::create([
             "name" => "دينالي",
             "email" => "deenali@admin.com",
-            "password" => "deenali123@@@"
+            "password" => "deenali123@@@",
+            "role" => RolesEnum::ADMIN->value,
         ]);
+
+        $user->assignRole($role);
     }
 }
