@@ -13,7 +13,7 @@
 
     @include('components.header')
 
-    <main class="md:px-10 px-4">
+    <main>
         {{ $slot }}
     </main>
 
