@@ -1,30 +1,37 @@
 <div class="bg-gray-100 py-3 px-6 sm:px-8 md:px-12">
-    <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto">
-        <!-- Contact Info -->
-        <div class="flex gap-4 text-sm text-gray-600">
-            <span class="font-bold text-gray-700">دينالي</span>
-            <span>contact@deenali.com</span>
-        </div>
-
-        <!-- Social Media Icons -->
-        <div class="flex gap-4 text-lg">
-            <a href="https://facebook.com" class="text-gray-600 hover:text-gray-800">
-                <i class="fa-brands fa-facebook-square"></i>
+    <!-- Contact Info -->
+    <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto overflow-x-auto overflow-y-hidden gap-10">
+        <span class="font-bold text-gray-700 whitespace-nowrap">
+            <i class="fas fa-home mr-2 ml-4"></i>دينالي
+        </span>
+        <span class="font-bold text-gray-700 whitespace-nowrap">
+            <a href="{{url('/')}}">
+                <i class="fas ml-4 fa-house-user mr-2"></i>الرئيسية
             </a>
-            <a href="https://twitter.com" class="text-gray-600 hover:text-gray-800">
-                <i class="fa-brands fa-twitter-square"></i>
+        </span>
+        <span class="font-bold text-gray-700 whitespace-nowrap">
+            <a href="{{url('/cars')}}">
+                <i class="fas ml-4 fa-car mr-2"></i>دينالي السيارات
             </a>
-            <a href="https://instagram.com" class="text-gray-600 hover:text-gray-800">
-                <i class="fa-brands fa-instagram-square"></i>
+        </span>
+        <span class="font-bold text-gray-700 whitespace-nowrap">
+            <a href="{{url('/categories')}}">
+                <i class="fas ml-4 fa-th mr-2"></i>التصنيفات
             </a>
-        </div>
+        </span>
+        <span class="font-bold text-gray-700 whitespace-nowrap">
+            <a href="{{url('/admin/login')}}">
+                <i class="fas ml-4 fa-sign-in-alt mr-2"></i>تسجيل الدخول
+            </a>
+        </span>
     </div>
 </div>
 
 <header class="flex justify-between items-center bg-white shadow-md p-4 md:px-20 px-8">
     <div>
-        <a href="{{url('/')}}">
+        <a href="{{url('/')}}" class="flex items-center gap-4">
             <img src="{{asset('assets/images/logo.png')}}" alt="Logo" class="w-10 h-10">
+            <span class="font-bold text-gray-700 whitespace-nowrap md:block hidden text-xl">دينالي</span>
         </a>
     </div>
 
