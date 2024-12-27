@@ -19,21 +19,30 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'المستخدمون';
+
+    protected static ?string $pluralLabel = 'المستخدمون';
+
+    protected static ?string $navigationGroup = 'المستخدمون';
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label('الاسم')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
+                    ->label('البريد الإلكتروني')
                     ->email()
                     ->required(),
                 TextInput::make('password')
+                    ->label('كلمة المرور')
                     ->password()
                     ->required(),
                 Select::make('roles')
-                    ->label('Role')
+                    ->label('الدور')
                     ->options(Role::all()->pluck('name', 'name')->toArray())
                     ->required()
                     ->multiple(false)
@@ -47,18 +56,18 @@ class UserResource extends Resource
             ->query(User::query()->where('id', '!=', Auth::user()->id))
 
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('email')->sortable()->searchable(),
-                TextColumn::make('role')->label('Role')->sortable(),
+                TextColumn::make('name')->label('الاسم')->sortable()->searchable(),
+                TextColumn::make('email')->label('البريد الإلكتروني')->sortable()->searchable(),
+                TextColumn::make('role')->label('الدور')->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
 
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('تعديل'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('حذف'),
             ]);
     }
 
