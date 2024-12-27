@@ -46,40 +46,40 @@
                         <i class="fas fa-car-side mr-2"></i> تصفية حسب النوع
                     </h3>
                     <div id="figuresDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                        <ul class="pl-6">
+                        <ul class="grid grid-cols-2 gap-4 pl-6">
                             @foreach (['sedan', 'compact-sedan', 'luxury-sedan', 'luxury-suv', 'coupe', 'hatchback', 'van', 'small-pickup', 'large-pickup', 'vintage'] as $figure)
-                                <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md py-2">
+                                <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md whitespace-nowrap mt-2">
                                     <!-- Use different icons based on car type -->
                                     @switch($figure)
                                         @case('sedan')
-                                            <i class="fas fa-car-side w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car-side w-8 text-gray-600"></i>
                                             @break
                                         @case('compact-sedan')
-                                            <i class="fas fa-car w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car w-8 text-gray-600"></i>
                                             @break
                                         @case('luxury-sedan')
-                                            <i class="fas fa-car-alt w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car-alt w-8 text-gray-600"></i>
                                             @break
                                         @case('luxury-suv')
-                                            <i class="fas fa-car-side w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car-side w-8 text-gray-600"></i>
                                             @break
                                         @case('coupe')
-                                            <i class="fas fa-car w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car w-8 text-gray-600"></i>
                                             @break
                                         @case('hatchback')
-                                            <i class="fas fa-car w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car w-8 text-gray-600"></i>
                                             @break
                                         @case('van')
-                                            <i class="fas fa-shuttle-van w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-shuttle-van w-8 text-gray-600"></i>
                                             @break
                                         @case('small-pickup')
-                                            <i class="fas fa-truck-pickup w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-truck-pickup w-8 text-gray-600"></i>
                                             @break
                                         @case('large-pickup')
-                                            <i class="fas fa-truck w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-truck w-8 text-gray-600"></i>
                                             @break
                                         @case('vintage')
-                                            <i class="fas fa-car-rear w-8 h-8 text-gray-600"></i>
+                                            <i class="fas fa-car-rear w-8 text-gray-600"></i>
                                             @break
                                     @endswitch
                                     <a href="{{ url()->current() . '?figure=' . $figure }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
@@ -201,17 +201,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function toggleDropdown(id) {
-        const dropdown = document.getElementById(id);
-
-        if (dropdown.classList.contains('max-h-0')) {
-            dropdown.classList.remove('max-h-0');
-            dropdown.classList.add('max-h-screen');
-        } else {
-            dropdown.classList.remove('max-h-screen');
-            dropdown.classList.add('max-h-0');
-        }
-    }
-</script>
