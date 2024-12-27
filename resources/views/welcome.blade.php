@@ -4,5 +4,7 @@
 
     @include('components.search')
 
+    @include('components.top-categories')
+
     @include('components.cars')
 </x-app-layout>
