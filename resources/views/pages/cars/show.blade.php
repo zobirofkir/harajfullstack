@@ -1,5 +1,5 @@
 <x-app-layout title="{{ $car->title }}">
-    <div class="container mx-auto px-4 py-12 bg-gray-50">
+    <div class="container mx-auto px-4 py-12 bg-gray-50 my-10">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="relative">
                 <!-- Image Carousel and Navigation -->

@@ -95,7 +95,7 @@
                             <!-- Content -->
                             <div class="p-4">
                                 <h1 class="text-base lg:text-lg font-semibold text-gray-800 group-hover:text-primary-600 transition-colors duration-300 mb-2">
-                                    {{ $car->title }}
+                                    {{ Str::limit($car->title, 30) }}
                                 </h1>
                                 <h2 class="text-primary-600 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300">
                                     <i class="fas fa-dollar-sign"></i> {{ $car->price }}
