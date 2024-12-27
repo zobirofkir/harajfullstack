@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4 py-12 bg-gray-50 my-10">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="relative">
-                <!-- Image Carousel and Navigation -->
+
                 <div class="flex items-center justify-between space-x-4">
                     <button class="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 transition-all duration-300" id="prevImage">
                         <i class="fas fa-chevron-left"></i>
@@ -23,14 +23,14 @@
                     </button>
                 </div>
 
-                <!-- Main Image -->
+
                 <div class="relative mt-4">
                     <img id="mainImage" class="w-full h-96 object-cover rounded-lg transition-all duration-300 ease-in-out"
                          src="{{ asset('storage/'.$car->images[0]) }}" alt="صورة السيارة">
                 </div>
             </div>
 
-            <!-- Car Details Section -->
+
             <div class="p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
@@ -63,26 +63,21 @@
                 </div>
             </div>
 
-            <!-- Contact Seller Button -->
+
             <div class="p-8 text-center">
                 <button class="bg-gray-600 text-white p-4 rounded-lg hover:bg-gray-500 transition-all duration-300" onclick="openContactModal()">اتصل بالبائع</button>
             </div>
 
-            <!-- Final Review Section -->
-            <div class="p-8 mt-8 bg-gray-100 rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">التقييم النهائي</h2>
+
+            <div class="p-8 mt-8 bg-blue-100 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">أفضل وأسهل ومنطقي</h2>
                 <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <span class="text-yellow-500">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </span>
-                        <span class="text-xl text-gray-800">4.5/5</span>
-                    </div>
-                    <p class="text-lg text-gray-600">هذه السيارة هي الخيار الأمثل لمن يبحث عن أداء ممتاز وتصميم أنيق...</p>
+                    <p class="text-lg text-gray-600">هذا القسم مخصص لتوضيح المزايا المذهلة للسيارة، بما في ذلك الأداء القوي، السعر التنافسي، والتصميم العصري.</p>
+                    <ul class="list-disc pl-6 text-gray-800">
+                        <li>سهولة الاستخدام والتكامل مع جميع احتياجاتك اليومية.</li>
+                        <li>مزايا متقدمة وأداء منقطع النظير.</li>
+                        <li>سعر تنافسي يجعلها خياراً مثالياً للجميع.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -125,7 +120,6 @@
         const modalImage = document.getElementById('modalImage');
         const contactModal = document.getElementById('contactModal');
 
-        // Image navigation
         prevButton.addEventListener('click', () => {
             currentImageIndex = (currentImageIndex > 0) ? currentImageIndex - 1 : images.length - 1;
             mainImage.src = "{{ asset('storage/') }}" + '/' + images[currentImageIndex];
@@ -136,18 +130,15 @@
             mainImage.src = "{{ asset('storage/') }}" + '/' + images[currentImageIndex];
         });
 
-        // Open Image Modal
         function openImageModal(imageUrl) {
             modal.classList.remove('hidden');
             modalImage.src = imageUrl;
         }
 
-        // Close Image Modal
         function closeImageModal() {
             modal.classList.add('hidden');
         }
 
-        // Contact Modal
         function openContactModal() {
             contactModal.classList.remove('hidden');
         }
