@@ -171,9 +171,43 @@
             </div>
 
             <!-- Pagination -->
-            <div class="mt-8 text-center">
-                {{ $cars->links() }}
+            <div class="mt-8 text-center rtl">
+                <nav class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                    @if ($cars->onFirstPage())
+                        <span class="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
+                            <i class="fas fa-angle-right"></i> السابق
+                        </span>
+                    @else
+                        <a href="{{ $cars->previousPageUrl() }}" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">
+                            <i class="fas fa-angle-right"></i> السابق
+                        </a>
+                    @endif
+
+                    @foreach ($cars->getUrlRange(1, $cars->lastPage()) as $page => $url)
+                        @if ($page == $cars->currentPage())
+                            <span class="px-3 py-1 bg-primary-600 text-white rounded-md">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    @if ($cars->hasMorePages())
+                        <a href="{{ $cars->nextPageUrl() }}" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">
+                            التالي <i class="fas fa-angle-left"></i>
+                        </a>
+                    @else
+                        <span class="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
+                            التالي <i class="fas fa-angle-left"></i>
+                        </span>
+                    @endif
+                </nav>
             </div>
+
+
         </div>
     </div>
 </div>
