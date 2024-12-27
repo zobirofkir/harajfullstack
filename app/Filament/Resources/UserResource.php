@@ -64,7 +64,7 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->label('الاسم')->sortable()->searchable(),
                 TextColumn::make('email')->label('البريد الإلكتروني')->sortable()->searchable(),
-                TextColumn::make('role')->label('الدور')->sortable(),
+                TextColumn::make('created_at')->label('تاريخ الانشاء')->dateTime('d-m-Y')->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
 
