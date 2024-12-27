@@ -31,6 +31,13 @@
             <div class="bg-white shadow-xl rounded-lg p-6 space-y-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-filter mr-2"></i> فلترة البحث</h2>
 
+                <!-- Reset Filters -->
+                <div class="mb-6">
+                    <a href="{{ url()->current() }}" class="block text-center bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300">
+                        <i class="fas fa-times-circle mr-2"></i> إعادة التصفية
+                    </a>
+                </div>
+
                 <!-- Categories Filter -->
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2"><i class="fas fa-th-list mr-2"></i> الفئات</h3>
@@ -71,7 +78,7 @@
                             <input type="number" id="min_price" name="min_price" value="{{ $minPrice }}" placeholder="من" class="w-full border-gray-300 rounded-md shadow-sm p-2">
 
                             <label for="max_price" class="block text-gray-600 mt-4"><i class="fas fa-arrow-alt-circle-up mr-2"></i> السعر الأعلى:</label>
-                            <input type="number" id="max_price" name="max_price" value="{{ $maxPrice }}" placeholder="إلى" class="w-full border-gray-300 rounded-md shadow-sm p-2">
+                            <input type="number" id="max_price" name="max_price" placeholder="إلى" value="{{ $maxPrice }}" class="w-full border-gray-300 rounded-md shadow-sm p-2">
                         </div>
                     </form>
                 </div>
