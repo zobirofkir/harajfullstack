@@ -57,7 +57,7 @@
                     <div class="space-y-4 flex flex-col">
                         <p class="text-xl text-gray-800"><strong>الوصف:</strong></p>
                         <p class="text-lg text-gray-600 break-words whitespace-pre-wrap">
-                            {{ $car->description }}
+                            {{ Str::limit($car->description, 1000) }}
                         </p>
                     </div>
                 </div>
