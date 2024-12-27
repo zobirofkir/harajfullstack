@@ -37,7 +37,7 @@
                     <ul class="space-y-4">
                         @foreach ($categories['categories'] as $category)
                             <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                                <img src="https://via.placeholder.com/50" alt="{{ $category->title }}" class="w-12 h-12 object-cover rounded-md">
+                                <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->title }}" class="w-12 h-12 object-cover rounded-md">
                                 <a href="{{ url()->current() . '?category=' . $category->id }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">{{ $category->title }}</a>
                             </li>
                         @endforeach

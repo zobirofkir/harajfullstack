@@ -61,7 +61,8 @@ class CarResource extends Resource
                     ->email(),
 
                 Textarea::make('info')
-                    ->label('معلومات إضافية'),
+                    ->label('معلومات إضافية')
+                    ->required(),
 
                 TextInput::make('price')
                     ->label('السعر')

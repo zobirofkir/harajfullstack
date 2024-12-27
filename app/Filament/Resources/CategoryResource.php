@@ -6,6 +6,7 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -37,8 +38,9 @@ class CategoryResource extends Resource
                     ->label('العنوان')
                     ->required()
                     ->maxLength(255),
+                FileUpload::make('image')->label('الصورة')->image()->required(),
                 Hidden::make('user_id')->default(Auth::user()->id),
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
