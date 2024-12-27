@@ -25,10 +25,9 @@ class CarService implements CarConstructor
      * @param Car $car
      * @return array
      */
-    public function show(Car $car) : array
+    public function show(string $slug)
     {
-        return [
-            'car' => $car
-        ];
+        $car = Car::where('slug', $slug)->first();
+        return $car;
     }
 }

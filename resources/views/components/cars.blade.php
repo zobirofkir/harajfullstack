@@ -83,7 +83,7 @@
             <h2 class="text-2xl font-semibold text-center text-primary-600 mb-8"><i class="fas fa-car mr-2"></i> استعرض السيارات المتاحة</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($cars as $car)
-                    <a href="{{ url('/cars/'.$car->slug) }}">
+                    <a href="{{ route('cars.show', $car->slug) }}">
                         <div class="group bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-2xl transform hover:scale-105">
                             <!-- Image -->
                             <div class="w-full h-56 lg:h-64 overflow-hidden relative">

@@ -1,6 +1,8 @@
 <header class="flex justify-between items-center bg-white shadow-md p-4">
     <div>
-        <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10">
+        <a href="{{url('/')}}">
+            <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10">
+        </a>
     </div>
 
     <button id="menuButton" class="block focus:outline-none">
@@ -12,7 +14,9 @@
 
 <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-gray-50 shadow-lg sidebar-hidden sidebar-transition z-50">
     <div class="p-4 flex justify-center">
-        <img src="https://via.placeholder.com/80" alt="Sidebar Logo" class="w-20 h-20 rounded-full">
+        <a href="{{url('/')}}">
+            <img src="https://via.placeholder.com/80" alt="Sidebar Logo" class="w-20 h-20 rounded-full">
+        </a>
     </div>
 
     <button id="closeButton" class="absolute top-4 left-4 focus:outline-none">

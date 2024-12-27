@@ -15,8 +15,8 @@ interface CarConstructor
     /**
      * Get car by slug
      *
-     * @param Car $car
+     * @param string $slug
      * @return array
      */
-    public function show(Car $car) : array;
+    public function show(string $slug);
 }
