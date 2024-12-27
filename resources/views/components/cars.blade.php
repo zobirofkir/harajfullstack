@@ -108,11 +108,6 @@
                         </div>
                     </a>
                 @endforeach
-
-                <!-- Pagination Links -->
-                <div class="mt-8">
-                    {{ $cars['cars']->links() }}
-                </div>
             </div>
         </div>
 
