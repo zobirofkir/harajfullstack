@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CarResource\Pages;
 use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
+use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
@@ -37,9 +38,14 @@ class CarResource extends Resource
         return $form
             ->schema([
                 Select::make('category_id')
-                    ->label('التصنيف')
-                    ->relationship('category', 'title')
-                    ->required(),
+                ->label('التصنيف')
+                ->relationship('category', 'title')
+                ->options(function () {
+                    $user = Auth::user();
+
+                    return Category::where('user_id', $user->id)->pluck('title', 'id');
+                })
+                ->required(),
 
                 TextInput::make('title')
                     ->label('عنوان السيارة')

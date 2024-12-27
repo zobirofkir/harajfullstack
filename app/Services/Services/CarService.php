@@ -1,0 +1,34 @@
+<?php
+namespace App\Services\Services;
+
+use App\Models\Car;
+use App\Services\Constructors\CarConstructor;
+
+class CarService implements CarConstructor
+{
+    /**
+     * Get all cars
+     *
+     * @return array
+     */
+    public function index() : array
+    {
+        $cars = Car::paginate(10);
+        return [
+            'cars' => $cars
+        ];
+    }
+
+    /**
+     * Get single car
+     *
+     * @param Car $car
+     * @return array
+     */
+    public function show(Car $car) : array
+    {
+        return [
+            'car' => $car
+        ];
+    }
+}
