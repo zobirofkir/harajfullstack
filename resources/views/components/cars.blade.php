@@ -1,7 +1,7 @@
 @php
     $categories = App\Services\Facades\CategoryFacade::index();
     $cars = App\Services\Facades\CarFacade::index();
-    $categoryFilter = request('category'); 
+    $categoryFilter = request('category');
     if ($categoryFilter) {
         $cars['cars'] = $cars['cars']->filter(function($car) use ($categoryFilter) {
             return $car->category_id == $categoryFilter;
@@ -89,26 +89,32 @@
 
         <div class="lg:w-3/4 w-full">
             <h2 class="text-2xl font-semibold text-center text-primary-600 mb-8">استعرض السيارات المتاحة</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div>
                 @foreach ($cars['cars'] as $car)
                     <a href="{{ url('/cars/'.$car->slug) }}">
-                        <div class="group flex flex-col items-center gap-6 bg-white shadow-lg rounded-lg p-6 transform transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 hover:bg-primary-50">
-                            <div class="w-full max-w-xs">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiRMSZQd-eWCLMZCcCecDLlpsfnr1_T9lxEg&s" alt="voiture"
-                                     class="w-full h-full object-cover rounded-lg transform transition-all duration-300 ease-in-out group-hover:rotate-3 group-hover:scale-110">
+                        <div class="flex flex-row space-x-4 group items-center justify-between bg-white rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out hover:scale-105 p-4 mb-6">
+                            <div class="max-w-[30%] max-w-[30%]">
+                                <img src="{{asset('storage/'.$car->images[0])}}" alt="voiture"
+                                     class="w-full h-[300px] object-cover rounded-lg transform transition-all duration-300 ease-in-out group-hover:rotate-3 group-hover:scale-110">
                             </div>
-                            <div class="text-center">
-                                <h1 class="text-lg font-semibold text-gray-800 group-hover:text-primary-600 transition-colors duration-300">
-                                    {{$car->title}}
-                                </h1>
-                                <h2 class="text-primary-600 text-lg mt-2 font-bold group-hover:text-primary-700 transition-colors duration-300">
-                                     {{$car->price}} دولار
-                                </h2>
-                            </div>
+
+                            <h1 class="text-xl font-semibold text-gray-800 group-hover:text-primary-600 transition-colors duration-300 text-center">
+                                {{$car->title}}
+                            </h1>
+
+                            <h2 class="text-primary-600 text-lg font-bold group-hover:text-primary-700 transition-colors duration-300">
+                                {{$car->price}} دولار
+                            </h2>
                         </div>
                     </a>
                 @endforeach
+
+                <!-- Pagination Links -->
+                <div class="mt-8">
+                    {{ $cars['cars']->links() }}
+                </div>
             </div>
         </div>
+
     </div>
 </div>
