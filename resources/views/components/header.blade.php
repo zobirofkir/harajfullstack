@@ -1,3 +1,26 @@
+<div class="bg-gray-100 py-3 px-6 sm:px-8 md:px-12">
+    <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto">
+        <!-- Contact Info -->
+        <div class="flex gap-4 text-sm text-gray-600">
+            <span class="font-bold text-gray-700">اسم الموقع</span>
+            <span>example@email.com</span>
+        </div>
+
+        <!-- Social Media Icons -->
+        <div class="flex gap-4 text-lg">
+            <a href="https://facebook.com" class="text-gray-600 hover:text-gray-800">
+                <i class="fa-brands fa-facebook-square"></i>
+            </a>
+            <a href="https://twitter.com" class="text-gray-600 hover:text-gray-800">
+                <i class="fa-brands fa-twitter-square"></i>
+            </a>
+            <a href="https://instagram.com" class="text-gray-600 hover:text-gray-800">
+                <i class="fa-brands fa-instagram-square"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
 <header class="flex justify-between items-center bg-white shadow-md p-4">
     <div>
         <a href="{{url('/')}}">
@@ -51,6 +74,11 @@
             <a href="#contact" class="hover:text-gray-500">اتصل بنا</a>
         </li>
 
+        <!-- Login Item -->
+        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
+            <i class="fa-solid fa-user-circle"></i>
+            <a href="{{url('/login')}}" class="hover:text-gray-500">تسجيل الدخول</a>
+        </li>
     </ul>
 </div>
 

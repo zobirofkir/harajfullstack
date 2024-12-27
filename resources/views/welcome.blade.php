@@ -2,6 +2,8 @@
 
     @include('components.hero')
 
+    @include('components.logo')
+
     @include('components.search')
 
     @include('components.top-categories')
