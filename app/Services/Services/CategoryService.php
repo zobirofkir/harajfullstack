@@ -15,7 +15,7 @@ class CategoryService implements CategoryConstructor
      */
     public function index(): array
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at', 'desc')->get();
         return [
             'categories' => $categories
         ];

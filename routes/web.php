@@ -3,6 +3,7 @@
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -31,3 +32,8 @@ Route::get('/cars', [CarController::class, 'index'])->name('cars.index');
  * Show a specific car
  */
 Route::get('/car/{car}', [CarController::class, 'show'])->name('cars.show');
+
+/**
+ * Search cars
+ */
+Route::get('/search/cars', [SearchController::class, 'searchByTitle']);

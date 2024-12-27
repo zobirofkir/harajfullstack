@@ -1,5 +1,5 @@
 <div class="container mx-auto py-8 px-4">
-    <form method="GET" class="flex items-center justify-center space-x-4">
+    <form action="{{ url('/search/cars') }}" method="GET" class="flex items-center justify-center space-x-4">
         <div class="relative w-full max-w-md">
             <input
                 type="text"

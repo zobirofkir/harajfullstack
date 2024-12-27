@@ -13,7 +13,7 @@ class CarService implements CarConstructor
      */
     public function index() : array
     {
-        $cars = Car::paginate(10);
+        $cars = Car::orderBy('created_at', 'desc')->paginate(10);
         return [
             'cars' => $cars
         ];

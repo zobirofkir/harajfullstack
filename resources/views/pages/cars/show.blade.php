@@ -3,34 +3,25 @@
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="relative">
 
-                <div class="flex items-center justify-between space-x-4">
-                    <button class="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 transition-all duration-300" id="prevImage">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="overflow-hidden w-full">
-                        <div class="flex space-x-4 py-4 transition-all duration-500 ease-in-out transform hover:scale-105" id="imageCarousel">
-                            @foreach ($car->images as $index => $image)
-                                <img class="w-32 h-32 object-cover rounded-lg cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out"
-                                     src="{{ asset('storage/'.$image) }}"
-                                     alt="صورة السيارة"
-                                     data-index="{{ $index }}"
-                                     onclick="openImageModal('{{ asset('storage/'.$image) }}')">
-                            @endforeach
-                        </div>
-                    </div>
-                    <button class="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 transition-all duration-300" id="nextImage">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+                <!-- Car Title -->
+                <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center mt-4">{{ $car->title }}</h1>
 
-
-                <div class="relative mt-4">
+                <!-- Main Image Display Section -->
+                <div class="relative mt-4" id="imageCarousel">
                     <img id="mainImage" class="w-full h-96 object-cover rounded-lg transition-all duration-300 ease-in-out"
                          src="{{ asset('storage/'.$car->images[0]) }}" alt="صورة السيارة">
+
+                    <!-- Previous and Next Buttons -->
+                    <button id="prevImage" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg">
+                        <i class="fas fa-chevron-left text-xl text-gray-800"></i>
+                    </button>
+                    <button id="nextImage" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg">
+                        <i class="fas fa-chevron-right text-xl text-gray-800"></i>
+                    </button>
                 </div>
             </div>
 
-
+            <!-- Car Details Section -->
             <div class="p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
@@ -63,12 +54,12 @@
                 </div>
             </div>
 
-
+            <!-- Contact Seller Button -->
             <div class="p-8 text-center">
                 <button class="bg-gray-600 text-white p-4 rounded-lg hover:bg-gray-500 transition-all duration-300" onclick="openContactModal()">اتصل بالبائع</button>
             </div>
 
-
+            <!-- Car Features Section -->
             <div class="p-8 mt-8 bg-blue-100 rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">أفضل سيارة بأداء مذهل وتصميم عصري</h2>
                 <div class="space-y-4">
@@ -80,15 +71,6 @@
                     </ul>
                 </div>
             </div>
-
-        </div>
-    </div>
-
-    <!-- Image Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 transition-all duration-300 ease-in-out flex">
-        <div class="relative bg-white p-8 rounded-lg max-w-md w-full space-y-6">
-            <button class="absolute top-4 right-4 text-2xl text-gray-800 hover:text-gray-600" onclick="closeImageModal()">×</button>
-            <img id="modalImage" class="w-full h-96 object-cover rounded-lg" src="" alt="صورة السيارة">
         </div>
     </div>
 
@@ -117,8 +99,6 @@
         const mainImage = document.getElementById('mainImage');
         const prevButton = document.getElementById('prevImage');
         const nextButton = document.getElementById('nextImage');
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
         const contactModal = document.getElementById('contactModal');
 
         prevButton.addEventListener('click', () => {
@@ -130,15 +110,6 @@
             currentImageIndex = (currentImageIndex < images.length - 1) ? currentImageIndex + 1 : 0;
             mainImage.src = "{{ asset('storage/') }}" + '/' + images[currentImageIndex];
         });
-
-        function openImageModal(imageUrl) {
-            modal.classList.remove('hidden');
-            modalImage.src = imageUrl;
-        }
-
-        function closeImageModal() {
-            modal.classList.add('hidden');
-        }
 
         function openContactModal() {
             contactModal.classList.remove('hidden');
