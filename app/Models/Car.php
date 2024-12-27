@@ -18,6 +18,7 @@ class Car extends Model
         'address',
         'description',
         'slug',
+        'logo_id',
     ];
 
     protected $casts = [
@@ -32,5 +33,10 @@ class Car extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function logo()
+    {
+        return $this->belongsTo(Logo::class);
     }
 }

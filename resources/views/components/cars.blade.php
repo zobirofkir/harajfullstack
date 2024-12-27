@@ -1,5 +1,7 @@
 @php
     $categories = App\Services\Facades\CategoryFacade::index();
+    $logos = App\Services\Facades\LogoFacade::index();
+
     $categoryFilter = request('category');
     $startDate = request('start_date');
     $endDate = request('end_date');
@@ -47,43 +49,14 @@
                     </h3>
                     <div id="figuresDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                         <ul class="grid grid-cols-2 gap-4 pl-6">
-                            @foreach (['sedan', 'compact-sedan', 'luxury-sedan', 'luxury-suv', 'coupe', 'hatchback', 'van', 'small-pickup', 'large-pickup', 'vintage'] as $figure)
+                            @foreach ($logos['logos'] as $figure)
                                 <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md whitespace-nowrap mt-2">
                                     <!-- Use different icons based on car type -->
-                                    @switch($figure)
-                                        @case('sedan')
-                                            <i class="fas fa-car-side w-8 text-gray-600"></i>
-                                            @break
-                                        @case('compact-sedan')
-                                            <i class="fas fa-car w-8 text-gray-600"></i>
-                                            @break
-                                        @case('luxury-sedan')
-                                            <i class="fas fa-car-alt w-8 text-gray-600"></i>
-                                            @break
-                                        @case('luxury-suv')
-                                            <i class="fas fa-car-side w-8 text-gray-600"></i>
-                                            @break
-                                        @case('coupe')
-                                            <i class="fas fa-car w-8 text-gray-600"></i>
-                                            @break
-                                        @case('hatchback')
-                                            <i class="fas fa-car w-8 text-gray-600"></i>
-                                            @break
-                                        @case('van')
-                                            <i class="fas fa-shuttle-van w-8 text-gray-600"></i>
-                                            @break
-                                        @case('small-pickup')
-                                            <i class="fas fa-truck-pickup w-8 text-gray-600"></i>
-                                            @break
-                                        @case('large-pickup')
-                                            <i class="fas fa-truck w-8 text-gray-600"></i>
-                                            @break
-                                        @case('vintage')
-                                            <i class="fas fa-car-rear w-8 text-gray-600"></i>
-                                            @break
-                                    @endswitch
-                                    <a href="{{ url()->current() . '?figure=' . $figure }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
-                                        {{ __($figure) }}
+
+                                    <img src="{{ asset('storage/'.$figure->image) }}" class="w-12 h-12 object-cover rounded-md" alt="">
+
+                                    <a href="{{ route('cars.index', ['figure' => $figure->id]) }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
+                                        {{ $figure->title }}
                                     </a>
                                 </li>
                             @endforeach

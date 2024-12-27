@@ -1,3 +1,5 @@
 <x-app-layout title="{{ config('app.name') }}">
-    @include('components.cars')
+   <div class="h-screen">
+        @include('components.cars')
+   </div>
 </x-app-layout>

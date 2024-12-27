@@ -38,14 +38,19 @@ class CarResource extends Resource
         return $form
             ->schema([
                 Select::make('category_id')
-                ->label('التصنيف')
-                ->relationship('category', 'title')
-                ->options(function () {
-                    $user = Auth::user();
+                    ->label('التصنيف')
+                    ->relationship('category', 'title')
+                    ->options(function () {
+                        $user = Auth::user();
 
-                    return Category::where('user_id', $user->id)->pluck('title', 'id');
-                })
-                ->required(),
+                        return Category::where('user_id', $user->id)->pluck('title', 'id');
+                    })
+                    ->required(),
+
+                Select::make('logo_id')
+                    ->label('الشعار')
+                    ->relationship('logo', 'title')
+                    ->required(),
 
                 TextInput::make('title')
                     ->label('عنوان السيارة')
