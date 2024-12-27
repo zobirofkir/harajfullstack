@@ -26,7 +26,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
                         <p class="text-xl text-gray-800"><strong>السعر:</strong> ${{ $car->price }}</p>
-                        <p class="text-xl text-gray-800"><strong>الفئة:</strong> {{ $car->category->name }}</p>
+                        <p class="text-xl text-gray-800"><strong>الفئة:</strong> {{ $car->category->title }}</p>
                         <p class="text-xl text-gray-800 flex flex-col gap-4">
                             <strong>الهاتف:</strong>
                             <a href="tel:{{ $car->phone }}" class="flex items-center gap-4 text-gray-500">

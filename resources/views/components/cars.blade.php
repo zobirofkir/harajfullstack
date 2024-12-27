@@ -7,8 +7,8 @@
     $categoryFilter = request('category');
     $startDate = request('start_date');
     $endDate = request('end_date');
-    $minPrice = request('min_price');
-    $maxPrice = request('max_price');
+    $price = request('price');
+
 
     $query = App\Models\Car::query();
 
@@ -24,8 +24,9 @@
         $query->whereBetween('created_at', [$startDate, $endDate]);
     }
 
-    if ($minPrice && $maxPrice) {
-        $query->whereBetween('price', [$minPrice, $maxPrice]);
+
+    if ($price) {
+        $query->where('price', '<=', $price);
     }
 
     $cars = $query->paginate(10);
@@ -125,19 +126,15 @@
                     <div id="priceDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                         <form action="#" method="GET">
                             <div class="space-y-4">
-                                <label for="min_price" class="block text-gray-600">
-                                    <i class="fas fa-arrow-alt-circle-down mr-2"></i> السعر الأدنى:
+                                <label for="price" class="block text-gray-600">
+                                    <i class="fas fa-arrow-alt-circle-down mr-2"></i> السعر:
                                 </label>
-                                <input type="number" id="min_price" name="min_price" value="{{ $minPrice }}" placeholder="من" class="w-full border-gray-300 rounded-md shadow-sm p-2">
-
-                                <label for="max_price" class="block text-gray-600 mt-4">
-                                    <i class="fas fa-arrow-alt-circle-up mr-2"></i> السعر الأعلى:
-                                </label>
-                                <input type="number" id="max_price" name="max_price" placeholder="إلى" value="{{ $maxPrice }}" class="w-full border-gray-300 rounded-md shadow-sm p-2">
+                                <input type="number" id="price" name="price" value="{{ $price }}" placeholder="أدخل السعر الأقصى" class="w-full border-gray-300 rounded-md shadow-sm p-2">
                             </div>
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
 
