@@ -43,3 +43,9 @@ Route::get('/search/cars', [SearchController::class, 'searchByTitle']);
  * Show a specific logo
  */
 Route::get('/logos/{id}', [LogoController::class, 'show'])->name('logos.show');
+
+
+/**
+ * About page
+ */
+Route::get('/abouts', function () {return view('pages.abouts.index');});

@@ -27,7 +27,7 @@
     <title>{{$title}}</title>
 </head>
 
-<body>
+<body class="animate-fade-in">
 
     @include('components.header')
 
