@@ -143,33 +143,31 @@
             <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
                 <i class="fas fa-car mr-2"></i> استعرض السيارات المتاحة
             </h2>
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($cars as $car)
-                    <a href="{{ route('cars.show', $car->slug) }}">
-                        <div class="group bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-2xl transform hover:scale-105 relative">
-                            <!-- Image -->
-                            <div class="w-full min-h-32 max-h-32 lg:h-64 overflow-hidden relative">
+                    <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                            <!-- العنوان -->
+                            <div class="p-4">
+                                <h1 class="text-lg font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300">
+                                    {{ Str::limit($car->title, 30) }}
+                                </h1>
+                            </div>
+                            <!-- صورة -->
+                            <div class="relative h-48 lg:h-64">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
-                                <div class="absolute top-0 right-0 bg-primary-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg">
+                                <div class="absolute top-0 right-0 bg-primary-600 text-white text-sm px-3 py-1 font-medium rounded-bl-lg">
                                     {{ $car->category_title }}
                                 </div>
                             </div>
-                            <!-- Content -->
+                            <!-- المحتوى -->
                             <div class="p-4">
-                                <h1 class="text-base lg:text-lg font-semibold text-gray-400 group-hover:text-gray-500 transition-colors duration-300 mb-2">
-                                    {{ Str::limit($car->title, 30) }}
-                                </h1>
-                                <h2 class="text-gray-400 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300 whitespace-nowrap">
-                                    <i class="fas fa-dollar-sign"></i> {{ number_format(substr($car->price, 0, 5)) }}
-                                </h2>
-
-                                <p class="text-gray-500 text-sm mt-1">
-                                    <i class="far fa-calendar-alt"></i>
-                                    {{ \Carbon\Carbon::parse($car->created_at)->locale('ar')->translatedFormat('d F Y') }}
-                                </p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
+                                        <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
+                                    </span>
+                                </div>
                             </div>
-                            <!-- Hover Effect -->
-                            <div class="absolute inset-0 bg-gray-400 opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
                         </div>
                     </a>
                 @endforeach
