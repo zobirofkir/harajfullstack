@@ -146,9 +146,9 @@
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}">
-                        <div class="group bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-2xl transform hover:scale-105">
+                        <div class="group bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-2xl transform hover:scale-105 relative">
                             <!-- Image -->
-                            <div class="w-full h-56 lg:h-64 overflow-hidden relative">
+                            <div class="w-full h-full lg:h-64 overflow-hidden relative">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
                                 <div class="absolute top-0 right-0 bg-primary-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg">
                                     {{ $car->category_title }}
@@ -159,9 +159,14 @@
                                 <h1 class="text-base lg:text-lg font-semibold text-gray-400 group-hover:text-gray-500 transition-colors duration-300 mb-2">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
-                                <h2 class="text-gray-400 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300">
-                                    <i class="fas fa-dollar-sign"></i> {{ $car->price }}
+                                <h2 class="text-gray-400 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300 whitespace-nowrap">
+                                    <i class="fas fa-dollar-sign"></i> {{ number_format(substr($car->price, 0, 5)) }}
                                 </h2>
+
+                                <p class="text-gray-500 text-sm mt-1">
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{ \Carbon\Carbon::parse($car->created_at)->locale('ar')->translatedFormat('d F Y') }}
+                                </p>
                             </div>
                             <!-- Hover Effect -->
                             <div class="absolute inset-0 bg-gray-400 opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
