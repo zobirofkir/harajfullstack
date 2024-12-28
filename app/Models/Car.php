@@ -19,6 +19,7 @@ class Car extends Model
         'description',
         'slug',
         'logo_id',
+        'gasoline_id'
     ];
 
     protected $casts = [
@@ -43,5 +44,10 @@ class Car extends Model
     public function sellerContacts()
     {
         return $this->hasMany(SellerContact::class);
+    }
+
+    public function gasoline()
+    {
+        return $this->belongsTo(Gasoline::class);
     }
 }

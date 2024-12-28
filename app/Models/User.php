@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Logo::class);
     }
+
+    public function gasolines()
+    {
+        return $this->hasMany(Gasoline::class);
+    }
 }

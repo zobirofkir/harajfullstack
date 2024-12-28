@@ -52,6 +52,12 @@ class CarResource extends Resource
                     ->relationship('logo', 'title')
                     ->required(),
 
+                Select::make('gasoline_id')
+                    ->label('نوع الوقود')
+                    ->relationship('gasoline', 'type')
+                    ->required(),
+
+
                 TextInput::make('title')
                     ->label('عنوان السيارة')
                     ->required(),
