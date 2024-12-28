@@ -40,7 +40,7 @@
                         <!-- Old Price -->
                         <div>
                             <span class="block text-sm font-medium text-gray-400">السعر القديم</span>
-                            <span class="font-bold text-gray-500 line-through">ريال {{ $car->old_price }}</span>
+                            <span class="font-bold text-gray-500 line-through">ريال {{ $car->old_price ?? $car->price }}</span>
                         </div>
 
                         <!-- Category -->
