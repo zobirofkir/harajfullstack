@@ -1,4 +1,4 @@
-<x-app-layout title="{{$categories->first()->title}}">
+<x-app-layout title="الفئات">
     <div class="container mx-auto px-4 py-8 h-screen">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">الفئات</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

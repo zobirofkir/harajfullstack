@@ -1,4 +1,4 @@
-<x-app-layout title="{{ config('app.name') }}">
+<x-app-layout title="السيارات">
    <div>
         @include('components.search')
 

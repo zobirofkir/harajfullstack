@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="منصتنا لبيع وشراء السيارات">
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center bg-white rounded-lg shadow-lg overflow-hidden">
