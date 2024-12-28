@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GasolineResource\Pages;
-use App\Filament\Resources\GasolineResource\RelationManagers;
 use App\Models\Gasoline;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -37,15 +35,18 @@ class GasolineResource extends Resource
                 TextInput::make('type')
                     ->label('نوع الوقود')
                     ->required()
-                    ->maxLength(255),
-                Hidden::make('user_id')->default(Auth::user()->id),
+                    ->maxLength(255)
+                    ->rules(['string', 'max:255', 'unique:gasolines,type']), // Ensures type is unique and valid
+                Hidden::make('user_id')
+                    ->default(Auth::user()->id)
+                    ->rules(['required', 'exists:users,id']), // Validates user_id exists
             ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->query(Gasoline::query()->where('user_id', Auth::user()->id))
+            ->query(Gasoline::query()->where('user_id', Auth::user()->id))
             ->columns([
                 TextColumn::make('type')->label('نوع الوقود')->sortable()->searchable(),
                 TextColumn::make('user.name')->label('المستخدم')->sortable(),

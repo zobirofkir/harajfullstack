@@ -35,16 +35,18 @@ class UserResource extends Resource
                 TextInput::make('name')
                     ->label('الاسم')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->rules(['string', 'max:255']),
                 TextInput::make('email')
                     ->label('البريد الإلكتروني')
                     ->email()
-                    ->required(),
+                    ->required()
+                    ->rules(['email', 'max:255']),
                 TextInput::make('password')
                     ->label('كلمة المرور')
                     ->password()
-                    ->required(),
-
+                    ->required()
+                    ->rules(['string', 'min:8', 'max:255']),
                 Select::make('role')
                     ->label('الدور')
                     ->options(

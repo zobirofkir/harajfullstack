@@ -42,7 +42,6 @@ class CarResource extends Resource
                     ->relationship('category', 'title')
                     ->options(function () {
                         $user = Auth::user();
-
                         return Category::where('user_id', $user->id)->pluck('title', 'id');
                     })
                     ->required(),
@@ -57,39 +56,46 @@ class CarResource extends Resource
                     ->relationship('gasoline', 'type')
                     ->required(),
 
-
                 TextInput::make('title')
                     ->label('عنوان السيارة')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255), // Match database column length
 
                 TextInput::make('phone')
                     ->label('الهاتف')
-                    ->required(),
+                    ->required()
+                    ->maxLength(15), // Limit for phone numbers
 
                 TextInput::make('email')
                     ->label('البريد الإلكتروني')
                     ->required()
-                    ->email(),
+                    ->email()
+                    ->maxLength(255),
 
-                Textarea::make('info')
+                TextInput::make('info')
                     ->label('معلومات إضافية')
-                    ->required(),
+                    ->required()
+                    ->maxLength(200), // Match database column length
 
                 TextInput::make('price')
                     ->label('السعر')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->maxLength(10), // Adjust based on your schema
 
                 TextInput::make('old_price')
                     ->label('السعر القديم')
+                    ->required()
                     ->numeric()
-                    ->required(),
+                    ->maxLength(10),
 
                 TextInput::make('address')
-                    ->label('العنوان'),
+                    ->label('العنوان')
+                    ->maxLength(255), // Match database column length
 
                 Textarea::make('description')
-                    ->label('الوصف'),
+                    ->label('الوصف')
+                    ->maxLength(500), // Adjust as per your schema
 
                 FileUpload::make('images')
                     ->label('صور السيارة')

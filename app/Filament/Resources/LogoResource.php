@@ -38,7 +38,14 @@ class LogoResource extends Resource
                     ->label('العنوان')
                     ->required(),
 
-                FileUpload::make('image')->label('الصورة')->image()->required(),
+                FileUpload::make('image')
+                    ->label('الصورة')
+                    ->image()
+                    ->required()
+                    ->rules(['image', 'mimes:jpg,jpeg,png', 'max:1024']) // Validates image file
+                    ->disk('public') // Ensure uploaded files are stored in the 'public' disk
+                    ->directory('logos'), // Save images in the 'logos' directory
+
                 Hidden::make('user_id')->default(Auth::user()->id),
             ])->columns(1);
     }

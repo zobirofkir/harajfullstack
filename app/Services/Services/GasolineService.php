@@ -13,7 +13,7 @@ class GasolineService implements GasolineConstructor
      */
     public function index(): array
     {
-        $gasolines = Gasoline::all();
+        $gasolines = Gasoline::orderBy('created_at', 'desc')->get();
         return [
             'gasolines' => $gasolines
         ];

@@ -10,8 +10,9 @@
     $price = request('price');
 
 
-    $query = App\Models\Car::query();
+    $query = App\Models\Car::query()->orderBy('created_at', 'desc');
 
+    
     if ($categoryFilter) {
         $query->where('category_id', $categoryFilter);
     }

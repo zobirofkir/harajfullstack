@@ -37,9 +37,16 @@ class CategoryResource extends Resource
                 TextInput::make('title')
                     ->label('العنوان')
                     ->required()
-                    ->maxLength(255),
-                FileUpload::make('image')->label('الصورة')->image()->required(),
-                Hidden::make('user_id')->default(Auth::user()->id),
+                    ->maxLength(255)
+                    ->rules(['string', 'max:255']), // Ensures it is a string and max length of 255
+                FileUpload::make('image')
+                    ->label('الصورة')
+                    ->image()
+                    ->required()
+                    ->rules(['image', 'max:1024']), // Ensures the file is an image and max size is 1MB
+                Hidden::make('user_id')
+                    ->default(Auth::user()->id)
+                    ->rules(['required', 'exists:users,id']), // Ensures a valid user ID is assigned
             ])->columns(1);
     }
 
