@@ -29,7 +29,7 @@
         $query->where('price', '<=', $price);
     }
 
-    $cars = $query->paginate(10);
+    $cars = $query->paginate(20);
 @endphp
 
 <div class="container mx-auto py-12 px-6 lg:px-16">
