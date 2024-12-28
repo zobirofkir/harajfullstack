@@ -35,9 +35,9 @@
 <div class="container mx-auto py-12 px-6 lg:px-16">
     <div class="flex flex-col lg:flex-row gap-8">
         <!-- Filters Sidebar -->
-        <div class="lg:w-1/4 w-full">
+        <div class="lg:w-1/4 w-full md:block hidden">
             <div class="bg-white shadow-xl rounded-lg p-6 space-y-6">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <h2 class="text-xl font-bold text-gray-400 mb-4">
                     <i class="fas fa-filter mr-2"></i> فلترة البحث
                 </h2>
 
@@ -51,7 +51,7 @@
 
                 <!-- Car Figures Filter -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 cursor-pointer" onclick="toggleDropdown('figuresDropdown')">
+                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('figuresDropdown')">
                         <i class="fas fa-car-side mr-2"></i> تصفية حسب النوع
                     </h3>
                     <div id="figuresDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
@@ -61,7 +61,7 @@
                                     <!-- Use different icons based on car type -->
                                     <img src="{{ asset('storage/'.$figure->image) }}" class="w-12 h-12 object-cover rounded-md" alt="">
 
-                                    <a href="{{ route('cars.index', ['figure' => $figure->id] + request()->except('figure')) }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
+                                    <a href="{{ route('cars.index', ['figure' => $figure->id] + request()->except('figure')) }}" class="text-gray-600 hover:text-gray-500 transition-colors duration-300">
                                         {{ Str::limit($figure->title , 5) }}
                                     </a>
                                 </li>
@@ -73,7 +73,7 @@
 
                 <!-- Categories Filter -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 cursor-pointer" onclick="toggleDropdown('categoriesDropdown')">
+                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('categoriesDropdown')">
                         <i class="fas fa-th-list mr-2"></i> الفئات
                     </h3>
                     <div id="categoriesDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
@@ -81,7 +81,7 @@
                             @foreach ($categories['categories'] as $category)
                                 <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md py-2">
                                     <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->title }}" class="w-12 h-12 object-cover rounded-md">
-                                    <a href="{{ url()->current() . '?category=' . $category->id }}" class="text-gray-600 hover:text-primary-600 transition-colors duration-300">
+                                    <a href="{{ url()->current() . '?category=' . $category->id }}" class="text-gray-600 hover:text-gray-500 transition-colors duration-300">
                                         {{ $category->title }}
                                     </a>
                                 </li>
@@ -92,7 +92,7 @@
 
                 <!-- Date Filter -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 cursor-pointer" onclick="toggleDropdown('dateDropdown')">
+                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('dateDropdown')">
                         <i class="fas fa-calendar-day mr-2"></i> تصفية حسب التاريخ
                     </h3>
                     <div id="dateDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
@@ -120,7 +120,7 @@
 
                 <!-- Price Filter -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2 cursor-pointer" onclick="toggleDropdown('priceDropdown')">
+                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('priceDropdown')">
                         <i class="fas fa-dollar-sign mr-2"></i> تصفية حسب السعر
                     </h3>
                     <div id="priceDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
@@ -140,10 +140,10 @@
 
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full">
-            <h2 class="text-2xl font-semibold text-center text-primary-600 mb-8">
+            <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
                 <i class="fas fa-car mr-2"></i> استعرض السيارات المتاحة
             </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}">
                         <div class="group bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-2xl transform hover:scale-105">
@@ -156,21 +156,20 @@
                             </div>
                             <!-- Content -->
                             <div class="p-4">
-                                <h1 class="text-base lg:text-lg font-semibold text-gray-800 group-hover:text-primary-600 transition-colors duration-300 mb-2">
+                                <h1 class="text-base lg:text-lg font-semibold text-gray-400 group-hover:text-gray-500 transition-colors duration-300 mb-2">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
-                                <h2 class="text-primary-600 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300">
+                                <h2 class="text-gray-400 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300">
                                     <i class="fas fa-dollar-sign"></i> {{ $car->price }}
                                 </h2>
                             </div>
                             <!-- Hover Effect -->
-                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gray-400 opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
                         </div>
                     </a>
                 @endforeach
             </div>
 
-            <!-- Pagination -->
             <div class="mt-8 text-center rtl">
                 <nav class="inline-flex items-center space-x-2 rtl:space-x-reverse">
                     @if ($cars->onFirstPage())
@@ -206,7 +205,6 @@
                     @endif
                 </nav>
             </div>
-
 
         </div>
     </div>
