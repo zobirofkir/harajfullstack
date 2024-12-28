@@ -148,7 +148,7 @@
                     <a href="{{ route('cars.show', $car->slug) }}">
                         <div class="group bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 hover:shadow-2xl transform hover:scale-105 relative">
                             <!-- Image -->
-                            <div class="w-full h-full lg:h-64 overflow-hidden relative">
+                            <div class="w-full min-h-32 max-h-32 lg:h-64 overflow-hidden relative">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
                                 <div class="absolute top-0 right-0 bg-primary-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg">
                                     {{ $car->category_title }}
