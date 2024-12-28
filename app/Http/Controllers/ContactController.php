@@ -19,7 +19,7 @@ class ContactController extends Controller
         $contact = Contact::create($request->validated());
 
         Mail::send('emails.contact', ['contact' => $contact], function ($message) use ($contact) {
-            $message->to('zobirofkir19@gmail.com')
+            $message->to('i.fosalamri75@gmail.com')
                     ->subject('رسالة جديدة من ' . $contact->name);
         });
 
