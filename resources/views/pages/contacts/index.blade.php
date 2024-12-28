@@ -4,7 +4,13 @@
             <h1 class="text-2xl font-bold text-gray-700 text-center mb-6">
                 تواصل معنا
             </h1>
-            <form action="#" method="POST" class="space-y-6">
+
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <form action="{{ route('contacts.store') }}" method="POST" class="space-y-6">
+                @csrf
                 <!-- Name Field -->
                 <div>
                     <label for="name" class="block text-right text-gray-600 mb-2">
