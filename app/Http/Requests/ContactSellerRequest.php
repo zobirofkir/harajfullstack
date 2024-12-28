@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SellectContactRequest extends FormRequest
+class ContactSellerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class SellectContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'car_id' => 'required|exists:cars,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'message' => 'required|string',
         ];
     }
 }

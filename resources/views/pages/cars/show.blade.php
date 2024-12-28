@@ -95,14 +95,24 @@
         <div class="relative bg-white p-8 rounded-lg max-w-md w-full space-y-6">
             <button class="absolute top-4 right-4 text-2xl text-gray-800 hover:text-gray-600" onclick="closeContactModal()">×</button>
             <h2 class="text-2xl font-bold text-gray-800">اتصل بالبائع</h2>
-            <form>
+            <form action="{{ route('contact.seller') }}" method="POST">
+                @csrf
+                <input type="hidden" name="car_id" value="{{ $car->id }}">
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700">الاسم</label>
-                    <input type="text" id="name" class="w-full p-2 border rounded-lg mt-2" placeholder="أدخل اسمك">
+                    <input type="text" id="name" class="w-full p-2 border rounded-lg mt-2" placeholder="أدخل اسمك" name="name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700">البريد الإلكتروني</label>
+                    <input type="email" id="email" class="w-full p-2 border rounded-lg mt-2" placeholder="أدخل بريدك الإلكتروني" name="email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="phone" class="block text-gray-700">رقم الهاتف</label>
+                    <input type="text" id="phone" class="w-full p-2 border rounded-lg mt-2" placeholder="أدخل رقم هاتفك" name="phone" required>
                 </div>
                 <div class="mb-4">
                     <label for="message" class="block text-gray-700">الرسالة</label>
-                    <textarea id="message" class="w-full p-2 border rounded-lg mt-2" rows="4" placeholder="أدخل رسالتك"></textarea>
+                    <textarea id="message" class="w-full p-2 border rounded-lg mt-2" rows="4" placeholder="أدخل رسالتك" name="message" required></textarea>
                 </div>
                 <button type="submit" class="w-full bg-gray-600 text-white p-2 rounded-lg hover:bg-gray-500 transition-all duration-300">إرسال</button>
             </form>

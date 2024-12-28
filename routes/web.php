@@ -4,6 +4,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactSellerController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -60,3 +61,8 @@ Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.ind
  * Store contact
  */
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+
+/**
+ * Store contact
+ */
+Route::post('/contact-seller', [ContactSellerController::class, 'store'])->name('contact.seller');
