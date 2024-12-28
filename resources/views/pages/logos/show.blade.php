@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="{{ $logo->title }}">
     <div class="container mx-auto py-8 h-screen">
         <!-- Logo Information -->
         <div class="text-center mb-8">
@@ -25,7 +25,7 @@
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                                 <h2 class="text-primary-600 text-xl font-bold group-hover:text-primary-700 transition-colors duration-300">
-                                    <i class="fas fa-dollar-sign"></i> {{ $car->price }}
+                                    <i class="fas fa-money-bill-wave"></i> {{ $car->price }} ريال
                                 </h2>
                             </div>
                             <!-- Hover Effect -->

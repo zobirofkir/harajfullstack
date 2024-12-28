@@ -7,7 +7,7 @@
                     <div class="border border-gray-300 rounded-lg shadow hover:shadow-lg p-4 bg-white">
                         <img src="{{ asset('storage/'.$car->images[0]) ?? asset('default-image.jpg') }}" alt="{{ $car->title }}" class="w-full h-48 object-cover rounded-md mb-4">
                         <h2 class="text-lg font-semibold text-gray-700">{{ $car->title }}</h2>
-                        <p class="mt-2 text-gray-900 font-bold">السعر: {{ $car->price }} $</p>
+                        <p class="mt-2 text-gray-900 font-bold">السعر: {{ $car->price }} ريال</p>
                         <p class="text-sm text-gray-500 mt-1">تم الإنشاء في: {{ $car->created_at->format('M d, Y') }}</p>
                     </div>
                 </a>

@@ -32,7 +32,7 @@
                     <div class="space-y-6">
                         <div>
                             <span class="block text-sm font-medium text-gray-500">السعر</span>
-                            <span class="text-2xl font-bold text-gray-800">${{ $car->price }}</span>
+                            <span class="text-2xl font-bold text-gray-800">ريال {{ $car->price }}</span>
                         </div>
                         <div>
                             <span class="block text-sm font-medium text-gray-500">الفئة</span>

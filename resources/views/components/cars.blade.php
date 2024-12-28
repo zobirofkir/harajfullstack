@@ -147,24 +147,25 @@
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
                         <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                            <!-- العنوان -->
+
                             <div class="p-4">
                                 <h1 class="text-lg font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                             </div>
-                            <!-- صورة -->
+
                             <div class="relative h-48 lg:h-64">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
                                 <div class="absolute top-0 right-0 bg-primary-600 text-white text-sm px-3 py-1 font-medium rounded-bl-lg">
                                     {{ $car->category_title }}
                                 </div>
                             </div>
-                            <!-- المحتوى -->
+
                             <div class="p-4">
                                 <div class="flex items-center justify-between">
                                     <span class="text-lg font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
-                                        <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
+                                        <i class="fas fa-money-bill-wave
+                                        "></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
                                     </span>
                                 </div>
                             </div>
