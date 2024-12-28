@@ -4,26 +4,43 @@
         <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
             <i class="fas fa-home mr-2 ml-4"></i>دينالي
         </span>
+
         <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/')}}">
                 <i class="fas ml-4 fa-house-user mr-2"></i>الرئيسية
             </a>
         </span>
+
         <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/cars')}}">
                 <i class="fas ml-4 fa-car mr-2"></i>دينالي السيارات
             </a>
         </span>
+
         <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/categories')}}">
                 <i class="fas ml-4 fa-th mr-2"></i>التصنيفات
             </a>
         </span>
+
+        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+            <a href="{{url('/abouts')}}">
+                <i class="fas ml-4 fa-building mr-2"></i>من نحن
+            </a>
+        </span>
+
+        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+            <a href="{{url('/contacts')}}">
+                <i class="fas ml-4 fa-phone mr-2"></i>اتصل بنا
+            </a>
+        </span>
+
         <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/admin/login')}}">
                 <i class="fas ml-4 fa-sign-in-alt mr-2"></i>تسجيل الدخول
             </a>
         </span>
+
     </div>
 </div>
 
