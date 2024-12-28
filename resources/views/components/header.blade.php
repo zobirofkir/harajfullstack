@@ -1,32 +1,10 @@
 <div class="bg-gray-100 py-1 px-6 sm:px-8 md:px-12">
     <!-- Contact Info -->
     <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto overflow-x-auto overflow-y-hidden gap-10">
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
-            <i class="fas fa-home mr-2 ml-4"></i>دينالي
-        </span>
 
         <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/')}}">
                 <i class="fas ml-4 fa-house-user mr-2"></i>الرئيسية
-            </a>
-        </span>
-
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
-            <a href="{{url('/cars')}}">
-                <i class="fas ml-4 fa-car mr-2"></i>دينالي السيارات
-            </a>
-        </span>
-
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
-            <a href="{{url('/categories')}}">
-                <i class="fas ml-4 fa-th mr-2"></i>التصنيفات
-            </a>
-        </span>
-
-
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
-            <a href="{{url('/gasolines')}}">
-                <i class="fas ml-4 fa-gas-pump mr-2"></i>الوقود
             </a>
         </span>
 
@@ -45,7 +23,7 @@
 
         <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/admin/login')}}">
-                <i class="fas ml-4 fa-sign-in-alt mr-2"></i>تسجيل الدخول
+                <i class="fas ml-4 fa-user mr-2"></i>الحساب
             </a>
         </span>
 
