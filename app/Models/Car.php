@@ -39,4 +39,9 @@ class Car extends Model
     {
         return $this->belongsTo(Logo::class);
     }
+
+    public function sellerContacts()
+    {
+        return $this->hasMany(SellerContact::class);
+    }
 }
