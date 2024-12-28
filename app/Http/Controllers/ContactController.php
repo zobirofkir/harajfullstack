@@ -13,15 +13,16 @@ class ContactController extends Controller
         return view('pages.contacts.index');
     }
 
+
     public function store(ContactRequest $request)
     {
         $contact = Contact::create($request->validated());
 
-        Mail::send('emails.contact', ['contact' => $contact], function ($message) {
+        Mail::send('emails.contact', ['contact' => $contact], function ($message) use ($contact) {
             $message->to('zobirofkir19@gmail.com')
-                    ->subject('رسالة جديدة من نموذج الاتصال');
+                    ->subject('رسالة جديدة من ' . $contact->name);
         });
 
-        return view('pages.contacts.index')->with('success', 'تم إرسال رسالتك بنجاح!');
+        return redirect()->route('contacts.index')->with('success', "تم إرسال رسالتك بنجاح، شكراً لك، " . $contact->name . ". سنقوم بالتواصل معك في أقرب وقت.");
     }
 }

@@ -24,6 +24,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
     <title>{{$title}}</title>
 </head>
 
@@ -39,5 +40,6 @@
 
     <script src="{{asset('assets/js/sidebare.js')}}"></script>
     <script src="{{asset('assets/js/cars.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

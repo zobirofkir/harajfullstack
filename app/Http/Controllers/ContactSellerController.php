@@ -25,6 +25,8 @@ class ContactSellerController extends Controller
             'message' => $validated['message'],
         ]);
 
+        $carUrl = route('cars.show', ['car' => $car->slug]);
+
         $data = [
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -32,10 +34,12 @@ class ContactSellerController extends Controller
             'message' => $validated['message'],
             'car_title' => $car->title,
             'car_seller_email' => $car->email,
+            'car_url' => $carUrl,
         ];
 
         Mail::to($data['car_seller_email'])->send(new ContactSellerMail($data));
 
-        return redirect()->back()->with('success', 'Your message has been sent to the seller!');
+        return redirect()->route('cars.show', ['car' => $car->slug])->with('success', 'تم إرسال رسالتك إلى البائع بنجاح!');
+
     }
 }

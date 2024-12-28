@@ -5,10 +5,6 @@
                 تواصل معنا
             </h1>
 
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <form action="{{ route('contacts.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <!-- Name Field -->
@@ -79,4 +75,20 @@
             </form>
         </div>
     </div>
+
+    @if(session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Toastify({
+                    text: "{{ session('success') }}",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                }).showToast();
+            });
+        </script>
+    @endif
+
 </x-app-layout>

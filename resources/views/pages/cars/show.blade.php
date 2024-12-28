@@ -119,6 +119,22 @@
         </div>
     </div>
 
+    @if(session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Toastify({
+                    text: "{{ session('success') }}",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                }).showToast();
+            });
+        </script>
+    @endif
+
+
     <script>
         let currentImageIndex = 0;
         const images = @json($car->images);
