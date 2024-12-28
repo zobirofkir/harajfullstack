@@ -5,5 +5,6 @@ return [
     App\Providers\CarServiceProvider::class,
     App\Providers\CategoryServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\GasolineServiceProvider::class,
     App\Providers\LogoServiceProvider::class,
 ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactSellerController;
+use App\Http\Controllers\GasolineController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -66,3 +67,13 @@ Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.st
  * Store contact
  */
 Route::post('/contact-seller', [ContactSellerController::class, 'store'])->name('contact.seller');
+
+/**
+ * List of gasolines
+ */
+Route::get('/gasolines', [GasolineController::class, 'index'])->name('gasolines.index');
+
+/**
+ * Show a specific gasoline
+ */
+Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolines.show');
