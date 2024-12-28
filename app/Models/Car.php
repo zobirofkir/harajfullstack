@@ -15,6 +15,7 @@ class Car extends Model
         'info',
         'images',
         'price',
+        'old_price',
         'address',
         'description',
         'slug',

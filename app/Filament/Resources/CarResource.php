@@ -80,6 +80,11 @@ class CarResource extends Resource
                     ->required()
                     ->numeric(),
 
+                TextInput::make('old_price')
+                    ->label('السعر القديم')
+                    ->numeric()
+                    ->required(),
+
                 TextInput::make('address')
                     ->label('العنوان'),
 

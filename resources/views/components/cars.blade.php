@@ -143,7 +143,7 @@
             <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
                 <i class="fas fa-car mr-2"></i> استعرض السيارات المتاحة
             </h2>
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
                         <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">

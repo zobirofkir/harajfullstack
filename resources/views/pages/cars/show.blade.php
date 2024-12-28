@@ -27,44 +27,69 @@
             </div>
 
             <!-- Car Details Section -->
-            <div class="p-8">
+            <div class="p-8 bg-white shadow-md rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Left Section -->
                     <div class="space-y-6">
+                        <!-- Price -->
                         <div>
-                            <span class="block text-sm font-medium text-gray-500">السعر</span>
-                            <span class="text-2xl font-bold text-gray-800">ريال {{ $car->price }}</span>
+                            <span class="block text-sm font-medium text-gray-400">السعر</span>
+                            <span class="text-3xl font-semibold text-gray-800">ريال {{ $car->price }}</span>
                         </div>
+
+                        <!-- Old Price -->
                         <div>
-                            <span class="block text-sm font-medium text-gray-500">الفئة</span>
-                            <span class="text-xl text-gray-800">{{ $car->category->title }}</span>
+                            <span class="block text-sm font-medium text-gray-400">السعر القديم</span>
+                            <span class="font-bold text-gray-500 line-through">ريال {{ $car->old_price }}</span>
                         </div>
+
+                        <!-- Category -->
                         <div>
-                            <span class="block text-sm font-medium text-gray-500">الهاتف</span>
-                            <a href="tel:{{ $car->phone }}" class="text-lg text-blue-600 flex items-center gap-2">
+                            <span class="block text-sm font-medium text-gray-400">الفئة</span>
+                            <span class="text-xl font-medium text-gray-800">{{ $car->category->title }}</span>
+                        </div>
+
+                        <!-- Gasoline Type -->
+                        <div>
+                            <span class="block text-sm font-medium text-gray-400">نوع البنزين</span>
+                            <span class="text-xl text-gray-800">{{ $car->gasoline->type }}</span>
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <span class="block text-sm font-medium text-gray-400">الهاتف</span>
+                            <a href="tel:{{ $car->phone }}" class="text-lg text-gray-600 hover:text-gray-800 flex items-center gap-2">
                                 <i class="fas fa-phone-alt"></i>
                                 {{ $car->phone }}
                             </a>
                         </div>
+
+                        <!-- Email -->
                         <div>
-                            <span class="block text-sm font-medium text-gray-500">البريد الإلكتروني</span>
-                            <a href="mailto:{{ $car->email }}" class="text-lg text-blue-600 flex items-center gap-2">
+                            <span class="block text-sm font-medium text-gray-400">البريد الإلكتروني</span>
+                            <a href="mailto:{{ $car->email }}" class="text-lg text-gray-600 hover:text-gray-800 flex items-center gap-2">
                                 <i class="fas fa-envelope"></i>
                                 {{ $car->email }}
                             </a>
                         </div>
+
+                        <!-- Address -->
                         <div>
-                            <span class="block text-sm font-medium text-gray-500">العنوان</span>
+                            <span class="block text-sm font-medium text-gray-400">العنوان</span>
                             <span class="text-lg text-gray-800">{{ $car->address }}</span>
                         </div>
+
+                        <!-- Info -->
                         <div>
-                            <span class="block text-sm font-medium text-gray-500">المعلومات</span>
+                            <span class="block text-sm font-medium text-gray-400">المعلومات</span>
                             <span class="text-lg text-gray-800">{{ $car->info }}</span>
                         </div>
                     </div>
 
+                    <!-- Right Section -->
                     <div class="space-y-4">
-                        <span class="block text-sm font-medium text-gray-500">الوصف</span>
-                        <p class="text-gray-700 leading-relaxed">
+                        <span class="block text-sm font-medium text-gray-400">الوصف</span>
+                        <p class="text-gray-600 leading-relaxed text-lg">
                             {{ Str::limit($car->description, 1000) }}
                         </p>
                     </div>
