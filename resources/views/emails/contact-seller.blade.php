@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Message About Your Car</title>
+    <title>رسالة جديدة عن سيارتك</title>
 </head>
 <body>
-    <h1>You have received a message about your car: {{ $data['car_title'] }}</h1>
-    <p><strong>Name:</strong> {{ $data['name'] }}</p>
-    <p><strong>Email:</strong> {{ $data['email'] }}</p>
-    <p><strong>Phone:</strong> {{ $data['phone'] }}</p>
-    <p><strong>Message:</strong> {{ $data['message'] }}</p>
+    <h1>لقد استلمت رسالة عن سيارتك: {{ $data['car_title'] }}</h1>
+    <p><strong>الاسم:</strong> {{ $data['name'] }}</p>
+    <p><strong>البريد الإلكتروني:</strong> {{ $data['email'] }}</p>
+    <p><strong>رقم الهاتف:</strong> {{ $data['phone'] }}</p>
+    <p><strong>الرسالة:</strong> {{ $data['message'] }}</p>
 </body>
 </html>

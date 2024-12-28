@@ -1,41 +1,41 @@
 <div class="bg-gray-100 py-1 px-6 sm:px-8 md:px-12">
     <!-- Contact Info -->
     <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto overflow-x-auto overflow-y-hidden gap-10">
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <i class="fas fa-home mr-2 ml-4"></i>دينالي
         </span>
 
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/')}}">
                 <i class="fas ml-4 fa-house-user mr-2"></i>الرئيسية
             </a>
         </span>
 
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/cars')}}">
                 <i class="fas ml-4 fa-car mr-2"></i>دينالي السيارات
             </a>
         </span>
 
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/categories')}}">
                 <i class="fas ml-4 fa-th mr-2"></i>التصنيفات
             </a>
         </span>
 
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/abouts')}}">
                 <i class="fas ml-4 fa-building mr-2"></i>من نحن
             </a>
         </span>
 
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/contacts')}}">
                 <i class="fas ml-4 fa-phone mr-2"></i>اتصل بنا
             </a>
         </span>
 
-        <span class="font-bold text-gray-700 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/admin/login')}}">
                 <i class="fas ml-4 fa-sign-in-alt mr-2"></i>تسجيل الدخول
             </a>
@@ -48,12 +48,12 @@
     <div>
         <a href="{{url('/')}}" class="flex items-center gap-4">
             <img src="{{asset('assets/images/logo.png')}}" alt="Logo" class="w-10 h-10">
-            <span class="font-bold text-gray-700 whitespace-nowrap md:block hidden text-xl">دينالي</span>
+            <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">دينالي</span>
         </a>
     </div>
 
     <button id="menuButton" class="block focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
     </button>
@@ -67,12 +67,12 @@
     </div>
 
     <button id="closeButton" class="absolute top-4 left-4 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
     </button>
 
-    <ul class="mt-6 text-gray-700 p-4">
+    <ul class="mt-6 text-gray-500 p-4">
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-building"></i>
             <span class="font-bold">دينالي</span>

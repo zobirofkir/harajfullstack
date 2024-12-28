@@ -28,7 +28,7 @@ class ContactSellerMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('New Message About Your Car')
+        return $this->subject('رسالة جديدة عن سيارتك')
                     ->view('emails.contact-seller')
                     ->with('data', $this->data);
     }
