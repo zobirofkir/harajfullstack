@@ -154,18 +154,21 @@
                                 </h1>
                             </div>
 
+                            <!-- Added small line -->
+                            <hr class="border-gray-300 mx-4">
+
                             <div class="relative h-48 lg:h-64">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
                                 <div class="absolute top-0 right-0 bg-primary-600 text-white text-sm px-3 py-1 font-medium rounded-bl-lg">
                                     {{ $car->category_title }}
                                 </div>
                             </div>
-
+                            <!-- Added small line -->
+                            <hr class="border-gray-300 mx-4">
                             <div class="p-4">
                                 <div class="flex items-center justify-between">
                                     <span class="text-lg font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
-                                        <i class="fas fa-money-bill-wave
-                                        "></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
+                                        <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
                                     </span>
                                 </div>
                             </div>
