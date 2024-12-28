@@ -149,7 +149,7 @@
                         <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
 
                             <div class="p-4">
-                                <h1 class="text-lg font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300">
+                                <h1 class="text-xl font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-center">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                             </div>
