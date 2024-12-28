@@ -44,6 +44,9 @@ class AdminPanelProvider extends PanelProvider
                     950 => '30, 27, 75',
                 ],
             ])
+            ->brandLogo(function () {
+                return asset('assets/images/logo.png');
+            })
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -66,6 +69,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->userMenuItems([
+                UserMenuItem::make()
+                    ->label('العودة إلى الصفحة الرئيسية')
+                    ->url('/')
+                    ->icon('heroicon-o-home'),
             ]);
     }
 }
