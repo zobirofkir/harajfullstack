@@ -166,6 +166,30 @@
                 </div>
             </div>
 
+
+            @php
+                $categories = App\Services\Facades\CategoryFacade::index()['categories'];
+            @endphp
+
+            <div class="text-start mb-8">
+                <h1 class="text-2xl font-semibold text-gray-800 mb-6 mr-4">الفئات</h1>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 px-4 sm:px-6 lg:px-8">
+                @foreach ($categories as $category)
+                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+                        <a href="{{ route('categories.show', $category->slug) }}">
+                            <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+                                <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->title }}" class="w-full h-48 object-cover">
+                                <div class="p-4">
+                                    <h2 class="text-xl font-semibold text-gray-800 truncate">{{ $category->title }}</h2>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+
             <!-- Contact Seller Buttons -->
             <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-4 mt-8">
                 <!-- Contact Seller Modal Button -->
