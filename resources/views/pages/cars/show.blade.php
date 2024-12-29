@@ -5,6 +5,41 @@
             <!-- Car Title -->
             <h1 class="text-4xl font-extrabold text-gray-900 text-center mt-6 mb-8">{{ $car->title }}</h1>
 
+            <!-- User Info Section -->
+
+            <div class="bg-gray-100">
+
+                <div class="flex justify-center">
+                    <h2 class="text-2xl font-semibold text-gray-800 mt-4">معلومات المستخدم</h2>
+                </div>
+
+                <div class="p-6 rounded-lg mb-8 shadow-md flex flex-col md:flex-row justify-between items-center w-full space-y-6 md:space-y-0">
+                    <div class="space-y-4 text-center md:text-left">
+                        <h3 class="text-xl font-semibold text-gray-800">{{ $car->user->name }}</h3>
+                        <p class="text-lg text-gray-600">{{ $car->user->email }}</p>
+                        <p class="text-sm text-gray-500">تم الإضافة في: {{ date('M d, Y', strtotime($car->created_at)) }}</p>
+                    </div>
+
+                    <div class="flex justify-center space-x-6 mt-6 md:mt-0">
+                        <!-- Share on Facebook -->
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 ml-6">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+
+                        <!-- Share on Instagram -->
+                        <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors duration-300">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+
+                        <!-- Share on Twitter -->
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-400 hover:text-blue-600 transition-colors duration-300">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- Main Image Display Section -->
             <div class="relative">
                 <div id="imageCarousel" class="relative">
@@ -132,20 +167,20 @@
             </div>
 
             <!-- Contact Seller Buttons -->
-            <div class="p-8 text-center flex justify-center gap-4 mt-8">
+            <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-4 mt-8">
                 <!-- Contact Seller Modal Button -->
-                <button class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300" onclick="openContactModal()">
+                <button class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 whitespace-nowrap" onclick="openContactModal()">
                     اتصل بالبائع
                 </button>
 
                 <!-- Phone Contact Button -->
-                <a href="tel:{{ $car->phone }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center gap-2">
+                <a href="tel:{{ $car->phone }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
                     <i class="fas fa-phone-alt"></i>
                     اتصل الآن
                 </a>
 
                 <!-- Email Contact Button -->
-                <a href="mailto:{{ $car->email }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition-all duration-300 flex items-center gap-2">
+                <a href="mailto:{{ $car->email }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
                     <i class="fas fa-envelope"></i>
                     أرسل بريدًا إلكترونيًا
                 </a>
