@@ -40,119 +40,91 @@
 
             </div>
 
-            <!-- Main Image Display Section -->
-            <div class="relative">
-                <div id="imageCarousel" class="relative">
-                    <div class="max-w-4xl mx-auto">
-                        <img id="mainImage"
-                             src="{{ asset('storage/'.$car->images[0]) }}"
-                             alt="صورة السيارة"
-                             class="w-full h-full object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out">
-                    </div>
-                    <!-- Navigation Buttons -->
-                    <button id="prevImage"
-                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-200 p-3 rounded-full shadow-lg">
-                        <i class="fas fa-chevron-left text-lg text-gray-600"></i>
-                    </button>
-                    <button id="nextImage"
-                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-100 hover:bg-gray-200 p-3 rounded-full shadow-lg">
-                        <i class="fas fa-chevron-right text-lg text-gray-600"></i>
-                    </button>
-                </div>
-            </div>
-
             <!-- Car Details Section -->
-            <div class="p-8 bg-white shadow-md rounded-lg">
+            <div class="p-8 bg-white rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Left Section -->
-                    <div class="space-y-6">
+                    <div class="space-y-8">
                         <!-- Price -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">السعر</span>
-                            <span class="text-3xl font-semibold text-gray-800">ريال {{ $car->price }}</span>
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">السعر</span>
+                            <span class="text-3xl font-bold text-gray-900">ريال {{ $car->price }}</span>
                         </div>
 
                         <!-- Old Price -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">السعر القديم</span>
-                            <span class="font-bold text-gray-500 line-through">ريال {{ $car->old_price ?? $car->price }}</span>
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">السعر القديم</span>
+                            <span class="font-semibold text-gray-400 line-through">ريال {{ $car->old_price ?? $car->price }}</span>
                         </div>
 
                         <!-- Category -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">الفئة</span>
-                            <span class="text-xl font-medium text-gray-800">{{ $car->category->title }}</span>
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">الفئة</span>
+                            <span class="text-xl font-semibold text-gray-900">{{ $car->category->title }}</span>
                         </div>
 
                         <!-- Gasoline Type -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">نوع البنزين</span>
-                            <span class="text-xl text-gray-800">{{ $car->gasoline->type }}</span>
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">نوع البنزين</span>
+                            <span class="text-xl font-semibold text-gray-900">{{ $car->gasoline->type }}</span>
                         </div>
 
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="space-y-6">
                         <!-- Phone -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">الهاتف</span>
-                            <a href="tel:{{ $car->phone }}" class="text-lg text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">الهاتف</span>
+                            <a href="tel:{{ $car->phone }}" class="text-lg text-blue-600 hover:text-blue-800 flex items-center gap-2">
                                 <i class="fas fa-phone-alt"></i>
                                 {{ $car->phone }}
                             </a>
                         </div>
 
                         <!-- Email -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">البريد الإلكتروني</span>
-                            <a href="mailto:{{ $car->email }}" class="text-lg text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">البريد الإلكتروني</span>
+                            <a href="mailto:{{ $car->email }}" class="text-lg text-blue-600 hover:text-blue-800 flex items-center gap-2">
                                 <i class="fas fa-envelope"></i>
                                 {{ $car->email }}
                             </a>
                         </div>
 
                         <!-- Address -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">العنوان</span>
-                            <span class="text-lg text-gray-800">{{ $car->address }}</span>
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">العنوان</span>
+                            <span class="text-lg text-gray-900">{{ $car->address }}</span>
                         </div>
 
                         <!-- Info -->
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">المعلومات</span>
-                            <span class="text-lg text-gray-800">{{ $car->info }}</span>
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">معلومات السيارة</span>
+                            <span class="text-lg text-gray-900">{{ $car->info }}</span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                            <span class="block text-sm font-medium text-gray-500">وصف السيارة</span>
+                            <span class="text-lg text-gray-900">{{ $car->description }}</span>
                         </div>
                     </div>
-
-                    <!-- Right Section -->
-                    <div class="space-y-4">
-
-                        <div>
-                            <span class="block text-sm font-medium text-gray-400">الوصف</span>
-                            <p class="text-gray-600 leading-relaxed text-lg">
-                                {{ Str::limit($car->description, 1000) }}
-                            </p>
-                        </div>
-
-                        <div class="p-8 flex justify-center space-x-6 mt-8">
-                            <!-- Share on Facebook -->
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-600 hover:text-blue-800 ml-6">
-                                <i class="fab fa-facebook-f text-2xl"></i>
-                            </a>
-
-                            <!-- Share on Instagram -->
-                            <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank" class="text-pink-600 hover:text-pink-800">
-                                <i class="fab fa-instagram text-2xl"></i>
-                            </a>
-
-                            <!-- Share on Twitter -->
-                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-400 hover:text-blue-600">
-                                <i class="fab fa-twitter text-2xl"></i>
-                            </a>
-
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
+
+
+        <!-- Main Image Display Section -->
+        <div class="flex flex-col items-center justify-center w-full">
+            <div id="imageCarousel" class="relative w-auto h-auto">
+                <div class="h-auto w-auto flex flex-col items-center justify-center">
+                    @foreach ($car->images as $image)
+                        <img src="{{ asset('storage/' . $image) }}"
+                            alt="صورة السيارة"
+                            class="w-auto h-auto object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out mb-4">
+                    @endforeach
+                </div>
+            </div>
+        </div>
 
             <!-- Image Gallery Section -->
             <div class="mt-12 px-4 py-6 bg-gray-50">
