@@ -149,7 +149,7 @@
                         <div class="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
 
                             <div class="mt-1">
-                                <h1 class="text-md font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-center">
+                                <h1 class="text-md font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-start">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                             </div>
@@ -159,8 +159,8 @@
                             </div>
 
                             <div class="mt-1">
-                                <div class="flex items-center justify-center">
-                                    <span class="text-md text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
+                                <div class="flex items-center justify-end">
+                                    <span class="text-sm text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
                                         <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
                                     </span>
                                 </div>

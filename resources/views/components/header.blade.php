@@ -107,7 +107,7 @@
 <div id="categoryModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
     <div class="bg-white w-full max-w-7xl h-auto max-h-[80vh] overflow-auto p-6 rounded-lg shadow-xl">
         <div class="flex justify-between mb-6 items-center">
-            <h2 class="text-3xl font-semibold text-gray-800">الفئات</h2>
+            <h2 class="text-3xl font-semibold text-gray-800">الشعارات</h2>
             <button onclick="closeModal()" class="text-gray-600 text-3xl hover:text-gray-900 focus:outline-none">
                 ×
             </button>
