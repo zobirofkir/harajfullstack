@@ -98,7 +98,7 @@
 
             <!-- Contact Seller Buttons -->
             <div class="p-8 flex md:flex-row flex-col justify-start gap-6 md:max-w-full max-w-[65%] mt-8 ">
-                <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
+                <button class="bg-blue-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
                     <i class="fas fa-user"></i>
                     اتصل بالبائع
                 </button>
@@ -106,33 +106,37 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-12 my-10">
-        <div class="flex flex-row items-center justify-between w-full gap-4 overflow-x-auto overflow-y-hidden">
-            <div class="flex flex-row items-center gap-4 text-gray-400">
+    <div class="container mx-auto my-10 bg-gray-100 shadow-xl p-2 rounded-lg">
+        <div class="flex flex-row items-center justify-between w-full gap-8 overflow-x-auto overflow-y-hidden">
+            <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="openContactModal()">
                 <i class="fas fa-user"></i>
                 <h2>
                     مراسلة
                 </h2>
+                |
             </div>
 
-            <div class="flex flex-row items-center gap-4 text-gray-400">
+            <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="this.classList.toggle('text-red-500')">
                 <i class="fas fa-heart"></i>
                 <h2>
                     تفضيل
                 </h2>
+                |
             </div>
 
-            <div class="flex flex-row items-center gap-4 text-gray-400">
+            <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="copyToClipboard('{{ route('cars.show', $car->slug) }}')">
                 <i class="fas fa-share"></i>
                 <h2>
                     مشاركة
                 </h2>
+                |
             </div>
 
-            <div class="flex flex-row items-center gap-4 text-gray-400">
-                <i class="fas fa-flag"></i>
+
+            <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2">
+                <i class="fas fa-phone"></i>
                 <h2>
-                    بلاغ
+                    تواصل
                 </h2>
             </div>
         </div>
