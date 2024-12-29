@@ -1,21 +1,25 @@
 <x-app-layout title="{{ $car->title }}">
     <div class="container mx-auto px-4 py-12 bg-gray-50 my-10">
+
+        <div class="flex justify-start">
+            <a href="{{url('/')}}" class="flex items-center px-4 py-2 text-gray-400 rounded-lg transition duration-300">
+                <i class="fas fa-arrow-right mr-2 text-4xl"></i>
+            </a>
+        </div>
+
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
 
             <!-- Car Title, Time, and Seller Name -->
             <div class="p-6">
                 <h1 class="text-4xl font-extrabold text-gray-900 text-center mt-6">{{ $car->title }}</h1>
-                <p class="text-lg text-gray-600 text-center mt-2">الوقت: {{ Carbon\Carbon::parse($car->created_at)->locale('ar')->isoFormat('MMMM D, YYYY') }}</p>
+                <p class="text-lg text-gray-600 text-center mt-2">{{ Carbon\Carbon::parse($car->created_at)->locale('ar')->isoFormat('MMMM D, YYYY') }}</p>
                 <h2 class="text-3xl font-bold text-gray-800 text-center mt-2">البائع: {{ $car->user->name }}</h2>
             </div>
 
             <!-- Free Space for Details -->
-            <div class="p-6 bg-gray-100 rounded-lg shadow-md border border-gray-200 flex justify-between items-center w-full">
+            <div class="p-6 bg-gray-100 rounded-lg shadow-md border border-gray-200 flex justify-center items-center">
                 <p class="text-sm text-gray-500">
                     {{ $car->created_at->diffForHumans() }}
-                </p>
-                <p class="text-xl font-semibold text-gray-800">
-                    {{ $car->created_at->format('H') }}:00
                 </p>
             </div>
 
@@ -77,57 +81,50 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Left Section -->
                     <div class="space-y-8">
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex md:flex-row flex-col items-center gap-2">
                             <i class="fas fa-tag text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">السعر</span>
                             <span class="text-3xl font-bold text-gray-900 whitespace-nowrap overflow-hidden">ريال {{ $car->price }}</span>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex md:flex-row flex-col items-center gap-2">
                             <i class="fas fa-arrow-down text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">السعر القديم</span>
                             <span class="font-semibold text-gray-400 line-through">ريال {{ $car->old_price ?? $car->price }}</span>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
+                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex md:flex-row flex-col items-center gap-2">
                             <i class="fas fa-cogs text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">الفئة</span>
                             <span class="text-xl font-semibold text-gray-900">{{ $car->category->title }}</span>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
-                            <i class="fas fa-gas-pump text-xl text-gray-500"></i>
-                            <span class="block text-sm font-medium text-gray-500">نوع البنزين</span>
-                            <span class="text-xl font-semibold text-gray-900">{{ $car->gasoline->type }}</span>
-                        </div>
                     </div>
 
-                    <!-- Right Section -->
-                    <div class="space-y-6">
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
-                            <span class="block text-sm font-medium text-gray-500">الهاتف</span>
-                            <a href="tel:{{ $car->phone }}" class="text-lg text-center flex justify-center items-center gap-2 bg-gray-100 rounded-lg p-2">
-                                <i class="fas fa-phone-alt"></i>
-                                رقم الهاتف
-                            </a>
+                        <!-- Right Section -->
+                        <div class="space-y-6">
+                            <!-- Address Section -->
+                            <div class="p-6 bg-white rounded-lg shadow-md flex md:flex-row flex-col items-center gap-4 hover:shadow-lg transition-shadow duration-300 ease-in-out">
+                                <span class="text-sm font-semibold text-gray-500">العنوان</span>
+                                <span class="text-lg text-gray-900 font-medium">{{ $car->address }}</span>
+                            </div>
+
+                            <!-- Car Info Section -->
+                            <div class="p-6 bg-white rounded-lg shadow-md flex md:flex-row flex-col items-center gap-4 hover:shadow-lg transition-shadow duration-300 ease-in-out">
+                                <span class="text-sm font-semibold text-gray-500">معلومات السيارة</span>
+                                <span class="text-lg text-gray-900 font-medium">{{ $car->info }}</span>
+                            </div>
+
+                            <!-- Gasoline Type Section -->
+                            <div class="p-6 bg-white rounded-lg shadow-md flex md:flex-row flex-col items-center gap-4 hover:shadow-lg transition-shadow duration-300 ease-in-out">
+                                <i class="fas fa-gas-pump text-xl text-gray-500"></i>
+                                <span class="text-sm font-semibold text-gray-500">نوع البنزين</span>
+                                <span class="text-xl font-semibold text-gray-900">{{ $car->gasoline->type }}</span>
+                            </div>
+
+                            <!-- Car Description Section -->
+                            <div class="p-6 bg-white rounded-lg shadow-md flex md:flex-row flex-col items-center gap-4 hover:shadow-lg transition-shadow duration-300 ease-in-out">
+                                <span class="text-sm font-semibold text-gray-500">وصف السيارة</span>
+                                <span class="text-lg text-gray-900 font-medium">{{ $car->description }}</span>
+                            </div>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
-                            <span class="block text-sm font-medium text-gray-500">البريد الإلكتروني</span>
-                            <a href="mailto:{{ $car->email }}" class="text-lg text-center flex justify-center items-center gap-2 bg-gray-100 rounded-lg p-2">
-                                <i class="fas fa-envelope"></i>
-                                البريد الإلكتروني
-                            </a>
-                        </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
-                            <span class="block text-sm font-medium text-gray-500">العنوان</span>
-                            <span class="text-lg text-gray-900">{{ $car->address }}</span>
-                        </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
-                            <span class="block text-sm font-medium text-gray-500">معلومات السيارة</span>
-                            <span class="text-lg text-gray-900">{{ $car->info }}</span>
-                        </div>
-                        <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
-                            <span class="block text-sm font-medium text-gray-500">وصف السيارة</span>
-                            <span class="text-lg text-gray-900">{{ $car->description }}</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
