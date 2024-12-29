@@ -160,8 +160,7 @@
             <!-- Contact Seller Buttons -->
             <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-6 mt-8">
                 <!-- Contact Seller Modal Button -->
-                <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold flex items-center gap-3 whitespace-nowrap justify-center transform hover:scale-105 font-semibold shadow-lg">
-                    <i class="fas fa-user-tie"></i>
+                <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg" onclick="openContactModal()">
                     اتصل بالبائع
                 </button>
 
