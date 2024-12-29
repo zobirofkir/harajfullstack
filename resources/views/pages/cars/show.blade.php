@@ -107,7 +107,7 @@
     </div>
 
     <div class="container mx-auto my-10 bg-gray-100 shadow-xl p-2 rounded-lg">
-        <div class="flex flex-row items-center justify-between w-full gap-8 overflow-x-auto overflow-y-hidden">
+        <div class="flex flex-row items-center justify-between w-full gap-8 overflow-x-auto overflow-y-hidden md:px-4 px-0">
             <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="openContactModal()">
                 <i class="fas fa-user"></i>
                 <h2>
@@ -116,12 +116,9 @@
                 |
             </div>
 
-            <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="this.classList.toggle('text-red-500')">
-                <i class="fas fa-heart"></i>
-                <h2>
-                    تفضيل
-                </h2>
-                |
+            <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="toggleFavorite(this)">
+                <i class="fas fa-heart" id="heart-icon"></i>
+                <h2>تفضيل</h2> |
             </div>
 
             <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2" onclick="copyToClipboard('{{ route('cars.show', $car->slug) }}')">
@@ -141,6 +138,32 @@
             </div>
         </div>
     </div>
+
+    @php
+        $cars = App\Services\Facades\CarFacade::index()['cars'];
+    @endphp
+
+    <div class="container mx-auto my-10 px-4">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">عروض مشابهة</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @foreach ($cars->take(10) as $car)
+            <a href="{{ route('cars.show', $car->slug) }}" class="block rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all">
+                <div class="bg-white p-4">
+                    <div class="text-start">
+                        <h1 class="text-xl font-semibold text-gray-800">{{ $car->title }}</h1>
+                    </div>
+                    <div class="h-48 lg:h-64 mx-auto mt-2">
+                        <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover rounded-md">
+                    </div>
+                    <div class="text-end mt-2">
+                        <p class="text-lg font-medium text-gray-600">{{ $car->price }} ريال</p>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    </div>
+
 
     <!-- Contact Seller Modal -->
     <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 transition-all duration-300 ease-in-out flex">

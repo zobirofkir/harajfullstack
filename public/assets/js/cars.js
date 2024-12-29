@@ -8,3 +8,22 @@ function copyToClipboard(url) {
 
     alert("رابط تم نسخه!");
 }
+
+
+function toggleFavorite(element) {
+    const heartIcon = element.querySelector('#heart-icon');
+
+    element.classList.toggle('text-red-500');
+
+    const isFavorited = element.classList.contains('text-red-500');
+
+    localStorage.setItem('favoriteState', isFavorited ? 'true' : 'false');
+}
+
+window.onload = () => {
+    const savedFavoriteState = localStorage.getItem('favoriteState');
+
+    if (savedFavoriteState === 'true') {
+        document.querySelector('.flex').classList.add('text-red-500');
+    }
+}
