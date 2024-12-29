@@ -91,10 +91,12 @@ class CarResource extends Resource
 
                 TextInput::make('address')
                     ->label('العنوان')
+                    ->required()
                     ->maxLength(255), // Match database column length
 
                 Textarea::make('description')
                     ->label('الوصف')
+                    ->required()
                     ->maxLength(500), // Adjust as per your schema
 
                 FileUpload::make('images')
