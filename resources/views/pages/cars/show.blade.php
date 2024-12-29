@@ -18,7 +18,7 @@
                     <div class="text-center md:text-left space-y-6">
                         <!-- User Image -->
                         <div class="flex justify-center md:justify-start">
-                            <img src="{{ asset('storage/' . $car->user->image) }}" alt="{{ $car->user->name }}'s image" class="w-20 h-20 rounded-full object-cover">
+                            <img src="{{ asset('storage/' . ($car->user->image ?? 'https://icons.veryicon.com/png/o/miscellaneous/youyinzhibo/guest.png')) }}" alt="{{ $car->user->name }}'s image" class="w-20 h-20 rounded-full object-cover">
                         </div>
 
                         <h3 class="text-3xl font-semibold text-gray-900 md:text-start text-center">{{ $car->user->name }}</h3>
