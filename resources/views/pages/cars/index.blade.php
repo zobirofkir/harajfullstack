@@ -1,6 +1,5 @@
 <x-app-layout title="السيارات">
    <div>
-        @include('components.logo')
 
         @include('components.search')
 

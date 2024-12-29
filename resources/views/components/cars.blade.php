@@ -148,24 +148,17 @@
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
                         <div class="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
 
-                            <div class="p-4">
+                            <div class="mt-1">
                                 <h1 class="text-md font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-center">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                             </div>
 
-                            <!-- Added small line -->
-                            <hr class="border-gray-300 mx-4">
-
                             <div class="relative h-48 lg:h-64">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
-                                <div class="absolute top-0 right-0 bg-primary-600 text-white text-sm px-3 py-1 font-medium rounded-bl-lg">
-                                    {{ $car->category_title }}
-                                </div>
                             </div>
-                            <!-- Added small line -->
-                            <hr class="border-gray-300 mx-4">
-                            <div class="p-4">
+
+                            <div class="mt-1">
                                 <div class="flex items-center justify-center">
                                     <span class="text-md text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
                                         <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
