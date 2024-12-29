@@ -155,7 +155,7 @@
                             </div>
 
                             <div class="relative h-48 lg:h-64">
-                                <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover">
+                                <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover rounded-md">
                             </div>
 
                             <div class="mt-1">
