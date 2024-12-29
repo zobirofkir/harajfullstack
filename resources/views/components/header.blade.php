@@ -8,6 +8,11 @@
             </a>
         </span>
 
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
+            <p>
+                <i class="fas ml-4 fa-search mr-2"></i>بحث
+            </p>
+        </span>
 
         <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/abouts')}}">
@@ -96,5 +101,47 @@
         </li>
     </ul>
 </div>
+
+
+<!-- هيكل المودال -->
+<div id="categoryModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
+    <div class="bg-white w-full max-w-7xl h-auto max-h-[80vh] overflow-auto p-6 rounded-lg shadow-xl">
+        <div class="flex justify-between mb-6 items-center">
+            <h2 class="text-3xl font-semibold text-gray-800">الفئات</h2>
+            <button onclick="closeModal()" class="text-gray-600 text-3xl hover:text-gray-900 focus:outline-none">
+                ×
+            </button>
+        </div>
+
+        @php
+            $categories = App\Services\Facades\CategoryFacade::index()['categories'];
+        @endphp
+
+        <!-- Scrollable category container -->
+        <div class="flex flex-row gap-4 overflow-x-auto px-4 sm:px-6 lg:px-8 mb-8">
+            @foreach ($categories as $category)
+                <a href="{{ route('categories.show', $category->slug) }}">
+                    <div class="flex flex-row items-center gap-4 w-48 sm:w-64 md:w-72 lg:w-80 bg-white shadow-lg rounded-lg p-4 text-center mb-4">
+                        <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->title }}" class="w-12 h-12 object-cover rounded-md">
+                        <h1 class="text-xl font-semibold text-gray-400 truncate">{{ $category->title }}</h1>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function openModal() {
+        document.getElementById('categoryModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('categoryModal').classList.add('hidden');
+    }
+</script>
+
 
 <div id="overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-40"></div>

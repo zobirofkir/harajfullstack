@@ -12,7 +12,6 @@
 
     $query = App\Models\Car::query()->orderBy('created_at', 'desc');
 
-    
     if ($categoryFilter) {
         $query->where('category_id', $categoryFilter);
     }
@@ -142,15 +141,15 @@
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full">
             <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
-                <i class="fas fa-car mr-2"></i> استعرض السيارات المتاحة
+                <i class="fas fa-car mr-2"></i> السيارات المتاحة
             </h2>
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
-                        <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
 
                             <div class="p-4">
-                                <h1 class="text-xl font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-center">
+                                <h1 class="text-md font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-center">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                             </div>
@@ -167,8 +166,8 @@
                             <!-- Added small line -->
                             <hr class="border-gray-300 mx-4">
                             <div class="p-4">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-lg font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
+                                <div class="flex items-center justify-center">
+                                    <span class="text-md text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
                                         <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
                                     </span>
                                 </div>

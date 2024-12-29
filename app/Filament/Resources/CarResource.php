@@ -110,6 +110,8 @@ class CarResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->query(Car::query()->where('user_id', Auth::user()->id))
+
             ->columns([
                 ImageColumn::make('images')
                 ->label('صور السيارة')
