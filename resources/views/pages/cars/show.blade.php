@@ -22,7 +22,12 @@
                         </div>
 
                         <h3 class="text-3xl font-semibold text-gray-900 md:text-start text-center">{{ $car->user->name }}</h3>
-                        <p class="text-lg text-gray-700 md:text-start text-center">{{ $car->user->email }}</p>
+
+                        <p class="text-sm text-gray-600 flex items-center gap-4 justify-center md:justify-start ml-3">
+                            <i class="fas fa-envelope text-xl text-gray-500 md:text-start text-center"></i>
+                            {{ $car->user->email }}
+                        </p>
+
                     </div>
 
                     <!-- Social Share Icons -->
@@ -160,7 +165,8 @@
             <!-- Contact Seller Buttons -->
             <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-6 mt-8">
                 <!-- Contact Seller Modal Button -->
-                <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg" onclick="openContactModal()">
+                <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
+                    <i class="fas fa-user"></i>
                     اتصل بالبائع
                 </button>
 
