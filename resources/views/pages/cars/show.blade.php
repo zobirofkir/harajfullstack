@@ -2,61 +2,59 @@
     <div class="container mx-auto px-4 py-12 bg-gray-50 my-10">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
 
-            <!-- Car Title -->
-            <h1 class="text-4xl font-extrabold text-gray-900 text-center mt-6 mb-8">{{ $car->title }}</h1>
+            <!-- Car Title, Time, and Seller Name -->
+            <div class="p-6">
+                <h1 class="text-4xl font-extrabold text-gray-900 text-center mt-6">{{ $car->title }}</h1>
+                <p class="text-lg text-gray-600 text-center mt-2">الوقت: {{ Carbon\Carbon::parse($car->created_at)->locale('ar')->isoFormat('MMMM D, YYYY') }}</p>
+                <h2 class="text-3xl font-bold text-gray-800 text-center mt-2">البائع: {{ $car->user->name }}</h2>
+            </div>
+
+            <!-- Free Space for Details -->
+            <div class="p-6 bg-gray-100 rounded-lg shadow-md border border-gray-200 flex justify-between items-center w-full">
+                <p class="text-sm text-gray-500">
+                    {{ $car->created_at->diffForHumans() }}
+                </p>
+                <p class="text-xl font-semibold text-gray-800">
+                    {{ $car->created_at->format('H') }}:00
+                </p>
+            </div>
 
             <!-- User Info Section -->
             <div class="bg-gray-50 py-10">
-
                 <div class="flex justify-center mb-8">
                     <h2 class="text-4xl font-extrabold text-gray-900 leading-tight">معلومات البائع</h2>
                 </div>
-
                 <div class="max-w-7xl mx-auto p-8 bg-white rounded-xl shadow-lg flex flex-col md:flex-row justify-between items-center md:space-x-12 space-y-6 md:space-y-0">
 
                     <!-- User Info Details -->
                     <div class="text-center md:text-left space-y-6">
-                        <!-- User Image -->
                         <div class="flex justify-center md:justify-start">
                             <img src="{{ asset('storage/' . ($car->user->image ?? 'https://icons.veryicon.com/png/o/miscellaneous/youyinzhibo/guest.png')) }}" alt="{{ $car->user->name }}'s image" class="w-20 h-20 rounded-full object-cover">
                         </div>
-
                         <h3 class="text-3xl font-semibold text-gray-900 md:text-start text-center">{{ $car->user->name }}</h3>
-
                         <p class="text-sm text-gray-600 flex items-center gap-4 justify-center md:justify-start ml-3">
                             <i class="fas fa-envelope text-xl text-gray-500 md:text-start text-center"></i>
                             {{ $car->user->email }}
                         </p>
-
                     </div>
 
                     <!-- Social Share Icons -->
                     <div class="flex flex-col space-y-6">
                         <p class="text-sm text-gray-600 md:text-start text-center flex gap-4"><i class="fas fa-calendar-alt text-xl text-gray-500 md:text-start text-center"></i> {{ Carbon\Carbon::parse($car->created_at)->locale('ar')->isoFormat('MMMM D, YYYY') }} </p>
-
-                        <!-- User Location -->
                         <p id="user-location" class="text-sm text-gray-600 flex items-center gap-4 justify-center md:justify-start">
                             <i class="fas fa-map-marker-alt text-xl text-gray-500 md:text-start text-center"></i> {{ $car->user->location ?? 'السعودية' }}
                         </p>
-
                         <div class="flex space-x-6">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank"
-                               class="text-blue-600 hover:text-blue-800 transition-colors duration-300 ml-6">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 ml-6">
                                 <i class="fab fa-facebook-f text-3xl"></i>
                             </a>
-
-                            <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank"
-                               class="text-pink-600 hover:text-pink-800 transition-colors duration-300">
+                            <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank" class="text-pink-600 hover:text-pink-800 transition-colors duration-300">
                                 <i class="fab fa-instagram text-3xl"></i>
                             </a>
-
-                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank"
-                               class="text-blue-400 hover:text-blue-600 transition-colors duration-300">
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-400 hover:text-blue-600 transition-colors duration-300">
                                 <i class="fab fa-twitter text-3xl"></i>
                             </a>
-
-                            <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank"
-                               class="text-green-500 hover:text-green-700 transition-colors duration-300">
+                            <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank" class="text-green-500 hover:text-green-700 transition-colors duration-300">
                                 <i class="fab fa-whatsapp text-3xl"></i>
                             </a>
                         </div>
@@ -73,44 +71,36 @@
                     <button id="decline-location" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-all duration-300 mt-2">لا، رفض</button>
                 </div>
             </div>
+
             <!-- Car Details Section -->
             <div class="p-8 bg-white rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Left Section -->
                     <div class="space-y-8">
-                        <!-- Price -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
                             <i class="fas fa-tag text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">السعر</span>
                             <span class="text-3xl font-bold text-gray-900 whitespace-nowrap overflow-hidden">ريال {{ $car->price }}</span>
                         </div>
-
-                        <!-- Old Price -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
                             <i class="fas fa-arrow-down text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">السعر القديم</span>
                             <span class="font-semibold text-gray-400 line-through">ريال {{ $car->old_price ?? $car->price }}</span>
                         </div>
-
-                        <!-- Category -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
                             <i class="fas fa-cogs text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">الفئة</span>
                             <span class="text-xl font-semibold text-gray-900">{{ $car->category->title }}</span>
                         </div>
-
-                        <!-- Gasoline Type -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm flex items-center gap-2">
                             <i class="fas fa-gas-pump text-xl text-gray-500"></i>
                             <span class="block text-sm font-medium text-gray-500">نوع البنزين</span>
                             <span class="text-xl font-semibold text-gray-900">{{ $car->gasoline->type }}</span>
                         </div>
-
                     </div>
 
                     <!-- Right Section -->
                     <div class="space-y-6">
-                        <!-- Phone -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
                             <span class="block text-sm font-medium text-gray-500">الهاتف</span>
                             <a href="tel:{{ $car->phone }}" class="text-lg text-center flex justify-center items-center gap-2 bg-gray-100 rounded-lg p-2">
@@ -118,8 +108,6 @@
                                 رقم الهاتف
                             </a>
                         </div>
-
-                        <!-- Email -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
                             <span class="block text-sm font-medium text-gray-500">البريد الإلكتروني</span>
                             <a href="mailto:{{ $car->email }}" class="text-lg text-center flex justify-center items-center gap-2 bg-gray-100 rounded-lg p-2">
@@ -127,20 +115,14 @@
                                 البريد الإلكتروني
                             </a>
                         </div>
-
-                        <!-- Address -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
                             <span class="block text-sm font-medium text-gray-500">العنوان</span>
                             <span class="text-lg text-gray-900">{{ $car->address }}</span>
                         </div>
-
-                        <!-- Info -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
                             <span class="block text-sm font-medium text-gray-500">معلومات السيارة</span>
                             <span class="text-lg text-gray-900">{{ $car->info }}</span>
                         </div>
-
-                        <!-- Description -->
                         <div class="p-4 bg-gray-50 rounded-lg shadow-sm">
                             <span class="block text-sm font-medium text-gray-500">وصف السيارة</span>
                             <span class="text-lg text-gray-900">{{ $car->description }}</span>
@@ -154,9 +136,7 @@
                 <div id="imageCarousel" class="relative w-auto h-auto">
                     <div class="h-auto w-auto flex flex-col items-center justify-center">
                         @foreach ($car->images as $image)
-                            <img src="{{ asset('storage/' . $image) }}"
-                                alt="صورة السيارة"
-                                class="w-auto h-auto object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out mb-4">
+                            <img src="{{ asset('storage/' . $image) }}" alt="صورة السيارة" class="w-auto h-auto object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out mb-4">
                         @endforeach
                     </div>
                 </div>
@@ -164,24 +144,20 @@
 
             <!-- Contact Seller Buttons -->
             <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-6 mt-8">
-                <!-- Contact Seller Modal Button -->
                 <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
                     <i class="fas fa-user"></i>
                     اتصل بالبائع
                 </button>
-
-                <!-- Phone Contact Button -->
                 <a href="tel:{{ $car->phone }}" class="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-blue-500 via-blue-600 to-blue-700 transition-all duration-300 flex items-center gap-3 whitespace-nowrap justify-center transform hover:scale-105 font-semibold shadow-lg">
                     <i class="fas fa-phone-alt"></i>
                     اتصل الآن
                 </a>
-
-                <!-- Email Contact Button -->
                 <a href="mailto:{{ $car->email }}" class="bg-gradient-to-r from-green-600 via-green-700 to-green-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-green-500 via-green-600 to-green-700 transition-all duration-300 flex items-center gap-3 whitespace-nowrap justify-center transform hover:scale-105 font-semibold shadow-lg">
                     <i class="fas fa-envelope"></i>
                     أرسل بريدًا إلكترونيًا
                 </a>
             </div>
+
             <!-- Image Gallery Section -->
             <div class="mt-12 px-4 py-6 bg-gray-50">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6">معرض الصور</h2>
@@ -289,6 +265,4 @@
             contactModal.classList.add('hidden');
         }
     </script>
-
-
 </x-app-layout>
