@@ -158,25 +158,25 @@
             </div>
 
             <!-- Contact Seller Buttons -->
-            <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-4 mt-8">
+            <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-6 mt-8">
                 <!-- Contact Seller Modal Button -->
-                <button class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 whitespace-nowrap" onclick="openContactModal()">
+                <button class="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold flex items-center gap-3 whitespace-nowrap justify-center transform hover:scale-105 font-semibold shadow-lg">
+                    <i class="fas fa-user-tie"></i>
                     اتصل بالبائع
                 </button>
 
                 <!-- Phone Contact Button -->
-                <a href="tel:{{ $car->phone }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
+                <a href="tel:{{ $car->phone }}" class="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-blue-500 via-blue-600 to-blue-700 transition-all duration-300 flex items-center gap-3 whitespace-nowrap justify-center transform hover:scale-105 font-semibold shadow-lg">
                     <i class="fas fa-phone-alt"></i>
                     اتصل الآن
                 </a>
 
                 <!-- Email Contact Button -->
-                <a href="mailto:{{ $car->email }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
+                <a href="mailto:{{ $car->email }}" class="bg-gradient-to-r from-green-600 via-green-700 to-green-800 text-white px-8 py-4 rounded-lg hover:bg-gradient-to-l from-green-500 via-green-600 to-green-700 transition-all duration-300 flex items-center gap-3 whitespace-nowrap justify-center transform hover:scale-105 font-semibold shadow-lg">
                     <i class="fas fa-envelope"></i>
                     أرسل بريدًا إلكترونيًا
                 </a>
             </div>
-
             <!-- Image Gallery Section -->
             <div class="mt-12 px-4 py-6 bg-gray-50">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6">معرض الصور</h2>
