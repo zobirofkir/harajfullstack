@@ -30,6 +30,12 @@ class ConfigResource extends Resource
 
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('image')
+                    ->label('الصورة')
+                    ->image()
+                    ->required()
+                    ->maxSize(1024)
+                    ->rules(['image', 'max:1024', 'mimes:jpg,jpeg,png', 'required']),
                 Forms\Components\TextInput::make('name')
                     ->label('الاسم')
                     ->default($user->name)

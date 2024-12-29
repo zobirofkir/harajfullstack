@@ -16,13 +16,18 @@
 
                     <!-- User Info Details -->
                     <div class="text-center md:text-left space-y-6">
-                        <h3 class="text-3xl font-semibold text-gray-900">{{ $car->user->name }}</h3>
-                        <p class="text-lg text-gray-700">{{ $car->user->email }}</p>
-                        <p class="text-sm text-gray-600">تم الإضافة في: {{ date('M d, Y', strtotime($car->created_at)) }}</p>
+                        <!-- User Image -->
+                        <div class="flex justify-center md:justify-start">
+                            <img src="{{ asset('storage/' . $car->user->image) }}" alt="{{ $car->user->name }}'s image" class="w-20 h-20 rounded-full object-cover">
+                        </div>
+
+                        <h3 class="text-3xl font-semibold text-gray-900 md:text-start text-center">{{ $car->user->name }}</h3>
+                        <p class="text-lg text-gray-700 md:text-start text-center">{{ $car->user->email }}</p>
+                        <p class="text-sm text-gray-600 md:text-start text-center">تم الإضافة في: {{ date('M d, Y', strtotime($car->created_at)) }}</p>
 
                         <!-- User Location -->
                         <p id="user-location" class="text-sm text-gray-600 flex items-center gap-4 justify-center md:justify-start">
-                            <i class="fas fa-map-marker-alt mr-2 text-xl text-gray-500"></i> {{ $car->user->location ?? 'السعودية' }}
+                            <i class="fas fa-map-marker-alt text-xl text-gray-500 md:text-start text-center"></i> {{ $car->user->location ?? 'السعودية' }}
                         </p>
                     </div>
 

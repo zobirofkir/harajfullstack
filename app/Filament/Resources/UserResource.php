@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -32,6 +33,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                FileUpload::make('image')
+                    ->label('الصورة')
+                    ->image()
+                    ->required()
+                    ->rules(['image', 'max:1024', 'mimes:jpg,jpeg,png', 'required']),
                 TextInput::make('name')
                     ->label('الاسم')
                     ->required()
