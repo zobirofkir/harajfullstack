@@ -22,7 +22,7 @@
 
                         <!-- User Location -->
                         <p id="user-location" class="text-sm text-gray-600 flex items-center gap-4 justify-center md:justify-start">
-                            <i class="fas fa-map-marker-alt mr-2 text-xl text-gray-500"></i> السعودية
+                            <i class="fas fa-map-marker-alt mr-2 text-xl text-gray-500"></i> {{ $car->user->location ?? 'السعودية' }}
                         </p>
                     </div>
 

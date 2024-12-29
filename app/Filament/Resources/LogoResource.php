@@ -53,11 +53,12 @@ class LogoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        
+
         ->query(Logo::query()->where('user_id', Auth::user()->id))
             ->columns([
                 ImageColumn::make('image')->label('الصورة')->getStateUsing(fn($record) => $record->image),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 // أضف المرشحات إذا لزم الأمر
             ])

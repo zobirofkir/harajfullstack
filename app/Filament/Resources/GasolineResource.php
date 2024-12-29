@@ -51,6 +51,7 @@ class GasolineResource extends Resource
                 TextColumn::make('type')->label('نوع الوقود')->sortable()->searchable(),
                 TextColumn::make('user.name')->label('المستخدم')->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 // يمكن إضافة الفلاتر هنا إذا لزم الأمر
             ])

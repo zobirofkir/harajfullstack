@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             "name" => "دينالي",
             "email" => "deenali@admin.com",
             "password" => "deenali123@@@",
+            "location" => 'السعودية',
             "role" => RolesEnum::ADMIN->value,
         ]);
 

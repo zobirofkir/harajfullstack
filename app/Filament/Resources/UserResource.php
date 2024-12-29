@@ -42,6 +42,11 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->rules(['email', 'max:255']),
+                TextInput::make('location')
+                    ->label('الموقع')
+                    ->required()
+                    ->rules(['string', 'max:255']),
+                    
                 TextInput::make('password')
                     ->label('كلمة المرور')
                     ->password()

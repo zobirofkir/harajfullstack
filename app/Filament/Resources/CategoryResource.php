@@ -58,6 +58,7 @@ class CategoryResource extends Resource
                 TextColumn::make('title')->label('العنوان')->sortable()->searchable(),
                 TextColumn::make('user.name')->label('المستخدم')->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 // Add filters if needed
             ])
