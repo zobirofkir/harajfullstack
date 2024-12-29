@@ -9,7 +9,7 @@
             <div class="bg-gray-50 py-10">
 
                 <div class="flex justify-center mb-8">
-                    <h2 class="text-4xl font-extrabold text-gray-900 leading-tight">معلومات المستخدم</h2>
+                    <h2 class="text-4xl font-extrabold text-gray-900 leading-tight">معلومات البائع</h2>
                 </div>
 
                 <div class="max-w-7xl mx-auto p-8 bg-white rounded-xl shadow-lg flex flex-col md:flex-row justify-between items-center md:space-x-12 space-y-6 md:space-y-0">

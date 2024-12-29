@@ -22,6 +22,6 @@ class SearchController extends Controller
 
         $message = $cars->isEmpty() ? 'لا توجد سيارات بهذا العنوان.' : null;
 
-        return view('search.results', compact('cars', 'message'));
+        return view('pages.search.results', compact('cars', 'message'));
     }
 }
