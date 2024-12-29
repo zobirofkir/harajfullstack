@@ -19,7 +19,6 @@ class Car extends Model
         'address',
         'description',
         'slug',
-        'location',
         'logo_id',
         'gasoline_id'
     ];
