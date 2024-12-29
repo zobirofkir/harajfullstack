@@ -1,18 +1,18 @@
 <x-app-layout title="{{ $car->title }}">
     <div class="container mx-auto px-4 py-12 bg-gray-50 my-10">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+
             <!-- Car Title -->
             <h1 class="text-4xl font-extrabold text-gray-900 text-center mt-6 mb-8">{{ $car->title }}</h1>
 
             <!-- Main Image Display Section -->
             <div class="relative">
                 <div id="imageCarousel" class="relative">
-
                     <div class="max-w-4xl mx-auto">
                         <img id="mainImage"
-                            src="{{ asset('storage/'.$car->images[0]) }}"
-                            alt="صورة السيارة"
-                            class="w-full h-full object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out">
+                             src="{{ asset('storage/'.$car->images[0]) }}"
+                             alt="صورة السيارة"
+                             class="w-full h-full object-cover rounded-lg shadow-lg transition-all duration-300 ease-in-out">
                     </div>
                     <!-- Navigation Buttons -->
                     <button id="prevImage"
@@ -88,35 +88,74 @@
 
                     <!-- Right Section -->
                     <div class="space-y-4">
-                        <span class="block text-sm font-medium text-gray-400">الوصف</span>
-                        <p class="text-gray-600 leading-relaxed text-lg">
-                            {{ Str::limit($car->description, 1000) }}
-                        </p>
+
+                        <div>
+                            <span class="block text-sm font-medium text-gray-400">الوصف</span>
+                            <p class="text-gray-600 leading-relaxed text-lg">
+                                {{ Str::limit($car->description, 1000) }}
+                            </p>
+                        </div>
+
+                        <div class="p-8 flex justify-center space-x-6 mt-8">
+                            <!-- Share on Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-600 hover:text-blue-800 ml-6">
+                                <i class="fab fa-facebook-f text-2xl"></i>
+                            </a>
+
+                            <!-- Share on Instagram -->
+                            <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank" class="text-pink-600 hover:text-pink-800">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </a>
+
+                            <!-- Share on Twitter -->
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank" class="text-blue-400 hover:text-blue-600">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 
-            <!-- Contact Seller Button -->
-            <div class="p-8 text-center">
+            <!-- Image Gallery Section -->
+            <div class="mt-12 px-4 py-6 bg-gray-50">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">معرض الصور</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                    @foreach ($car->images as $image)
+                        <div class="relative">
+                            <img src="{{ asset('storage/'.$image) }}" alt="صورة السيارة" class="w-full h-40 object-cover rounded-lg shadow-lg cursor-pointer hover:opacity-80 transition-all duration-300">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Contact Seller Buttons -->
+            <div class="p-8 text-center flex justify-center gap-4 mt-8">
+                <!-- Contact Seller Modal Button -->
                 <button class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300" onclick="openContactModal()">
                     اتصل بالبائع
                 </button>
+
+                <!-- Phone Contact Button -->
+                <a href="tel:{{ $car->phone }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-phone-alt"></i>
+                    اتصل الآن
+                </a>
+
+                <!-- Email Contact Button -->
+                <a href="mailto:{{ $car->email }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    أرسل بريدًا إلكترونيًا
+                </a>
             </div>
 
-            <!-- Car Features Section -->
-            <div class="p-8 mt-8 bg-gray-100 rounded-lg shadow-md">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">أفضل سيارة بأداء مذهل وتصميم عصري</h2>
-                <ul class="list-disc pl-6 text-gray-700 space-y-2">
-                    <li>سهولة الاستخدام والتكامل مع جميع احتياجاتك اليومية.</li>
-                    <li>مزايا متقدمة وأداء منقطع النظير.</li>
-                    <li>سعر تنافسي يجعلها خياراً مثالياً للجميع.</li>
-                </ul>
-            </div>
         </div>
     </div>
 
     <!-- Contact Seller Modal -->
-    <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 transition-all duration-300 ease-in-out flex ">
+    <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 transition-all duration-300 ease-in-out flex">
         <div class="relative bg-white p-8 rounded-lg max-w-md w-full space-y-6">
             <button class="absolute top-4 right-4 text-2xl text-gray-800 hover:text-gray-600" onclick="closeContactModal()">×</button>
             <h2 class="text-2xl font-bold text-gray-800">اتصل بالبائع</h2>
@@ -158,7 +197,6 @@
             });
         </script>
     @endif
-
 
     <script>
         let currentImageIndex = 0;
