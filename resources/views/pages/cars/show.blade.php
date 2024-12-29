@@ -23,37 +23,39 @@
 
                         <h3 class="text-3xl font-semibold text-gray-900 md:text-start text-center">{{ $car->user->name }}</h3>
                         <p class="text-lg text-gray-700 md:text-start text-center">{{ $car->user->email }}</p>
-                        <p class="text-sm text-gray-600 md:text-start text-center">تم الإضافة في: {{ date('M d, Y', strtotime($car->created_at)) }}</p>
+                    </div>
+
+                    <!-- Social Share Icons -->
+                    <div class="flex flex-col space-y-6">
+                        <p class="text-sm text-gray-600 md:text-start text-center flex gap-4"><i class="fas fa-calendar-alt text-xl text-gray-500 md:text-start text-center"></i> {{ Carbon\Carbon::parse($car->created_at)->locale('ar')->isoFormat('MMMM D, YYYY') }} </p>
 
                         <!-- User Location -->
                         <p id="user-location" class="text-sm text-gray-600 flex items-center gap-4 justify-center md:justify-start">
                             <i class="fas fa-map-marker-alt text-xl text-gray-500 md:text-start text-center"></i> {{ $car->user->location ?? 'السعودية' }}
                         </p>
+
+                        <div class="flex space-x-6">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank"
+                               class="text-blue-600 hover:text-blue-800 transition-colors duration-300 ml-6">
+                                <i class="fab fa-facebook-f text-3xl"></i>
+                            </a>
+
+                            <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank"
+                               class="text-pink-600 hover:text-pink-800 transition-colors duration-300">
+                                <i class="fab fa-instagram text-3xl"></i>
+                            </a>
+
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank"
+                               class="text-blue-400 hover:text-blue-600 transition-colors duration-300">
+                                <i class="fab fa-twitter text-3xl"></i>
+                            </a>
+
+                            <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank"
+                               class="text-green-500 hover:text-green-700 transition-colors duration-300">
+                                <i class="fab fa-whatsapp text-3xl"></i>
+                            </a>
+                        </div>
                     </div>
-
-                    <!-- Social Share Icons -->
-                    <div class="flex space-x-6">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank"
-                           class="text-blue-600 hover:text-blue-800 transition-colors duration-300 ml-6">
-                            <i class="fab fa-facebook-f text-3xl"></i>
-                        </a>
-
-                        <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank"
-                           class="text-pink-600 hover:text-pink-800 transition-colors duration-300">
-                            <i class="fab fa-instagram text-3xl"></i>
-                        </a>
-
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank"
-                           class="text-blue-400 hover:text-blue-600 transition-colors duration-300">
-                            <i class="fab fa-twitter text-3xl"></i>
-                        </a>
-
-                        <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank"
-                           class="text-green-500 hover:text-green-700 transition-colors duration-300">
-                            <i class="fab fa-whatsapp text-3xl"></i>
-                        </a>
-                    </div>
-
                 </div>
             </div>
 
