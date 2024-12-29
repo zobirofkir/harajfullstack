@@ -126,6 +126,26 @@
             </div>
         </div>
 
+        <!-- Contact Seller Buttons -->
+        <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-4 mt-8">
+            <!-- Contact Seller Modal Button -->
+            <button class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 whitespace-nowrap" onclick="openContactModal()">
+                اتصل بالبائع
+            </button>
+
+            <!-- Phone Contact Button -->
+            <a href="tel:{{ $car->phone }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
+                <i class="fas fa-phone-alt"></i>
+                اتصل الآن
+            </a>
+
+            <!-- Email Contact Button -->
+            <a href="mailto:{{ $car->email }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
+                <i class="fas fa-envelope"></i>
+                أرسل بريدًا إلكترونيًا
+            </a>
+        </div>
+
             <!-- Image Gallery Section -->
             <div class="mt-12 px-4 py-6 bg-gray-50">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6">معرض الصور</h2>
@@ -148,7 +168,7 @@
             </div>
 
             <div class="flex flex-wrap justify-center gap-6 px-4 sm:px-6 lg:px-8">
-                @foreach ($categories as $category)
+                @foreach ($categories->take(10) as $category)
                     <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
                         <a href="{{ route('categories.show', $category->slug) }}">
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
@@ -161,27 +181,6 @@
                     </div>
                 @endforeach
             </div>
-
-            <!-- Contact Seller Buttons -->
-            <div class="p-8 text-center flex md:flex-row flex-col justify-center gap-4 mt-8">
-                <!-- Contact Seller Modal Button -->
-                <button class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 whitespace-nowrap" onclick="openContactModal()">
-                    اتصل بالبائع
-                </button>
-
-                <!-- Phone Contact Button -->
-                <a href="tel:{{ $car->phone }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
-                    <i class="fas fa-phone-alt"></i>
-                    اتصل الآن
-                </a>
-
-                <!-- Email Contact Button -->
-                <a href="mailto:{{ $car->email }}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-500 transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex justify-center">
-                    <i class="fas fa-envelope"></i>
-                    أرسل بريدًا إلكترونيًا
-                </a>
-            </div>
-
         </div>
     </div>
 
