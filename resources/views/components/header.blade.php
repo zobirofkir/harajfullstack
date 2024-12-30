@@ -27,7 +27,7 @@
         </span>
 
         <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
-            <a href="{{url('/admin/login')}}">
+            <a href="{{url('/admin')}}">
                 <i class="fas ml-4 fa-user mr-2"></i>الحساب
             </a>
         </span>
@@ -99,6 +99,16 @@
             <i class="fa-solid fa-user-circle"></i>
             <a href="{{url('/admin/login')}}" class="hover:text-gray-500">تسجيل الدخول</a>
         </li>
+
+        {{--Logout Item --}}
+        @if (Auth::check())
+
+            <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
+                <i class="fa-solid fa-user"></i>
+                <a href="{{Auth::logout()}}" class="hover:text-gray-500">تسجيل الخروج</a>
+            </li>
+
+        @endif
     </ul>
 </div>
 
