@@ -20,7 +20,7 @@
                     <div class="w-full md:w-auto">
                         <h3 class="font-semibold text-gray-400 md:text-xl text-md text-center md:text-start flex items-center gap-4 overflow-hidden whitespace-nowrap">
                             <i class="fas fa-map-marker-alt text-xl text-gray-400"></i>
-                            {{ Str::limit($car->user->location, 15) }}
+                            {{ Str::limit($car->user->location ?? 'السعودية', 15) }}
                         </h3>
                     </div>
 
