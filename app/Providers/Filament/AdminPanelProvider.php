@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use \App\Filament\Resources\RegisterResource\Pages\Auth\Register;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->registration(Register::class)
             ->colors([
                 'primary' => [
                     50 => '238, 242, 255',
