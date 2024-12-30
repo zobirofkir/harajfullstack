@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
-use App\Models\Car;
+use App\Services\Facades\SearchFacade;
 
 class SearchController extends Controller
 {
@@ -16,12 +15,9 @@ class SearchController extends Controller
      */
     public function searchByTitle(Request $request)
     {
-        $query = $request->input('query');
-
-        $cars = Car::where('title', 'LIKE', '%' . $query . '%')->get();
-
-        $message = $cars->isEmpty() ? 'لا توجد سيارات بهذا العنوان.' : null;
-
+        $searchResults = SearchFacade::searchByTitle($request);
+        $cars = $searchResults['cars'];
+        $message = $searchResults['message'];
         return view('pages.search.results', compact('cars', 'message'));
     }
 }

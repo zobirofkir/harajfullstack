@@ -7,4 +7,5 @@ return [
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\GasolineServiceProvider::class,
     App\Providers\LogoServiceProvider::class,
+    App\Providers\SearchServiceProvider::class,
 ];
