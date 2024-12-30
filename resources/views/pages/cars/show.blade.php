@@ -97,6 +97,14 @@
                         <i class="fas fa-user"></i>
                         اتصل
                     </button>
+
+                    <!-- Chat Button -->
+                    <a href="{{ route('chats.show', ['userId' => $car->user->id, 'carId' => $car->id]) }}"
+                        class="bg-green-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
+                         <i class="fas fa-comments"></i>
+                         بدء الدردشة
+                     </a>
+
                 </div>
             </div>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactSellerController;
 use App\Http\Controllers\GasolineController;
@@ -77,3 +78,13 @@ Route::get('/gasolines', [GasolineController::class, 'index'])->name('gasolines.
  * Show a specific gasoline
  */
 Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolines.show');
+
+/**
+ * List of chats
+ */
+Route::middleware('auth:web')->group(function () {
+    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::get('/chats/{userId}-{carId}', [ChatController::class, 'show'])->name('chats.show');
+    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+    Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
+});

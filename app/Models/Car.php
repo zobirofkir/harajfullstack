@@ -51,4 +51,10 @@ class Car extends Model
     {
         return $this->belongsTo(Gasoline::class);
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
 }
