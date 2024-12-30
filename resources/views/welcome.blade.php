@@ -1,7 +1,7 @@
 <x-app-layout title="{{ config('app.name') }}">
     @include('components.search')
 
-    <div class="mt-8">
+    <div>
         @include('components.cars')
     </div>
 
