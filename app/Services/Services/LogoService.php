@@ -17,8 +17,10 @@ class LogoService implements LogoConstructor
     public function show(int $id) : array
     {
         $logo = Logo::findOrFail($id);
+        $cars = $logo->cars;
         return [
-            'logo' => $logo
+            'logo' => $logo,
+            'cars' => $cars
         ];
     }
 }
