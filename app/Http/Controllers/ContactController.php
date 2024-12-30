@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
+use App\Services\Facades\ContactFacade;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -16,13 +17,7 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
     {
-        $contact = Contact::create($request->validated());
-
-        Mail::send('emails.contact', ['contact' => $contact], function ($message) use ($contact) {
-            $message->to('i.fosalamri75@gmail.com')
-                    ->subject('رسالة جديدة من ' . $contact->name);
-        });
-
-        return redirect()->route('contacts.index')->with('success', "تم إرسال رسالتك بنجاح، شكراً لك، " . $contact->name . ". سنقوم بالتواصل معك في أقرب وقت.");
+        $contact = ContactFacade::store($request);
+        return redirect()->route('contacts.index')->with('success', $contact['message']);
     }
 }
