@@ -47,7 +47,9 @@ class AdminPanelProvider extends PanelProvider
                 ],
             ])
             ->brandLogo(function () {
-                return asset('storage/' . (Auth::user() && Auth::user()->image ? Auth::user()->image : 'assets/images/logo.png'));
+                return asset((Auth::user() && Auth::user()->image)
+                ? 'storage/' . Auth::user()->image
+                : 'assets/images/logo.png');
             })
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
