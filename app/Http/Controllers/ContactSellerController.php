@@ -8,38 +8,14 @@ use App\Models\Car;
 use App\Models\SellerContact;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactSellerMail;
+use App\Services\Facades\ContactSellerFacade;
 
 class ContactSellerController extends Controller
 {
     public function store(ContactSellerRequest $request)
     {
-        $validated = $request->validated();
+        $contactSeller = ContactSellerFacade::store($request);
 
-        $car = Car::findOrFail($validated['car_id']);
-
-        $contact = SellerContact::create([
-            'car_id' => $validated['car_id'],
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'],
-            'message' => $validated['message'],
-        ]);
-
-        $carUrl = route('cars.show', ['car' => $car->slug]);
-
-        $data = [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'],
-            'message' => $validated['message'],
-            'car_title' => $car->title,
-            'car_seller_email' => $car->email,
-            'car_url' => $carUrl,
-        ];
-
-        Mail::to($data['car_seller_email'])->send(new ContactSellerMail($data));
-
-        return redirect()->route('cars.show', ['car' => $car->slug])->with('success', 'تم إرسال رسالتك إلى البائع بنجاح!');
-
+        return redirect()->route('cars.show', ['car' => $contactSeller['car_slug']])->with('success', $contactSeller['message']);
     }
 }
