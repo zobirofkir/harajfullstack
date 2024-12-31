@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactSellerController;
 use App\Http\Controllers\GasolineController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\SearchController;
+use App\Http\Middleware\AuthenticateWithCookie;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -88,7 +89,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 /**
  * List of chats
  */
-Route::middleware('auth:web')->group(function () {
+Route::middleware(AuthenticateWithCookie::class)->group(function () {
     Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
     Route::get('/chats/{userId}-{carId}', [ChatController::class, 'show'])->name('chats.show');
     Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
