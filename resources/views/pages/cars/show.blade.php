@@ -100,46 +100,11 @@
 
                     <!-- Chat Button -->
 
-                    @if (Auth::check())
-                        <a href="{{ route('chats.show', ['userId' => $car->user->id, 'carId' => $car->id]) }}"
-                            class="bg-gray-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
-                            <i class="fas fa-comments"></i>
-                            بدء الدردشة
-                        </a>
-                    @else
-                        <button onclick="showLoginModal()"
-                            class="bg-gray-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
-                            <i class="fas fa-comments"></i>
-                            بدء الدردشة
-                        </button>
-                    @endif
-
-                    <!-- Login Modal -->
-                    <div id="loginModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-                        <div class="bg-white p-5 rounded-lg shadow-lg w-full sm:w-2/3 md:w-1/3 lg:w-1/4 xl:w-1/4">
-                            <h2 class="text-xl font-bold mb-4">تسجيل الدخول</h2>
-                            <p class="mb-4">يرجى تسجيل الدخول للمتابعة.</p>
-
-                            <form action="{{ route('login') }}" method="POST">
-                                @csrf
-                                <div class="mb-4">
-                                    <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
-                                    <input type="email" name="email" id="email" required class="w-full px-4 py-2 border rounded-lg shadow-sm" placeholder="أدخل بريدك الإلكتروني">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="password" class="block text-sm font-medium text-gray-700">كلمة المرور</label>
-                                    <input type="password" name="password" id="password" required class="w-full px-4 py-2 border rounded-lg shadow-sm" placeholder="أدخل كلمة المرور">
-                                </div>
-
-                                <div class="flex justify-end gap-3">
-                                    <button type="button" onclick="closeLoginModal()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">إغلاق</button>
-                                    <button type="submit" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">تسجيل الدخول</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
+                    <a href="{{ route('chats.show', ['userName' => $car->user->name, 'carId' => $car->id]) }}"
+                        class="bg-gray-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
+                         <i class="fas fa-comments"></i>
+                         بدء الدردشة
+                     </a>
                 </div>
             </div>
 

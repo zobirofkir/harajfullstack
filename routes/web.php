@@ -82,16 +82,9 @@ Route::get('/gasolines', [GasolineController::class, 'index'])->name('gasolines.
 Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolines.show');
 
 /**
- * Login
- */
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-/**
  * List of chats
  */
-Route::middleware(AuthenticateWithCookie::class)->group(function () {
-    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
-    Route::get('/chats/{userId}-{carId}', [ChatController::class, 'show'])->name('chats.show');
-    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
-    Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
-});
+Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+Route::get('/chats/{userName}-{carId}', [ChatController::class, 'show'])->name('chats.show');
+Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');

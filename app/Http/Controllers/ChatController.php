@@ -5,40 +5,42 @@ namespace App\Http\Controllers;
 use App\Models\Chat;
 use App\Models\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
     public function index()
     {
-        $chats = Chat::where('user_id', Auth::id())->with('car')->get();
+        $chats = Chat::where('username', request()->username)->with('car')->get();
         return view('pages.chats.index', compact('chats'));
     }
 
-    public function show($userId, $carId)
+    public function show($userName, $carId)
     {
-        $chat = Chat::where('user_id', $userId)
+        $chat = Chat::where('username', $userName)
                     ->where('car_id', $carId)
                     ->firstOrCreate([
-                        'user_id' => $userId,
+                        'username' => $userName,
                         'car_id' => $carId,
                     ]);
 
-        $messages = $chat->messages()->with('user')->get();
+        $messages = $chat->messages()->get();
 
         return view('pages.chats.show', compact('chat', 'messages'));
     }
 
     public function store(Request $request)
     {
-        $request->validate(['car_id' => 'required|exists:cars,id']);
+        $request->validate([
+            'car_id' => 'required|exists:cars,id',
+            'username' => 'required|string|max:255',
+        ]);
 
         $chat = Chat::firstOrCreate([
-            'user_id' => Auth::id(),
+            'username' => $request->username,
             'car_id' => $request->car_id,
         ]);
 
-        return redirect()->route('pages.chats.show', $chat);
+        return redirect()->route('chats.show', ['userName' => $request->username, 'carId' => $request->car_id]);
     }
 
     public function sendMessage(Request $request, Chat $chat)
@@ -46,7 +48,7 @@ class ChatController extends Controller
         $request->validate(['content' => 'required|string']);
 
         $chat->messages()->create([
-            'user_id' => Auth::id(),
+            'username' => $chat->car->user->name, // Use the car's user name
             'content' => $request->content,
         ]);
 

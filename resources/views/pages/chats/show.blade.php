@@ -5,13 +5,14 @@
         <!-- Chat Messages -->
         <div class="bg-gray-50 p-4 rounded-lg shadow-md max-h-96 overflow-y-auto mb-6">
             @foreach($messages as $message)
-                <div class="flex items-center mb-2">
-                    <img src="{{ asset('storage/'.$message->user->image) }}" class="w-6 h-6 rounded-full" alt="">
-                    <strong class="text-gray-600 mr-2">{{ $message->user->name }}</strong>
-                </div>
-
-                <div class="mb-4">
-                    <p class="text-gray-700 mt-1 shadow py-2 px-4 rounded-lg">{{ $message->content }}</p>
+                <div class="flex items-start mb-4">
+                    <div class="bg-white p-3 rounded-lg shadow-sm w-full">
+                        <p class="text-gray-700 text-sm mb-2">{{ $message->content }}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 text-xs">{{ $message->created_at->diffForHumans() }}</span>
+                            <span class="text-gray-600 text-xs font-semibold">{{ $chat->car->user->name }}</span>
+                        </div>
+                    </div>
                 </div>
             @endforeach
         </div>
