@@ -14,6 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class MessageResource extends Resource
 {
@@ -41,6 +42,7 @@ class MessageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->query(Message::query()->where('chat_id', Auth::user()->id))
             ->columns([
                 TextColumn::make('username')->label('اسم المستخدم'),
                 TextColumn::make('content')->label('المحتوى'),
