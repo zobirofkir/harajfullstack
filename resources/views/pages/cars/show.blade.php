@@ -119,12 +119,24 @@
                         <div class="bg-white p-5 rounded-lg shadow-lg w-1/3">
                             <h2 class="text-xl font-bold mb-4">تسجيل الدخول</h2>
                             <p class="mb-4">يرجى تسجيل الدخول للمتابعة.</p>
-                            <div class="flex justify-end gap-3">
-                                <button onclick="closeLoginModal()"
-                                    class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">إغلاق</button>
-                                <a href="{{url('/admin')}}"
-                                    class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">تسجيل الدخول</a>
-                            </div>
+
+                            <form action="{{ route('login') }}" method="POST">
+                                @csrf
+                                <div class="mb-4">
+                                    <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                                    <input type="email" name="email" id="email" required class="w-full px-4 py-2 border rounded-lg shadow-sm" placeholder="أدخل بريدك الإلكتروني">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="password" class="block text-sm font-medium text-gray-700">كلمة المرور</label>
+                                    <input type="password" name="password" id="password" required class="w-full px-4 py-2 border rounded-lg shadow-sm" placeholder="أدخل كلمة المرور">
+                                </div>
+
+                                <div class="flex justify-end gap-3">
+                                    <button type="button" onclick="closeLoginModal()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">إغلاق</button>
+                                    <button type="submit" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">تسجيل الدخول</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 

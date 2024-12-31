@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -78,6 +79,11 @@ Route::get('/gasolines', [GasolineController::class, 'index'])->name('gasolines.
  * Show a specific gasoline
  */
 Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolines.show');
+
+/**
+ * Login
+ */
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 /**
  * List of chats
