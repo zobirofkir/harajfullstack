@@ -10,7 +10,13 @@
                         <p class="text-gray-700 text-sm mb-2">{{ $message->content }}</p>
                         <div class="flex justify-between items-center">
                             <span class="text-gray-500 text-xs">{{ $message->created_at->diffForHumans() }}</span>
-                            <span class="text-gray-600 text-xs font-semibold">{{ $chat->car->user->name }}</span>
+                            <span class="text-gray-600 text-xs font-semibold">
+                                @if($message->user_id === Auth::id())
+                                    أنت 
+                                @else
+                                    {{ $chat->car->user->name }}
+                                @endif
+                            </span>
                         </div>
                     </div>
                 </div>
