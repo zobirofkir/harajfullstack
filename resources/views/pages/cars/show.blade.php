@@ -99,12 +99,34 @@
                     </button>
 
                     <!-- Chat Button -->
-                    <a href="{{ Auth::check() ? route('chats.show', ['userId' => $car->user->id, 'carId' => $car->id]) : '#' }}"
-                        class="bg-green-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center
-                        {{ Auth::check() ? '' : 'cursor-not-allowed opacity-50' }}">
-                         <i class="fas fa-comments"></i>
-                         بدء الدردشة
-                     </a>
+
+                    @if (Auth::user())
+                    <a href="{{ route('chats.show', ['userId' => $car->user->id, 'carId' => $car->id]) }}"
+                        class="bg-gray-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
+                        <i class="fas fa-comments"></i>
+                        بدء الدردشة
+                    </a>
+                @else
+                    <button onclick="showLoginModal()"
+                        class="bg-gray-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
+                        <i class="fas fa-comments"></i>
+                        بدء الدردشة
+                    </button>
+                @endif
+
+                    <!-- Login Modal -->
+                    <div id="loginModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+                        <div class="bg-white p-5 rounded-lg shadow-lg w-1/3">
+                            <h2 class="text-xl font-bold mb-4">تسجيل الدخول</h2>
+                            <p class="mb-4">يرجى تسجيل الدخول للمتابعة.</p>
+                            <div class="flex justify-end gap-3">
+                                <button onclick="closeLoginModal()"
+                                    class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">إغلاق</button>
+                                <a href="{{url('/admin')}}"
+                                    class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">تسجيل الدخول</a>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -207,6 +229,16 @@
             });
         </script>
     @endif
+
+    <script>
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+    </script>
 
     <script>
         let currentImageIndex = 0;
