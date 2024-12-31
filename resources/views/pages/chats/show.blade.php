@@ -11,6 +11,13 @@
                         <div class="flex justify-between items-center">
                             <span class="text-gray-500 text-xs">{{ $message->created_at->diffForHumans() }}</span>
                             <span class="text-gray-600 text-xs font-semibold">{{ $chat->car->user->name }}</span>
+                            @if(auth()->check() && auth()->user()->id === $message->user_id)
+                                <form action="{{ route('messages.delete', $message) }}" method="POST" class="ml-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 text-xs">حذف</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
