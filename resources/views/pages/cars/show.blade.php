@@ -34,7 +34,7 @@
 
                 <div class="flex items-center justify-between w-full">
                     <div class="flex flex-row items-center gap-6">
-                        <img src="{{ asset('storage/'.$car->user->image) }}" alt="{{ $car->title }}" class="rounded-full object-cover w-20 h-20">
+                        <img src="{{ $car->user->image ? asset('storage/' . $car->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="{{ $car->title }}" class="rounded-full object-cover w-20 h-20">
                     </div>
                 </div>
             </div>
