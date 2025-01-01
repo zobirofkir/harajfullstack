@@ -4,27 +4,43 @@ namespace App\Filament\Widgets;
 
 use App\Models\Car;
 use App\Models\Category;
+use App\Models\Logo;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\Auth;
 
 class OverviewWidget extends BaseWidget
 {
     protected function getStats(): array
     {
+        $user = Auth::user();
+
+        if (!$user) {
+            return [];
+        }
+
+        $carsCount = Car::where('user_id', $user->id)->count();
+
+        $categoriesCount = Category::where('user_id', $user->id)->count();
+
+        $logosCount = Logo::where('user_id', $user->id)->count();
+
         return [
-            Stat::make('السيارات', Car::count())
-                ->description('عدد السيارات في النظام')
+            Stat::make('السيارات', $carsCount)
+                ->description('عدد السيارات المرتبطة بك')
                 ->chart([10, 20, 15, 60, 40, 100])
                 ->color('success')
                 ->icon('heroicon-o-truck'),
-            Stat::make('المستخدمين', User::count())
-                ->description('عدد المستخدمين المسجلين')
+
+            Stat::make('الشعارات', $logosCount)
+                ->description('عدد الشعارات')
                 ->chart([10, 20, 50, 30, 110, 100])
                 ->color('success')
                 ->icon('heroicon-o-users'),
-            Stat::make('التصنيفات', Category::count())
-                ->description('عدد التصنيفات الموجودة')
+
+            Stat::make('التصنيفات', $categoriesCount)
+                ->description('عدد التصنيفات المرتبطة بك')
                 ->chart([2, 4, 6, 50, 10, 102])
                 ->color('success')
                 ->icon('heroicon-o-folder'),

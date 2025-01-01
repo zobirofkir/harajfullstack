@@ -73,12 +73,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->userMenuItems([
-                UserMenuItem::make()
-                    ->label('العودة إلى الصفحة الرئيسية')
-                    ->url('/')
-                    ->icon('heroicon-o-home'),
             ]);
     }
 }
