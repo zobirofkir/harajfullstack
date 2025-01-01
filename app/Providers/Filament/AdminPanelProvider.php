@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use \App\Filament\Resources\RegisterResource\Pages\Auth\Register;
+use App\Filament\Resources\RegisterResource\Pages\Auth\Register;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -20,11 +20,32 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Notifications\Notification;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $user = Auth::user();
+
+        if ($user) {
+            $role = $user->role;
+
+            if ($role === 'admin') {
+                Notification::make()
+                    ->title('أنت مسؤول')
+                    ->body('مرحباً بك في لوحة الإدارة')
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('مرحباً بالزائر')
+                    ->body('أهلاً بك في موقعنا')
+                    ->success()
+                    ->send();
+            }
+        }
+
         return $panel
             ->default()
             ->id('admin')
