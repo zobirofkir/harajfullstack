@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Car;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Auth;
 
 class PCarChartWidget extends ChartWidget
 {
@@ -12,6 +13,7 @@ class PCarChartWidget extends ChartWidget
     protected function getData(): array
     {
         $carsPerMonth = Car::query()
+            ->where('user_id', Auth::id())
             ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
@@ -35,7 +37,6 @@ class PCarChartWidget extends ChartWidget
                     'data' => $data,
                     'borderColor' => 'rgba(59, 130, 246, 1)',
                     'backgroundColor' => 'rgba(59, 130, 246, 0.2)',
-
                     'fill' => true,
                     'tension' => 0.4,
                 ],
@@ -45,6 +46,6 @@ class PCarChartWidget extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line'; 
+        return 'line';
     }
 }

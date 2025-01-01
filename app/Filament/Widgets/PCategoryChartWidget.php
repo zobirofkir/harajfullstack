@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Category;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Auth;
 
 class PCategoryChartWidget extends ChartWidget
 {
@@ -12,6 +13,7 @@ class PCategoryChartWidget extends ChartWidget
     protected function getData(): array
     {
         $categoriesPerMonth = Category::query()
+            ->where('user_id', Auth::id()) 
             ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
