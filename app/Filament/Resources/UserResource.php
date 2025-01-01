@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\enums\RolesEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -29,6 +28,12 @@ class UserResource extends Resource
 
     protected static ?string $navigation = 'المستخدمون';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        // Display navigation only if the user is authenticated and has the admin role
+        return Auth::check() && Auth::user()->hasRole('admin');
+    }
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
@@ -52,7 +57,6 @@ class UserResource extends Resource
                     ->label('الموقع')
                     ->required()
                     ->rules(['string', 'max:255']),
-
                 TextInput::make('password')
                     ->label('كلمة المرور')
                     ->password()
@@ -73,22 +77,18 @@ class UserResource extends Resource
     {
         return $table
             ->query(User::query()->where('id', '!=', Auth::user()->id))
-
             ->columns([
                 TextColumn::make('name')->label('الاسم')->sortable()->searchable(),
                 TextColumn::make('email')->label('البريد الإلكتروني')->sortable()->searchable(),
                 TextColumn::make('created_at')->label('تاريخ الانشاء')->dateTime('d-m-Y')->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
-
             ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make()->label('تعديل'),
                 Tables\Actions\DeleteAction::make()->label('حذف'),
             ])
-            ->bulkActions([
-                //
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
