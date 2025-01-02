@@ -3,9 +3,10 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CarResource\Pages;
-use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
 use App\Models\Category;
+use App\Models\Logo;
+use App\Models\Gasoline;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
@@ -18,8 +19,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
 class CarResource extends Resource
@@ -41,30 +40,61 @@ class CarResource extends Resource
                     ->label('التصنيف')
                     ->relationship('category', 'title')
                     ->options(function () {
-                        $user = Auth::user();
-                        return Category::where('user_id', $user->id)->pluck('title', 'id');
+                        return Category::where('user_id', Auth::id())->pluck('title', 'id');
                     })
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        TextInput::make('title')
+                            ->label('اسم التصنيف')
+                            ->required(),
+                        FileUpload::make('image')
+                            ->label('صورة التصنيف')
+                            ->image()
+                            ->required(),
+                        Hidden::make('user_id')->default(Auth::id()),
+                    ]),
 
                 Select::make('logo_id')
                     ->label('الشعار')
                     ->relationship('logo', 'title')
-                    ->required(),
+                    ->options(function () {
+                        return Logo::where('user_id', Auth::id())->pluck('title', 'id');
+                    })
+                    ->required()
+                    ->createOptionForm([
+                        TextInput::make('title')
+                            ->label('اسم الشعار')
+                            ->required(),
+                        FileUpload::make('image')
+                            ->label('صورة الشعار')
+                            ->image()
+                            ->required(),
+                        Hidden::make('user_id')->default(Auth::id()),
+                    ]),
 
                 Select::make('gasoline_id')
                     ->label('نوع الوقود')
                     ->relationship('gasoline', 'type')
-                    ->required(),
+                    ->options(function () {
+                        return Gasoline::where('user_id', Auth::id())->pluck('type', 'id');
+                    })
+                    ->required()
+                    ->createOptionForm([
+                        TextInput::make('type')
+                            ->label('نوع الوقود')
+                            ->required(),
+                        Hidden::make('user_id')->default(Auth::id()),
+                    ]),
 
                 TextInput::make('title')
                     ->label('عنوان السيارة')
                     ->required()
-                    ->maxLength(255), // Match database column length
+                    ->maxLength(255),
 
                 TextInput::make('phone')
                     ->label('الهاتف')
                     ->required()
-                    ->maxLength(15), // Limit for phone numbers
+                    ->maxLength(15),
 
                 TextInput::make('email')
                     ->label('البريد الإلكتروني')
@@ -75,13 +105,13 @@ class CarResource extends Resource
                 TextInput::make('info')
                     ->label('معلومات إضافية')
                     ->required()
-                    ->maxLength(200), // Match database column length
+                    ->maxLength(200),
 
                 TextInput::make('price')
                     ->label('السعر')
                     ->required()
                     ->numeric()
-                    ->maxLength(10), // Adjust based on your schema
+                    ->maxLength(10),
 
                 TextInput::make('old_price')
                     ->label('السعر القديم')
@@ -92,12 +122,12 @@ class CarResource extends Resource
                 TextInput::make('address')
                     ->label('العنوان')
                     ->required()
-                    ->maxLength(255), // Match database column length
+                    ->maxLength(255),
 
                 Textarea::make('description')
                     ->label('الوصف')
                     ->required()
-                    ->maxLength(500), // Adjust as per your schema
+                    ->maxLength(500),
 
                 FileUpload::make('images')
                     ->label('صور السيارة')
@@ -112,15 +142,20 @@ class CarResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->query(Car::query()->where('user_id', Auth::user()->id))
-
+            ->query(Car::query()->where('user_id', Auth::id()))
             ->columns([
                 ImageColumn::make('images')
-                ->label('صور السيارة')
-                ->getStateUsing(fn($record) => $record->images[0] ?? null),
+                    ->label('صور السيارة')
+                    ->getStateUsing(fn($record) => $record->images[0] ?? null),
 
                 TextColumn::make('category.title')
                     ->label('التصنيف'),
+
+                TextColumn::make('logo.title')
+                    ->label('الشعار'),
+
+                TextColumn::make('gasoline.type')
+                    ->label('نوع الوقود'),
 
                 TextColumn::make('title')
                     ->label('عنوان السيارة')
@@ -157,7 +192,7 @@ class CarResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // Add any necessary relationships
         ];
     }
 
