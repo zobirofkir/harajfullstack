@@ -88,3 +88,8 @@ Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
 Route::get('/chats/{userName}-{carId}', [ChatController::class, 'show'])->name('chats.show');
 Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
 Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
+
+/**
+ * Privacy page
+ */
+Route::get('/privacy', function () {return view('pages.privacy.privacy');});
