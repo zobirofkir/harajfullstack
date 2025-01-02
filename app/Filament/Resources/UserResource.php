@@ -30,7 +30,6 @@ class UserResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        // Display navigation only if the user is authenticated and has the admin role
         return Auth::check() && Auth::user()->hasRole('admin');
     }
 

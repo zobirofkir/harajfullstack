@@ -28,6 +28,11 @@ class GasolineResource extends Resource
 
     protected static ?string $navigation = 'أنواع الوقود';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::check() && Auth::user()->hasRole('admin');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

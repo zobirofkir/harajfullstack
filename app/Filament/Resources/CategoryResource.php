@@ -30,6 +30,11 @@ class CategoryResource extends Resource
 
     protected static ?string $navigation = 'التصنيفات';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::check() && Auth::user()->hasRole('admin');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -30,6 +30,11 @@ class LogoResource extends Resource
     protected static ?string $pluralLabel = 'الشعارات';
     protected static ?string $navigation = 'الشعارات';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::check() && Auth::user()->hasRole('admin');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
