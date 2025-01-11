@@ -75,6 +75,11 @@
                     </div>
 
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
+                        <span class="md:text-lg text-md text-green-500 font-medium">قابل للتفاوض</span>
+                        <span class="md:text-lg text-md text-green-500 font-medium">{{ $car->negotiable_price }} ريال</span>
+                    </div>
+
+                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
                         <span class="md:text-lg text-md text-gray-400 font-medium line-through">ريال {{ $car->old_price ?? $car->price }}</span>
                     </div>
 

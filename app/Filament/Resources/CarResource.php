@@ -119,6 +119,12 @@ class CarResource extends Resource
                     ->numeric()
                     ->maxLength(10),
 
+                TextInput::make('negotiable_price')
+                    ->label('قابل للتفاوض')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(255),
+
                 TextInput::make('address')
                     ->label('العنوان')
                     ->required()
