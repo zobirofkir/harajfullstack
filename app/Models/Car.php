@@ -20,7 +20,8 @@ class Car extends Model
         'description',
         'slug',
         'logo_id',
-        'gasoline_id'
+        'gasoline_id',
+        'negotiable_price'
     ];
 
     protected $casts = [
