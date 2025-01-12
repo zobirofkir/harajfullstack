@@ -74,10 +74,59 @@
                         <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->price }} ريال</span>
                     </div>
 
-                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-green-500 font-medium">قابل للتفاوض</span>
-                        <span class="md:text-lg text-md text-green-500 font-medium">{{ $car->negotiable_price }} ريال</span>
-                    </div>
+                    @if ($car->negotiable_price)
+                        <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
+                            <!-- Price Details -->
+                            <span class="md:text-lg text-md text-green-500 font-medium">قابل للتفاوض</span>
+                            <span class="md:text-lg text-md text-green-500 font-medium">{{ $car->negotiable_price }} ريال</span>
+
+                            <!-- Button to toggle dropdown -->
+                            <button
+                                id="toggleFormButton"
+                                class="w-auto bg-green-600 text-white p-2 rounded-lg hover:bg-green-500 transition-all duration-300"
+                            >
+                                إرسال عرض
+                            </button>
+
+                            <!-- Dropdown Form -->
+                            <div
+                                id="dropdownForm"
+                                class="hidden mt-4 p-4 bg-gray-100 rounded-lg shadow-lg w-full md:w-[50%]"
+                            >
+                                <form action="/offer" method="POST" class="flex flex-col gap-4">
+                                    @csrf
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            required
+                                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                                            placeholder="أدخل بريدك الإلكتروني"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label for="price" class="block text-sm font-medium text-gray-700">السعر المقترح</label>
+                                        <input
+                                            type="number"
+                                            id="price"
+                                            name="price"
+                                            required
+                                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                                            placeholder="أدخل السعر"
+                                        >
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-all duration-300"
+                                    >
+                                        إرسال
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
                         <span class="md:text-lg text-md text-gray-400 font-medium line-through">ريال {{ $car->old_price ?? $car->price }}</span>
@@ -248,4 +297,24 @@
             contactModal.classList.add('hidden');
         }
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('toggleFormButton');
+            const dropdownForm = document.getElementById('dropdownForm');
+
+            toggleButton.addEventListener('click', () => {
+                if (dropdownForm.classList.contains('hidden')) {
+                    // Open the form
+                    dropdownForm.classList.remove('hidden');
+                    dropdownForm.classList.add('block', 'transition', 'ease-out', 'duration-300', 'opacity-100', 'transform', 'scale-100');
+                } else {
+                    // Close the form
+                    dropdownForm.classList.add('hidden');
+                    dropdownForm.classList.remove('block', 'transition', 'ease-out', 'duration-300', 'opacity-100', 'transform', 'scale-100');
+                }
+            });
+        });
+    </script>
+
 </x-app-layout>
