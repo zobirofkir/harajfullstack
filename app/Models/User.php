@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Gasoline::class);
     }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }
