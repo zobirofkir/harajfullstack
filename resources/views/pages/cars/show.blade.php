@@ -93,25 +93,25 @@
                                 id="dropdownForm"
                                 class="hidden mt-4 p-4 bg-gray-100 rounded-lg shadow-lg w-full md:w-[50%]"
                             >
-                                <form action="/offer" method="POST" class="flex flex-col gap-4">
-                                    @csrf
+                            <form action="{{ route('offers.store', $car->slug) }}" method="POST" class="flex flex-col gap-4">
+                                @csrf
                                     <div>
-                                        <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                                        <label for="offer_email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
                                         <input
                                             type="email"
-                                            id="email"
-                                            name="email"
+                                            id="offer_email"
+                                            name="offer_email"
                                             required
                                             class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
                                             placeholder="أدخل بريدك الإلكتروني"
                                         >
                                     </div>
                                     <div>
-                                        <label for="price" class="block text-sm font-medium text-gray-700">السعر المقترح</label>
+                                        <label for="negotiable_offer_price" class="block text-sm font-medium text-gray-700">السعر المقترح</label>
                                         <input
                                             type="number"
-                                            id="price"
-                                            name="price"
+                                            id="negotiable_offer_price"
+                                            name="negotiable_offer_price"
                                             required
                                             class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
                                             placeholder="أدخل السعر"

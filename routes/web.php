@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactSellerController;
 use App\Http\Controllers\GasolineController;
 use App\Http\Controllers\LogoController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SearchController;
 use App\Http\Middleware\AuthenticateWithCookie;
 use Illuminate\Support\Facades\Route;
@@ -93,3 +94,8 @@ Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->n
  * Privacy page
  */
 Route::get('/privacy', function () {return view('pages.privacy.privacy');});
+
+/**
+ * Store offer
+ */
+Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.store');

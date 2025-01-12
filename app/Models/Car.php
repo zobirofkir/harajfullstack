@@ -58,4 +58,8 @@ class Car extends Model
         return $this->hasMany(Chat::class);
     }
 
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }
