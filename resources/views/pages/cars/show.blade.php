@@ -7,39 +7,35 @@
             </a>
         </div>
 
-            <!-- User Info Section -->
-            <div class="flex flex-col gap-6 md:px-10 px-8 bg-blue-100 rounded-md py-2 mt-4">
+        <!-- User Info Section -->
+        <div class="flex flex-col gap-6 md:px-12 px-8 bg-blue-50 rounded-lg shadow-md py-4 mt-6">
 
-                <div class="flex justify-start mt-2">
-                    <h1 class="text-xl text-gray-400 font-extrabold text-start">
-                        {{ $car->title }}
-                    </h1>
-                </div>
+            <div class="flex justify-between items-center w-full">
+                <h1 class="text-2xl text-gray-800 font-semibold text-start truncate max-w-lg">
+                    {{ $car->title }}
+                </h1>
 
-                <div class="flex justify-between items-center w-full gap-4">
-                    <div class="w-full md:w-auto">
-                        <h3 class="font-semibold text-gray-400 md:text-xl text-md text-center md:text-start flex items-center gap-4 overflow-hidden whitespace-nowrap">
-                            <i class="fas fa-map-marker-alt text-xl text-gray-400"></i>
-                            {{ Str::limit($car->user->location ?? 'السعودية', 15) }}
-                        </h3>
-                    </div>
-
-                    <div class="w-full md:w-auto">
-                        <p class="md:text-xl text-md text-gray-400 text-center md:text-start flex items-center gap-4 whitespace-nowrap">
-                            <i class="fas fa-calendar-days text-xl text-gray-400"></i>
-                            {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between w-full">
-                    <div class="flex flex-row items-center gap-6">
-                        <img src="{{ $car->user->image ? asset('storage/' . $car->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="{{ $car->title }}" class="rounded-full object-cover w-20 h-20">
-                    </div>
+                <div class="flex items-center gap-4">
+                    <img src="{{ $car->user->image ? asset('storage/' . $car->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="{{ $car->title }}" class="rounded-full object-cover w-16 h-16 border-2 border-gray-300">
                 </div>
             </div>
 
+            <div class="flex justify-between items-center w-full gap-6">
+                <div class="w-full md:w-auto">
+                    <h3 class="font-medium text-gray-600 md:text-lg text-sm text-center md:text-start flex items-center gap-3 overflow-hidden whitespace-nowrap">
+                        <i class="fas fa-map-marker-alt text-lg text-gray-500"></i>
+                        {{ Str::limit($car->user->location ?? 'السعودية', 15) }}
+                    </h3>
+                </div>
 
+                <div class="w-full md:w-auto">
+                    <p class="md:text-lg text-sm text-gray-600 text-center md:text-start flex items-center gap-3 whitespace-nowrap">
+                        <i class="fas fa-calendar-day text-lg text-gray-500"></i>
+                        {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
+                    </p>
+                </div>
+            </div>
+        </div>
 
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
 
