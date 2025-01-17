@@ -5,8 +5,8 @@
         </p>
         <div class="flex justify-center gap-6 mt-4">
             <!-- Social Media Links -->
-            <a href="https://facebook.com" class="text-gray-600 hover:text-gray-800">
-                <i class="fa-brands fa-facebook-square"></i>
+            <a href="https://tiktok.com" class="text-gray-600 hover:text-gray-800">
+                <i class="fa-brands fa-tiktok"></i>
             </a>
             <a href="https://twitter.com" class="text-gray-600 hover:text-gray-800">
                 <i class="fa-brands fa-twitter-square"></i>
