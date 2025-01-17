@@ -8,7 +8,10 @@ use App\Models\Logo;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Filament\Actions\LinkAction;
 use Illuminate\Support\Facades\Auth;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\LinkAction as ActionsLinkAction;
 
 class OverviewWidget extends BaseWidget
 {
@@ -21,10 +24,10 @@ class OverviewWidget extends BaseWidget
         }
 
         $carsCount = Car::where('user_id', $user->id)->count();
-
         $categoriesCount = Category::where('user_id', $user->id)->count();
-
         $logosCount = Logo::where('user_id', $user->id)->count();
+
+        $activationUrl = route('moyasar.create');
 
         return [
             Stat::make('السيارات', $carsCount)
@@ -44,6 +47,11 @@ class OverviewWidget extends BaseWidget
                 ->chart([2, 4, 6, 50, 10, 102])
                 ->color('success')
                 ->icon('heroicon-o-folder'),
+
+            ActionsLinkAction::make('تفعيل الحساب')
+                ->url($activationUrl)
+                ->color('primary')
+                ->icon('heroicon-o-check-circle')
         ];
     }
 }
