@@ -74,60 +74,6 @@
                         <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->price }} ريال</span>
                     </div>
 
-                    @if ($car->negotiable_price)
-                        <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                            <!-- Price Details -->
-                            <span class="md:text-lg text-md text-green-500 font-medium">قابل للتفاوض</span>
-                            <span class="md:text-lg text-md text-green-500 font-medium">{{ $car->negotiable_price }} ريال</span>
-
-                            <!-- Button to toggle dropdown -->
-                            <button
-                                id="toggleFormButton"
-                                class="w-auto bg-green-600 text-white p-2 rounded-lg hover:bg-green-500 transition-all duration-300"
-                            >
-                                إرسال عرض
-                            </button>
-
-                            <!-- Dropdown Form -->
-                            <div
-                                id="dropdownForm"
-                                class="hidden mt-4 p-4 bg-gray-100 rounded-lg shadow-lg w-full md:w-[50%]"
-                            >
-                            <form action="{{ route('offers.store', $car->slug) }}" method="POST" class="flex flex-col gap-4">
-                                @csrf
-                                    <div>
-                                        <label for="offer_email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
-                                        <input
-                                            type="email"
-                                            id="offer_email"
-                                            name="offer_email"
-                                            required
-                                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                                            placeholder="أدخل بريدك الإلكتروني"
-                                        >
-                                    </div>
-                                    <div>
-                                        <label for="negotiable_offer_price" class="block text-sm font-medium text-gray-700">السعر المقترح</label>
-                                        <input
-                                            type="number"
-                                            id="negotiable_offer_price"
-                                            name="negotiable_offer_price"
-                                            required
-                                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                                            placeholder="أدخل السعر"
-                                        >
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-all duration-300"
-                                    >
-                                        إرسال
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
                         <span class="md:text-lg text-md text-gray-400 font-medium line-through">ريال {{ $car->old_price ?? $car->price }}</span>
                     </div>
@@ -145,8 +91,62 @@
                     </div>
                 </div>
 
+                @if ($car->negotiable_price)
+                    <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[65%] mt-8 mb-2 rounded-lg">
+                        <!-- Price Details -->
+                        <span class="md:text-lg text-md text-green-500 font-medium text-center">قابل للتفاوض</span>
+                        <span class="md:text-lg text-md text-green-500 font-medium text-center">{{ $car->negotiable_price }} ريال</span>
+
+                        <!-- Button to toggle dropdown -->
+                        <button
+                            id="toggleFormButton"
+                            class="w-auto bg-green-600 text-white p-2 rounded-lg hover:bg-green-500 transition-all duration-300"
+                        >
+                            إرسال عرض
+                        </button>
+                    </div>
+
+                    <!-- Dropdown Form -->
+                    <div
+                        id="dropdownForm"
+                        class="hidden mt-4 p-4 bg-gray-100 rounded-lg shadow-lg w-full md:w-[50%]"
+                    >
+                        <form action="{{ route('offers.store', $car->slug) }}" method="POST" class="flex flex-col gap-4">
+                            @csrf
+                            <div>
+                                <label for="offer_email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                                <input
+                                    type="email"
+                                    id="offer_email"
+                                    name="offer_email"
+                                    required
+                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                                    placeholder="أدخل بريدك الإلكتروني"
+                                >
+                            </div>
+                            <div>
+                                <label for="negotiable_offer_price" class="block text-sm font-medium text-gray-700">السعر المقترح</label>
+                                <input
+                                    type="number"
+                                    id="negotiable_offer_price"
+                                    name="negotiable_offer_price"
+                                    required
+                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                                    placeholder="أدخل السعر"
+                                >
+                            </div>
+                            <button
+                                type="submit"
+                                class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-all duration-300"
+                            >
+                                إرسال
+                            </button>
+                        </form>
+                    </div>
+                @endif
+
                 <!-- Contact Seller Buttons -->
-                <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[65%] mt-8 ">
+                <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[65%] mt-2">
                     <button class="bg-blue-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
                         <i class="fas fa-user"></i>
                         اتصل
