@@ -102,8 +102,7 @@ Route::get('/privacy', function () {return view('pages.privacy.privacy');});
 Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.store');
 
 /**
- * Create Moyasar account
+ * Show Moyasar account
  */
-Route::middleware('auth')->group(function() {
-    Route::get('/payments', [CreateMoyasarAccountController::class, 'createMoyasarAccount'])->name('moyasar.create');
-});
+Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
+Route::get('/payments', [CreateMoyasarAccountController::class, 'index'])->name('moyasar.index');

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\enums\RolesEnum;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\Logo;
@@ -27,9 +28,9 @@ class OverviewWidget extends BaseWidget
         $categoriesCount = Category::where('user_id', $user->id)->count();
         $logosCount = Logo::where('user_id', $user->id)->count();
 
-        $activationUrl = route('moyasar.create');
+        $activationUrl = route('moyasar.activate', ['user' => $user->id]);
 
-        return [
+        $stats = [
             Stat::make('السيارات', $carsCount)
                 ->description('عدد السيارات المرتبطة بك')
                 ->chart([10, 20, 15, 60, 40, 100])
@@ -49,9 +50,12 @@ class OverviewWidget extends BaseWidget
                 ->icon('heroicon-o-folder'),
 
             ActionsLinkAction::make('تفعيل الحساب')
-                ->url($activationUrl)
-                ->color('primary')
-                ->icon('heroicon-o-check-circle')
+                    ->url($activationUrl)
+                    ->color('primary')
+                    ->icon('heroicon-o-check-circle'),
         ];
+
+
+        return $stats;
     }
 }
