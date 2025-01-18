@@ -105,4 +105,8 @@ Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.st
  * Show Moyasar account
  */
 Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
+
+/**
+ * List of payments
+ */
 Route::get('/payments', [CreateMoyasarAccountController::class, 'index'])->name('moyasar.index');

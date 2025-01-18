@@ -2,16 +2,13 @@
 
 namespace App\Filament\Widgets;
 
-use App\enums\RolesEnum;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\Logo;
-use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Actions\LinkAction;
 use Illuminate\Support\Facades\Auth;
-use Filament\Notifications\Notification;
 use Filament\Tables\Actions\LinkAction as ActionsLinkAction;
 
 class OverviewWidget extends BaseWidget
@@ -30,7 +27,35 @@ class OverviewWidget extends BaseWidget
 
         $activationUrl = route('moyasar.activate', ['user' => $user->id]);
 
-        $stats = [
+        // Check if the user has the 'admin' role
+        if ($user->hasRole('admin')) {
+            return [
+                Stat::make('السيارات', $carsCount)
+                    ->description('عدد السيارات المرتبطة بك')
+                    ->chart([10, 20, 15, 60, 40, 100])
+                    ->color('success')
+                    ->icon('heroicon-o-truck'),
+
+                Stat::make('الشعارات', $logosCount)
+                    ->description('عدد الشعارات')
+                    ->chart([10, 20, 50, 30, 110, 100])
+                    ->color('success')
+                    ->icon('heroicon-o-users'),
+
+                Stat::make('التصنيفات', $categoriesCount)
+                    ->description('عدد التصنيفات المرتبطة بك')
+                    ->chart([2, 4, 6, 50, 10, 102])
+                    ->color('success')
+                    ->icon('heroicon-o-folder'),
+
+                Stat::make('حالة الحساب', 'تم تأكيد حسابك')
+                    ->description('حسابك مفعل')
+                    ->color('success')
+                    ->icon('heroicon-o-check-circle')
+            ];
+        }
+
+        return [
             Stat::make('السيارات', $carsCount)
                 ->description('عدد السيارات المرتبطة بك')
                 ->chart([10, 20, 15, 60, 40, 100])
@@ -54,9 +79,6 @@ class OverviewWidget extends BaseWidget
                 ->color('primary')
                 ->icon('heroicon-o-check-circle')
                 ->visible(fn ($record) => Auth::user()->hasRole('user')),
-            ];
-
-
-        return $stats;
+        ];
     }
 }

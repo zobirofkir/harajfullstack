@@ -1,61 +1,5 @@
-<style>
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 24rem;
-    text-align: center;
-}
-
-.modal-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: rgb(0, 0, 0);
-}
-
-.modal-message {
-    margin-bottom: 1.5rem;
-    color: rgb(117, 117, 117);
-}
-
-.modal-footer {
-    margin-top: 1rem;
-}
-
-.modal-close-btn {
-    padding: 0.5rem 1.5rem;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.modal-close-btn:hover {
-    background-color: #5a6268;
-}
-
-.modal-link {
-    color: rgb(0, 81, 255);
-}
-
-</style>
-
 <x-filament-panels::page.simple>
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     @if (filament()->hasRegistration())
         <x-slot name="subheading">
             {{ __('filament-panels::pages/auth/login.actions.register.before') }}
@@ -85,7 +29,7 @@
 
     {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, scopes: $this->getRenderHookScopes()) }}
 
-    <x-filament-panels::form id="form" wire:submit="authenticate" class="mt-4">
+    <x-filament-panels::form id="form" wire:submit="authenticate">
         {{ $this->form }}
 
         <x-filament-panels::form.actions
@@ -95,4 +39,5 @@
     </x-filament-panels::form>
 
     {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, scopes: $this->getRenderHookScopes()) }}
+
 </x-filament-panels::page.simple>
