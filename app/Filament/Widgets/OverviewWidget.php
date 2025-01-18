@@ -50,10 +50,11 @@ class OverviewWidget extends BaseWidget
                 ->icon('heroicon-o-folder'),
 
             ActionsLinkAction::make('تفعيل الحساب')
-                    ->url($activationUrl)
-                    ->color('primary')
-                    ->icon('heroicon-o-check-circle'),
-        ];
+                ->url($activationUrl)
+                ->color('primary')
+                ->icon('heroicon-o-check-circle')
+                ->visible(fn ($record) => Auth::user()->hasRole('user')),
+            ];
 
 
         return $stats;
