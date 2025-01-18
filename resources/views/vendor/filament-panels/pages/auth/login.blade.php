@@ -49,6 +49,10 @@
     background-color: #5a6268;
 }
 
+.modal-link {
+    color: rgb(0, 81, 255);
+}
+
 </style>
 
 <x-filament-panels::page.simple>
@@ -71,6 +75,7 @@
             <div class="modal-content">
                 <h3 class="modal-title">تنبيه</h3>
                 <p class="modal-message">اتصل بالمسؤول لإنشاء حساب مسؤول لك</p>
+                <a href="mailto:contact@deenalisa.com" class="modal-link">contact@deenalisa.com</a>
                 <div class="modal-footer">
                     <button @click="open = false" class="modal-close-btn">إغلاق</button>
                 </div>
