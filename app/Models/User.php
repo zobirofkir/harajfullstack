@@ -26,7 +26,8 @@ class User extends Authenticatable
         'location',
         'image',
         'role',
-        'moyasar_account_id'
+        'moyasar_account_id',
+        'is_active'
     ];
 
     /**

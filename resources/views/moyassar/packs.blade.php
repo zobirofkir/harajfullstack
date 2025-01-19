@@ -76,7 +76,7 @@
                 currency: 'SAR',
                 description: 'اشتراك الخطة التجريبية نصف السنوية',
                 publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
-                callback_url: 'https://zobirofkir.com',
+                callback_url: '{{ route("payment.callback") }}',
                 methods: ['creditcard', 'applepay', 'stcpay'],
             });
         }
@@ -88,7 +88,7 @@
                 currency: 'SAR',
                 description: 'اشتراك الخطة التجريبية السنوية',
                 publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
-                callback_url: 'https://zobirofkir.com',
+                callback_url: '{{ route("payment.callback") }}',
                 methods: ['creditcard', 'applepay', 'stcpay'],
             });
         }

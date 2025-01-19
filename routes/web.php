@@ -112,4 +112,8 @@ Route::middleware('auth')->group(function () {
      */
     Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
 
+    /**
+     * Handle payment callback
+     */
+    Route::get('/payment/callback', [CreateMoyasarAccountController::class, 'handlePaymentCallback'])->name('payment.callback');
 });
