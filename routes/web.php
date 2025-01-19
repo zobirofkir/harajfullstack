@@ -102,11 +102,14 @@ Route::get('/privacy', function () {return view('pages.privacy.privacy');});
 Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.store');
 
 /**
- * Show Moyasar account
- */
-Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
-
-/**
  * List of payments
  */
 Route::get('/payments', [CreateMoyasarAccountController::class, 'index'])->name('moyasar.index');
+
+Route::middleware('auth')->group(function () {
+    /**
+     * Show Moyasar account
+     */
+    Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
+
+});
