@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.14.0/moyasar.css" />
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=fetch"></script>
     <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
     <title>خيارات الدفع</title>
 </head>
@@ -44,7 +43,7 @@
                 >
                     اشترك الآن
                 </button>
-                <div class="semi-annual-payment"></div>
+                <div id="semi-annual-payment" class="mt-4"></div>
             </div>
 
             <!-- Annual Trial Plan -->
@@ -63,7 +62,7 @@
                 >
                     اشترك الآن
                 </button>
-                <div class="annual-payment"></div>
+                <div id="annual-payment" class="mt-4"></div>
             </div>
         </div>
     </div>
@@ -71,11 +70,11 @@
     <script>
         function paySemiAnnual() {
             Moyasar.init({
-                element: '.semi-annual-payment',
-                amount: 34500, // المبلغ بالهللة
+                element: '#semi-annual-payment',
+                amount: 34500,
                 currency: 'SAR',
                 description: 'اشتراك الخطة التجريبية نصف السنوية',
-                publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
+                publishable_api_key: 'sk_test_QVcFgPCYP6kxX5372Tz8ewrfrCYCpQZc3nYoiYYz',
                 callback_url: '{{ route("payment.callback") }}',
                 methods: ['creditcard', 'applepay', 'stcpay'],
             });
@@ -83,11 +82,11 @@
 
         function payAnnual() {
             Moyasar.init({
-                element: '.annual-payment',
-                amount: 57500, // المبلغ بالهللة
+                element: '#annual-payment',
+                amount: 57500,
                 currency: 'SAR',
                 description: 'اشتراك الخطة التجريبية السنوية',
-                publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
+                publishable_api_key: 'sk_test_QVcFgPCYP6kxX5372Tz8ewrfrCYCpQZc3nYoiYYz',
                 callback_url: '{{ route("payment.callback") }}',
                 methods: ['creditcard', 'applepay', 'stcpay'],
             });
