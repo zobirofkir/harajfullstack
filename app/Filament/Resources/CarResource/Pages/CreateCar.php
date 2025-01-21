@@ -20,8 +20,13 @@ class CreateCar extends CreateRecord
             abort(403, 'لقد تجاوزت الحد الأقصى المسموح به لإعلانات خطتك.');
         }
 
-        if (!$user->canCreateCar()) {
-            abort(403, 'يمكنك إضافة إعلان جديد بعد مرور 24 ساعة على آخر إعلان.');
+        $lastCar = $user->cars()->latest()->first();
+        if ($lastCar && !$user->canCreateCar()) {
+            $totalMinutes = $lastCar->created_at->diffInMinutes(now());
+            $remainingMinutes = max(0, (24 * 60) - $totalMinutes);
+            $remainingHours = floor($remainingMinutes / 60); 
+
+            abort(403, 'يمكنك إضافة إعلان جديد بعد ' . $remainingHours . ' ساعة.');
         }
     }
 }

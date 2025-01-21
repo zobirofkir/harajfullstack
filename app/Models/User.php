@@ -96,11 +96,16 @@ class User extends Authenticatable
 
     public function carLimit(): int
     {
-        if ($this->plan === 'premium') {
-            return 1000000000000;
+        switch ($this->plan) {
+            case 'free':
+                return 7;
+            case 'semi_annual':
+                return PHP_INT_MAX;
+            case 'annual':
+                return PHP_INT_MAX;
+            default:
+                return 2;
         }
-
-        return 2;
     }
 
     public function scopePlan($query, $plan)

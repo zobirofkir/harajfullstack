@@ -54,7 +54,7 @@
                     class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
                     data-amount="34500"
                     data-description="اشتراك الخطة التجريبية نصف السنوية"
-                    data-plan="semi_annual"  <!-- Added plan data -->
+                    data-plan="semi_annual"
                 >
                     اشترك الآن
                 </button>
@@ -77,7 +77,7 @@
                     class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
                     data-amount="57500"
                     data-description="اشتراك الخطة التجريبية السنوية"
-                    data-plan="annual"  <!-- Added plan data -->
+                    data-plan="annual"
                 >
                     اشترك الآن
                 </button>
