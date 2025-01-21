@@ -27,7 +27,8 @@ class User extends Authenticatable
         'image',
         'role',
         'moyasar_account_id',
-        'is_active'
+        'is_active',
+        'plan'
     ];
 
     /**
@@ -81,5 +82,16 @@ class User extends Authenticatable
     public function offers()
     {
         return $this->hasMany(Offer::class);
+    }
+
+
+    public function scopePlan($query, $plan)
+    {
+        return $query->where('plan', $plan);
+    }
+
+    public function hasPlan(string $plan): bool
+    {
+        return $this->plan === $plan;
     }
 }

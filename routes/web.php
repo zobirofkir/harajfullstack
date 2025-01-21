@@ -13,6 +13,8 @@ use App\Http\Controllers\LogoController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SearchController;
 use App\Http\Middleware\AuthenticateWithCookie;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -107,13 +109,15 @@ Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.st
 Route::get('/payments', [CreateMoyasarAccountController::class, 'index'])->name('moyasar.index');
 
 Route::middleware('auth')->group(function () {
-    /**
-     * Show Moyasar account
-     */
     Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
-
-    /**
-     * Handle payment callback
-     */
     Route::get('/payment/callback', [CreateMoyasarAccountController::class, 'handlePaymentCallback'])->name('payment.callback');
+
+    Route::post('/api/update-plan', function (Request $request) {
+        $user = Auth::user();
+        if ($user) {
+            $user->update(['plan' => $request->plan]);
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+    });
 });

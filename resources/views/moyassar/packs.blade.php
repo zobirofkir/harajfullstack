@@ -54,6 +54,7 @@
                     class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
                     data-amount="34500"
                     data-description="اشتراك الخطة التجريبية نصف السنوية"
+                    data-plan="semi_annual"  <!-- Added plan data -->
                 >
                     اشترك الآن
                 </button>
@@ -76,6 +77,7 @@
                     class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
                     data-amount="57500"
                     data-description="اشتراك الخطة التجريبية السنوية"
+                    data-plan="annual"  <!-- Added plan data -->
                 >
                     اشترك الآن
                 </button>
@@ -86,20 +88,59 @@
     <script>
         document.querySelectorAll('.mysr-form').forEach(function(button) {
             button.addEventListener('click', function() {
+                const plan = button.getAttribute('data-plan');  // Use the correct plan value
                 const amount = button.getAttribute('data-amount');
                 const description = button.getAttribute('data-description');
 
-                Moyasar.init({
-                    element: button,
-                    amount: amount,
-                    currency: 'SAR',
-                    description: description,
-                    publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
-                    callback_url: "{{ route('payment.callback') }}",
-                    methods: ['creditcard', 'stcpay'],
+                fetch('/api/update-plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ plan: plan })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Moyasar.init({
+                            element: button,
+                            amount: amount,
+                            currency: 'SAR',
+                            description: description,
+                            publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
+                            callback_url: "{{ route('payment.callback') }}",
+                            methods: ['creditcard', 'stcpay'],
+                            onSuccess: function(payment) {
+                                // Only change the state when payment is successful
+                                fetch('/api/complete-payment', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    body: JSON.stringify({ payment_id: payment.id, plan: plan })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert('تم الدفع بنجاح! تم تحديث خطتك.');
+                                    } else {
+                                        alert('حدث خطأ في تحديث الخطة.');
+                                    }
+                                });
+                            },
+                            onFailure: function(error) {
+                                alert('حدث خطأ في عملية الدفع: ' + error.message);
+                            }
+                        });
+                    } else {
+                        alert('حدث خطأ، يرجى المحاولة لاحقًا.');
+                    }
                 });
             });
         });
     </script>
+
 </body>
 </html>

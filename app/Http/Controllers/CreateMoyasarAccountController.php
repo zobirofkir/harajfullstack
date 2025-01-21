@@ -17,37 +17,24 @@ class CreateMoyasarAccountController extends Controller
     public function handlePaymentCallback(Request $request)
     {
         try {
-            // التحقق من وجود القيم المطلوبة
             $paymentStatus = $request->query('status');
             $paymentId = $request->query('id');
 
             if (!$paymentStatus || !$paymentId) {
-                return redirect()->back()->with('error', 'البيانات المطلوبة مفقودة. يرجى المحاولة مرة أخرى.');
+                return back()->with('error', 'البيانات المطلوبة مفقودة.');
             }
 
-            // التحقق من حالة الدفع
             if ($paymentStatus === 'paid') {
-                $userId = Auth::id();
-
-                if (!$userId) {
-                    return redirect()->route('login')->with('error', 'يرجى تسجيل الدخول لتفعيل الحساب.');
-                }
-
-                $user = User::find($userId);
+                $user = Auth::user();
                 if ($user) {
                     $user->update(['is_active' => true]);
-                    return redirect()->back()->with('success', 'تم تفعيل حسابك بنجاح!');
+                    return redirect('/admin')->with('success', 'تم تفعيل حسابك بنجاح.');
                 }
-
-                return redirect()->back()->with('error', 'لم يتم العثور على المستخدم.');
             }
-
-            // إذا كانت حالة الدفع غير ناجحة
-            return redirect()->back()->with('error', 'حدث خطأ أثناء معالجة الدفع. يرجى التحقق من معلومات الدفع.');
+            return back()->with('error', 'حالة الدفع غير ناجحة.');
         } catch (\Exception $e) {
-            // تسجيل الخطأ للتصحيح
             Log::error('Payment Callback Error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا.');
+            return back()->with('error', 'حدث خطأ غير متوقع.');
         }
     }
 }
