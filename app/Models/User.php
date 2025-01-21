@@ -84,6 +84,24 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class);
     }
 
+    public function canCreateCar(): bool
+    {
+        $lastCar = $this->cars()->latest()->first();
+        if (!$lastCar) {
+            return true;
+        }
+
+        return $lastCar->created_at->diffInHours(now()) >= 24;
+    }
+
+    public function carLimit(): int
+    {
+        if ($this->plan === 'premium') {
+            return 1000000000000;
+        }
+
+        return 2;
+    }
 
     public function scopePlan($query, $plan)
     {
