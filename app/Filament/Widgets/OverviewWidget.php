@@ -7,9 +7,7 @@ use App\Models\Category;
 use App\Models\Logo;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Filament\Actions\LinkAction;
 use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Actions\LinkAction as ActionsLinkAction;
 
 class OverviewWidget extends BaseWidget
 {
@@ -24,7 +22,6 @@ class OverviewWidget extends BaseWidget
         $carsCount = Car::where('user_id', $user->id)->count();
         $categoriesCount = Category::where('user_id', $user->id)->count();
         $logosCount = Logo::where('user_id', $user->id)->count();
-
         $activationUrl = route('moyasar.activate', ['user' => $user->id]);
 
         // Check if the user has the 'admin' role
@@ -51,11 +48,11 @@ class OverviewWidget extends BaseWidget
                 Stat::make('حالة الحساب', 'تم تأكيد حسابك')
                     ->description('حسابك مفعل')
                     ->color('success')
-                    ->icon('heroicon-o-check-circle')
+                    ->icon('heroicon-o-check-circle'),
             ];
         }
 
-        return [
+        $stats = [
             Stat::make('السيارات', $carsCount)
                 ->description('عدد السيارات المرتبطة بك')
                 ->chart([10, 20, 15, 60, 40, 100])
@@ -73,12 +70,21 @@ class OverviewWidget extends BaseWidget
                 ->chart([2, 4, 6, 50, 10, 102])
                 ->color('success')
                 ->icon('heroicon-o-folder'),
-
-            ActionsLinkAction::make('تفعيل الحساب')
-                ->url($activationUrl)
-                ->color('primary')
-                ->icon('heroicon-o-check-circle')
-                ->visible(fn ($record) => Auth::user()->hasRole('user')),
         ];
+
+        if ($user->is_active) {
+            $stats[] = Stat::make('حالة الحساب', 'تم تأكيد حسابك')
+                ->description('حسابك مفعل')
+                ->color('success')
+                ->icon('heroicon-o-check-circle');
+        } else {
+            $stats[] = Stat::make('حالة الحساب', 'تفعيل الحساب مطلوب')
+                ->description('اضغط لتفعيل الحساب')
+                ->color('danger')
+                ->url($activationUrl)
+                ->icon('heroicon-o-exclamation-circle');
+        }
+
+        return $stats;
     }
 }
