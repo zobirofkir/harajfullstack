@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CreateMoyasarAccountController extends Controller
 {
@@ -15,19 +16,38 @@ class CreateMoyasarAccountController extends Controller
 
     public function handlePaymentCallback(Request $request)
     {
-        $paymentStatus = $request->query('status');
-        $paymentId = $request->query('id');
-        $userId = Auth::id();
+        try {
+            // التحقق من وجود القيم المطلوبة
+            $paymentStatus = $request->query('status');
+            $paymentId = $request->query('id');
 
-        if ($paymentStatus === 'paid') {
-            $user = User::find($userId);
-            if ($user) {
-                $user->update(['is_active' => true]);
+            if (!$paymentStatus || !$paymentId) {
+                return redirect()->back()->with('error', 'البيانات المطلوبة مفقودة. يرجى المحاولة مرة أخرى.');
             }
 
-            return redirect()->route('home')->with('success', 'تم تفعيل حسابك بنجاح!');
-        }
+            // التحقق من حالة الدفع
+            if ($paymentStatus === 'paid') {
+                $userId = Auth::id();
 
-        return redirect()->route('home')->with('error', 'حدث خطأ أثناء معالجة الدفع.');
+                if (!$userId) {
+                    return redirect()->route('login')->with('error', 'يرجى تسجيل الدخول لتفعيل الحساب.');
+                }
+
+                $user = User::find($userId);
+                if ($user) {
+                    $user->update(['is_active' => true]);
+                    return redirect()->back()->with('success', 'تم تفعيل حسابك بنجاح!');
+                }
+
+                return redirect()->back()->with('error', 'لم يتم العثور على المستخدم.');
+            }
+
+            // إذا كانت حالة الدفع غير ناجحة
+            return redirect()->back()->with('error', 'حدث خطأ أثناء معالجة الدفع. يرجى التحقق من معلومات الدفع.');
+        } catch (\Exception $e) {
+            // تسجيل الخطأ للتصحيح
+            Log::error('Payment Callback Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا.');
+        }
     }
 }

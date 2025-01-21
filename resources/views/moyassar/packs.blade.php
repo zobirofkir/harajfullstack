@@ -17,7 +17,7 @@
 
     <title>خيارات الدفع</title>
 </head>
-<body class="bg-gray-50 flex md:justify-center md:items-center h-screen">
+<body class="bg-white flex md:justify-center md:items-center h-screen">
 
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-extrabold text-center mb-8 text-gray-800">اختر خطتك المثالية</h1>
@@ -51,7 +51,7 @@
                     </p>
                 </div>
                 <button
-                    class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-500 transition-colors duration-300 mysr-form"
+                    class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
                     data-amount="34500"
                     data-description="اشتراك الخطة التجريبية نصف السنوية"
                 >
@@ -73,7 +73,7 @@
                     </p>
                 </div>
                 <button
-                    class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-gray-500 transition-colors duration-300 mysr-form"
+                    class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
                     data-amount="57500"
                     data-description="اشتراك الخطة التجريبية السنوية"
                 >
