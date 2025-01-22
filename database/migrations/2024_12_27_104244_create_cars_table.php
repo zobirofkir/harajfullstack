@@ -13,17 +13,11 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->string('title');
-            $table->string('phone');
-            $table->string('email');
-
-            $table->string('info');
             $table->longText('images');
             $table->string('price');
-            $table->string('address');
             $table->longText('description');
             $table->longText('slug');
             $table->timestamps();

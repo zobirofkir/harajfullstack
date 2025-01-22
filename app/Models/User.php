@@ -25,7 +25,6 @@ class User extends Authenticatable
         'password',
         'location',
         'image',
-        'role',
         'moyasar_account_id',
         'is_active',
         'plan',
@@ -63,21 +62,6 @@ class User extends Authenticatable
     public function cars()
     {
         return $this->hasMany(Car::class);
-    }
-
-    public function category()
-    {
-        return $this->hasMany(Category::class);
-    }
-
-    public function logos()
-    {
-        return $this->hasMany(Logo::class);
-    }
-
-    public function gasolines()
-    {
-        return $this->hasMany(Gasoline::class);
     }
 
     public function offers()

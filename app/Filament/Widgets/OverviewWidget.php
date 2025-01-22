@@ -25,11 +25,6 @@ class OverviewWidget extends BaseWidget
                 ->description('عدد السيارات المرتبطة بك')
                 ->color('success')
                 ->icon('heroicon-o-truck'),
-
-            Stat::make('الشعارات', $user->logos()->count())
-                ->description('عدد الشعارات')
-                ->color('success')
-                ->icon('heroicon-o-users'),
         ];
 
         if ($user->hasPlan('free')) {

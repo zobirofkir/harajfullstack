@@ -36,48 +36,17 @@ class CarResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('category_id')
-                    ->label('التصنيف')
-                    ->relationship('category', 'title')
-                    ->options(fn() => Category::where('user_id', Auth::id())->pluck('title', 'id'))
-                    ->required()
-                    ->createOptionForm([
-                        TextInput::make('title')->label('اسم التصنيف')->required(),
-                        FileUpload::make('image')->label('صورة التصنيف')->image()->required(),
-                        Hidden::make('user_id')->default(Auth::id()),
-                    ]),
-
-                Select::make('logo_id')
-                    ->label('الشعار')
-                    ->relationship('logo', 'title')
-                    ->options(fn() => Logo::where('user_id', Auth::id())->pluck('title', 'id'))
-                    ->required()
-                    ->createOptionForm([
-                        TextInput::make('title')->label('اسم الشعار')->required(),
-                        FileUpload::make('image')->label('صورة الشعار')->image()->required(),
-                        Hidden::make('user_id')->default(Auth::id()),
-                    ]),
-
-                Select::make('gasoline_id')
-                    ->label('نوع الوقود')
-                    ->relationship('gasoline', 'type')
-                    ->options(fn() => Gasoline::where('user_id', Auth::id())->pluck('type', 'id'))
-                    ->required()
-                    ->createOptionForm([
-                        TextInput::make('type')->label('نوع الوقود')->required(),
-                        Hidden::make('user_id')->default(Auth::id()),
-                    ]),
 
                 TextInput::make('title')->label('عنوان السيارة')->required()->maxLength(255),
-                TextInput::make('phone')->label('الهاتف')->required()->maxLength(15),
-                TextInput::make('email')->label('البريد الإلكتروني')->required()->email()->maxLength(255),
-                TextInput::make('info')->label('معلومات إضافية')->required()->maxLength(200),
+
                 TextInput::make('price')->label('السعر')->required()->numeric()->maxLength(10),
-                TextInput::make('old_price')->label('السعر القديم')->required()->numeric()->maxLength(10),
+
                 TextInput::make('negotiable_price')->label('قابل للتفاوض')->numeric()->maxLength(255),
-                TextInput::make('address')->label('العنوان')->required()->maxLength(255),
+
                 Textarea::make('description')->label('الوصف')->required()->maxLength(500),
+
                 FileUpload::make('images')->label('صور السيارة')->multiple()->image()->required(),
+
                 Hidden::make('user_id')->default(Auth::user()->id),
             ])
             ->columns(1);
@@ -89,17 +58,13 @@ class CarResource extends Resource
             ->query(Car::query()->where('user_id', Auth::id()))
             ->columns([
                 ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn($record) => $record->images[0] ?? null),
-                TextColumn::make('category.title')->label('التصنيف'),
-                TextColumn::make('logo.title')->label('الشعار'),
-                TextColumn::make('gasoline.type')->label('نوع الوقود'),
                 TextColumn::make('title')->label('عنوان السيارة')->searchable(),
                 TextColumn::make('price')->label('السعر'),
-                TextColumn::make('address')->label('العنوان'),
                 TextColumn::make('created_at')->label('تم الإنشاء في')->dateTime()->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                Tables\Filters\SelectFilter::make('category')->label('التصنيف')->relationship('category', 'title')->default(null),
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('تعديل'),

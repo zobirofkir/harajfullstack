@@ -51,7 +51,6 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->registration(Register::class)
             ->colors([
                 'primary' => [
                     50 => '238, 242, 255',

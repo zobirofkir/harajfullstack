@@ -14,16 +14,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::firstOrCreate(['name' => RolesEnum::ADMIN->value, 'guard_name' => 'web']);
 
-        $user = User::create([
+        User::create([
             "name" => "دينالي",
             "email" => "deenali@admin.com",
             "password" => "deenali123@@@",
-            "location" => 'السعودية',
-            "role" => RolesEnum::ADMIN->value,
+            "location" => 'السعودية'
         ]);
-
-        $user->assignRole($role);
     }
 }
