@@ -12,7 +12,7 @@
     </div> --}}
 
     <div class="text-center mt-4" x-data="{ open: false }">
-        {{-- <a href="#" @click.prevent="open = true" class="btn btn-primary">تسجيل الدخول كمسؤول</a> --}}
+        <a href="{{route('index.login')}}" class="btn btn-primary">تسجيل الدخول كمستخدم</a>
 
         <!-- Modal -->
         <div x-show="open" class="modal-overlay">

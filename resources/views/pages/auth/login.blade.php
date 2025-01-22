@@ -38,6 +38,12 @@
             <!-- روابط التسجيل واستعادة كلمة المرور -->
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
+                    هل لديك حساب كمسؤول؟
+                    <a href="{{ url('/admin') }}" class="text-gray-800 font-medium hover:underline">
+                        تسجيل الدخول كمسؤول
+                    </a>
+                </p>
+                <p class="text-sm text-gray-600 mt-4">
                     ليس لديك حساب؟
                     <a href="{{ route('register') }}" class="text-gray-800 font-medium hover:underline">
                         إنشاء حساب جديد
