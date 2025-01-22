@@ -7,9 +7,9 @@
         </x-slot>
     @endif
 
-    <div class="text-center mt-4">
+    {{-- <div class="text-center mt-4">
         <a href="{{url('/')}}" class="btn btn-link text-decoration-none text-muted">العودة إلى الصفحة الرئيسية</a>
-    </div>
+    </div> --}}
 
     <div class="text-center mt-4" x-data="{ open: false }">
         <a href="#" @click.prevent="open = true" class="btn btn-primary">تسجيل الدخول كمسؤول</a>
