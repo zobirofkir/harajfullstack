@@ -72,6 +72,17 @@
                             <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                         @enderror
 
+                                            <div>
+                        <label for="role" class="sr-only">الدور</label>
+                            <select id="role" name="role" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm">
+                                <option value="user">مستخدم عادي</option>
+                                <option value="supplier">مورد</option>
+                            </select>
+                        </div>
+                        @error('role')
+                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                        @enderror
+
                     </div>
                 </div>
                 <div>
