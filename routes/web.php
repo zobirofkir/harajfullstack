@@ -89,8 +89,20 @@ Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolin
  * List of chats
  */
 Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+
+/**
+ * Show a specific chat
+ */
 Route::get('/chats/{userName}-{carId}', [ChatController::class, 'show'])->name('chats.show');
+
+/**
+ * Store chat
+ */
 Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+
+/**
+ * Store message
+ */
 Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
 
 /**
@@ -103,24 +115,63 @@ Route::get('/privacy', function () {return view('pages.privacy.privacy');});
  */
 Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.store');
 
+/**
+ * Get register
+ */
 Route::get('/register', [AuthController::class, 'index'])->name('index.register');
+
+/**
+ * Store register
+ */
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
+/**
+ * Get login
+ */
 Route::get('/login', [AuthController::class, 'indexLogin'])->name('index.login');
+
+/**
+ * Store login
+ */
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+/**
+ * Store logout
+ */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
+/**
+ * Reset password
+ */
 Route::get('password/reset/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 
+/**
+ * Reset password
+ */
 Route::post('password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
+/**
+ * Forgot password
+ */
 Route::get('forgot-password', [AuthController::class, 'indexForgotPassword'])->name('forgot-password');
+
+/**
+ * Forgot password
+ */
 Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 
+/**
+ * Authenticated Routes
+ */
 Route::middleware('auth')->group(function () {
+
+    /**
+     *Get Active Card
+     */
     Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');
 
+    /**
+     *Get Payment Callback
+     */
     Route::get('/update-plan', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
 });
