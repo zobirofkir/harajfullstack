@@ -1,12 +1,13 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Services\Services;
 
 use App\Models\User;
+use App\Services\Constructors\PaymentConstructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class CreateMoyasarAccountController extends Controller
+class PaymentService implements PaymentConstructor
 {
     public function activate(User $user)
     {

@@ -7,10 +7,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactSellerController;
-use App\Http\Controllers\CreateMoyasarAccountController;
 use App\Http\Controllers\GasolineController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Middleware\AuthenticateWithCookie;
 use Illuminate\Http\Request;
@@ -103,13 +103,8 @@ Route::get('/privacy', function () {return view('pages.privacy.privacy');});
  */
 Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.store');
 
-/**
- * List of payments
- */
-Route::get('/payments', [CreateMoyasarAccountController::class, 'index'])->name('moyasar.index');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
+    Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');
 
-    Route::get('/update-plan', [CreateMoyasarAccountController::class, 'paymentCallback'])->name('payment.callback');
+    Route::get('/update-plan', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
 });
