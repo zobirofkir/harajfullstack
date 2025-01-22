@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class PCarChartWidget extends ChartWidget
 {
     protected static ?string $heading = 'إحصائيات السيارات';
+    protected int | string | array $columnSpan = 'full';
 
     protected function getData(): array
     {
