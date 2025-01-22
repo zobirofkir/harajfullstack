@@ -43,6 +43,15 @@
         </span>
         @endif
 
+        @if (!Auth::check())
+            <p> </p>
+        @else
+            <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+                <a href="{{ route('moyasar.activate', ['user' => Auth::user()->id]) }}">
+                    <i class="fas ml-4 fa-user mr-2"></i>اشترك
+                </a>
+            </span>
+        @endif
     </div>
 </div>
 
