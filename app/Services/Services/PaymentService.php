@@ -16,7 +16,6 @@ class PaymentService implements PaymentConstructor
 
     public function paymentCallback(Request $request)
     {
-        try {
             $paymentStatus = $request->query('status');
             $plan = $request->query('plan');
 
@@ -34,9 +33,5 @@ class PaymentService implements PaymentConstructor
             }
 
             return back()->with('error', 'حالة الدفع غير ناجحة.');
-        } catch (\Exception $e) {
-            Log::error('Payment Callback Error: ' . $e->getMessage());
-            return back()->with('error', 'حدث خطأ غير متوقع.');
-        }
     }
 }
