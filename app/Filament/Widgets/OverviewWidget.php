@@ -21,16 +21,16 @@ class OverviewWidget extends BaseWidget
         }
 
         $stats = [
-            Stat::make('السيارات', $user->cars()->count())
-                ->description('عدد السيارات المرتبطة بك')
-                ->color('success')
-                ->icon('heroicon-o-truck'),
-
             Stat::make('الصفحة الرئيسية', 'صفحة رئيسية')
                 ->description('الصفحة الرئيسية')
                 ->color('info')
                 ->icon('heroicon-o-home')
-                ->url(route('home'))
+                ->url(route('home')),
+
+            Stat::make('السيارات', $user->cars()->count())
+                ->description('عدد السيارات المرتبطة بك')
+                ->color('success')
+                ->icon('heroicon-o-truck')
         ];
 
         if ($user->hasPlan('خطة مجانية')) {
