@@ -97,7 +97,7 @@
                     amount: amount,
                     currency: 'SAR',
                     description: description,
-                    publishable_api_key: 'pk_test_bFXYGZg2Ue4yXHBQ8JkzCnv5oKEhuKnc3MiALy9c',
+                    publishable_api_key: '{{ env('MOYASAR_API_KEY') }}',
                     callback_url: "{{ route('payment.callback') }}?plan=" + plan,
                     methods: ['creditcard', 'stcpay']
                 });
