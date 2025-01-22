@@ -166,12 +166,12 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::middleware('auth')->group(function () {
 
     /**
-     *Get Active Card
+     * Get Active Card
      */
     Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');
 
     /**
-     *Get Payment Callback
+     * Get Payment Callback
      */
     Route::get('/update-plan', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
 });
