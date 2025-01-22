@@ -6,7 +6,7 @@
         <span class="font-semibold text-xl text-center text-gray-800">
             @php
                 switch (Auth::user()->plan) {
-                    case 'free':
+                    case 'خطة مجانية':
                         $plan_name = "الخطة المجانية";
                         $plan_description = "إعلانين يوميًا بحد أقصى 7 إعلانات في الأسبوع.";
                         break;
