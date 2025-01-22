@@ -15,18 +15,27 @@ class CreateMoyasarAccountController extends Controller
 
     public function paymentCallback(Request $request)
     {
-        $plan = $request->get('plan');
+        try {
+            $paymentStatus = $request->query('status');
+            $plan = $request->query('plan');
 
-        if ($plan) {
-            $user = Auth::user();
-
-            if ($user) {
-                $user->update(['plan' => $plan]);
-
-                return redirect('/admin')->with('success', 'تم تحديث خطتك بنجاح');
+            if (!$paymentStatus || !$plan) {
+                return back()->with('error', 'البيانات المطلوبة مفقودة.');
             }
-        }
 
-        return redirect('/admin')->with('error', 'الدفع غير ناجح أو رد الاتصال غير صالح');
+            if ($paymentStatus === 'paid') {
+                $user = Auth::user();
+                if ($user) {
+                    $user->update(['plan' => $plan]);
+
+                    return redirect('/admin')->with('success', 'تم تحديث خطتك بنجاح.');
+                }
+            }
+
+            return back()->with('error', 'حالة الدفع غير ناجحة.');
+        } catch (\Exception $e) {
+            Log::error('Payment Callback Error: ' . $e->getMessage());
+            return back()->with('error', 'حدث خطأ غير متوقع.');
+        }
     }
 }
