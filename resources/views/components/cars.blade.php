@@ -88,9 +88,15 @@
 
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px]">
-            <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
-                <i class="fas fa-car mr-2"></i> السيارات المتاحة
-            </h2>
+            @if (!Auth::check())
+                <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
+                    <i class="fas fa-car mr-2"></i> السيارات المتاحة
+                </h2>
+            @else
+                <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
+                    <i class="fas fa-hand mr-2"></i> مرحبًا بعودتك {{ Auth::user()->name }}
+                </h2>
+            @endif
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
