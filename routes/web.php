@@ -103,6 +103,11 @@ Route::get('/privacy', function () {return view('pages.privacy.privacy');});
  */
 Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.store');
 
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+
 Route::middleware('auth')->group(function () {
     Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');
 
