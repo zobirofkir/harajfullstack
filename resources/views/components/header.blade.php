@@ -50,7 +50,11 @@
     <div>
         <a href="{{url('/')}}" class="flex items-center gap-4">
             <img src="{{asset('assets/images/logo.png')}}" alt="Logo" class="w-10 h-10">
-            <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">دينالي</span>
+            @if (!Auth::check())
+                <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">دينالي</span>
+            @else
+                <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">{{ Auth::user()->name }}</span>
+            @endif
         </a>
     </div>
 
