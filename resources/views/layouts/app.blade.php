@@ -32,6 +32,10 @@
 
     @include('components.header')
 
+    <section>
+        @include('components.plan')
+    </section>
+    
     <main>
         {{ $slot }}
     </main>

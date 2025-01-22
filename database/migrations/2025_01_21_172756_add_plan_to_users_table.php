@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('plan')->default('free')->after('is_active');
+            $table->string('plan')->default('خطة مجانية')->after('is_active');
         });
     }
 
