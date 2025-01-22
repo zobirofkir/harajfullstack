@@ -12,6 +12,7 @@ class Car extends Model
         'images',
         'price',
         'description',
+        'negotiable_price',
         'slug',
     ];
 

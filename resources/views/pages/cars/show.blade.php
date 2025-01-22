@@ -22,13 +22,6 @@
 
             <div class="flex justify-between items-center w-full gap-6">
                 <div class="w-full md:w-auto">
-                    <h3 class="font-medium text-gray-600 md:text-lg text-sm text-center md:text-start flex items-center gap-3 overflow-hidden whitespace-nowrap">
-                        <i class="fas fa-map-marker-alt text-lg text-gray-500"></i>
-                        {{ Str::limit($car->user->location ?? 'السعودية', 15) }}
-                    </h3>
-                </div>
-
-                <div class="w-full md:w-auto">
                     <p class="md:text-lg text-sm text-gray-600 text-center md:text-start flex items-center gap-3 whitespace-nowrap">
                         <i class="fas fa-calendar-day text-lg text-gray-500"></i>
                         {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
@@ -42,24 +35,6 @@
                 <!-- Car Details Section -->
                 <div class="p-8 bg-white rounded-lg">
 
-                    <!-- Car Info Section -->
-                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->info }}</span>
-                    </div>
-
-                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->category->title }}</span>
-                    </div>
-
-                    <!-- Address Section -->
-                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->address }}</span>
-                    </div>
-
-                    <!-- Gasoline Type Section -->
-                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->gasoline->type }}</span>
-                    </div>
 
                     <!-- Car Description Section -->
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
@@ -69,11 +44,6 @@
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
                         <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->price }} ريال</span>
                     </div>
-
-                    <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-gray-400 font-medium line-through">ريال {{ $car->old_price ?? $car->price }}</span>
-                    </div>
-
                 </div>
 
                 <!-- Main Image Display Section -->
