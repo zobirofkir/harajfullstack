@@ -28,7 +28,7 @@ class PaymentService implements PaymentConstructor
                 if ($user) {
                     $user->update(['plan' => $plan]);
 
-                    return redirect('/admin')->with('success', 'تم تحديث خطتك بنجاح.');
+                    return redirect('/')->with('success', 'تم تحديث خطتك بنجاح.');
                 }
             }
 
