@@ -75,16 +75,6 @@
         </li>
 
         <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-list"></i>
-            <a href="{{route('categories.index')}}" class="hover:text-gray-500">التصنيفات</a>
-        </li>
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-gas-pump"></i>
-            <a href="{{route('gasolines.index')}}" class="hover:text-gray-500">الوقود</a>
-        </li>
-
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
             <i class="fa-solid fa-building"></i>
             <a href="{{url('/abouts')}}" class="hover:text-gray-500">حول</a>
         </li>
@@ -111,50 +101,6 @@
         @endif
     </ul>
 </div>
-
-
-<!-- هيكل المودال -->
-<div id="categoryModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
-    <div class="bg-white w-full max-w-7xl h-auto max-h-[80vh] overflow-auto p-6 rounded-lg shadow-xl">
-        <div class="flex justify-between mb-6 items-center">
-            <h2 class="text-3xl font-semibold text-gray-800">الشعارات</h2>
-            <button onclick="closeModal()" class="text-gray-600 text-3xl hover:text-gray-900 focus:outline-none">
-                ×
-            </button>
-        </div>
-
-        @php
-            $logos = App\Services\Facades\LogoFacade::index();
-        @endphp
-
-
-        <!-- Scrollable category container -->
-        <div class="overflow-x-auto overflow-y-hidden mt-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex gap-6 flex-nowrap animate-marquee space-x-8">
-                @foreach ($logos['logos'] as $logo)
-                    <a href="{{ route('logos.show', $logo->id) }}" class="flex-shrink-0 transform transition-all duration-500 ease-in-out hover:scale-105 hover:rotate-360 mb-4">
-                        <img src="{{ asset('storage/' . $logo->image) }}" alt="Logo" class="w-24 h-24 object-contain transition-transform duration-300 ease-in-out hover:scale-110 mb-4 rounded-lg shadow-md">
-                        <h3 class="text-sm font-semibold text-gray-400 mt-2 hover:text-primary-600 transition-colors duration-300">
-                            {{ Str::limit($logo->title, 15) }}
-                        </h3>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<script>
-    function openModal() {
-        document.getElementById('categoryModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-        document.getElementById('categoryModal').classList.add('hidden');
-    }
-</script>
 
 
 <div id="overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-40"></div>

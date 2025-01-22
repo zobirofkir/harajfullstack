@@ -1,10 +1,7 @@
 @php
-    $categories = App\Services\Facades\CategoryFacade::index();
-    $logos = App\Services\Facades\LogoFacade::index();
 
     $figureFilter = request('figure');
 
-    $categoryFilter = request('category');
     $startDate = request('start_date');
     $endDate = request('end_date');
     $price = request('price');
@@ -12,13 +9,6 @@
 
     $query = App\Models\Car::query()->orderBy('created_at', 'desc');
 
-    if ($categoryFilter) {
-        $query->where('category_id', $categoryFilter);
-    }
-
-    if ($figureFilter) {
-        $query->where('logo_id', $figureFilter);
-    }
 
     if ($startDate && $endDate) {
         $query->whereBetween('created_at', [$startDate, $endDate]);
@@ -46,48 +36,6 @@
                     <a href="{{ url()->current() }}" class="block text-center bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300">
                         <i class="fas fa-times-circle mr-2"></i> إعادة التصفية
                     </a>
-                </div>
-
-
-                <!-- Car Figures Filter -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('figuresDropdown')">
-                        <i class="fas fa-car-side mr-2"></i> تصفية حسب النوع
-                    </h3>
-                    <div id="figuresDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                        <ul class="grid grid-cols-2 gap-4 pl-6">
-                            @foreach ($logos['logos'] as $figure)
-                                <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md whitespace-nowrap mt-2">
-                                    <!-- Use different icons based on car type -->
-                                    <img src="{{ asset('storage/'.$figure->image) }}" class="w-12 h-12 object-cover rounded-md" alt="">
-
-                                    <a href="{{ route('cars.index', ['figure' => $figure->id] + request()->except('figure')) }}" class="text-gray-600 hover:text-gray-500 transition-colors duration-300">
-                                        {{ Str::limit($figure->title , 5) }}
-                                    </a>
-                                </li>
-                            @endforeach
-
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Categories Filter -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('categoriesDropdown')">
-                        <i class="fas fa-th-list mr-2"></i> الفئات
-                    </h3>
-                    <div id="categoriesDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                        <ul class="pl-6">
-                            @foreach ($categories['categories'] as $category)
-                                <li class="flex items-center space-x-4 rtl:space-x-reverse hover:bg-gray-100 rounded-md py-2">
-                                    <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->title }}" class="w-12 h-12 object-cover rounded-md">
-                                    <a href="{{ url()->current() . '?category=' . $category->id }}" class="text-gray-600 hover:text-gray-500 transition-colors duration-300">
-                                        {{ $category->title }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
                 </div>
 
                 <!-- Date Filter -->
