@@ -44,7 +44,7 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('index.register')->with('success', 'تم تسجيل الخروج بنجاح.');
+        return redirect()->route('index.login')->with('success', 'تم تسجيل الخروج بنجاح.');
     }
 
 

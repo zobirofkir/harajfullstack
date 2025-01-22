@@ -95,18 +95,22 @@
             <a href="{{url('/contacts')}}" class="hover:text-gray-500">اتصل بنا</a>
         </li>
 
-        <!-- Login Item -->
-        <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-            <i class="fa-solid fa-user-circle"></i>
-            <a href="{{url('/login')}}" class="hover:text-gray-500">تسجيل الدخول</a>
-        </li>
-
         {{--Logout Item --}}
-        @if (Auth::check())
+        @if (!Auth::check())
+            <!-- Login Item -->
+            <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
+                <i class="fa-solid fa-user-circle"></i>
+                <a href="{{url('/login')}}" class="hover:text-gray-500">تسجيل الدخول</a>
+            </li>
+
+            @else
 
             <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
-                <i class="fa-solid fa-user"></i>
-                <a href="{{Auth::logout()}}" class="hover:text-gray-500">تسجيل الخروج</a>
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="hover:text-gray-500">تسجيل الخروج</button>
+                </form>
             </li>
 
         @endif
