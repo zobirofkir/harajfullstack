@@ -26,11 +26,22 @@
             </a>
         </span>
 
+        @if (Auth::check())
+        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">
+                    <i class="fa-solid ml-4 fa-right-from-bracket mr-2"></i>تسجيل الخروج
+                </button>
+            </form>
+        </span>
+        @else
         <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/login')}}">
-                <i class="fas ml-4 fa-user mr-2"></i>الحساب
+                <i class="fas ml-4 fa-user mr-2"></i>تسجيل الدخول
             </a>
         </span>
+        @endif
 
     </div>
 </div>

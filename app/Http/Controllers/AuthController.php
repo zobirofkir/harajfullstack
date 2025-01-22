@@ -44,12 +44,13 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('index.login')->with('success', 'تم تسجيل الخروج بنجاح.');
+        return redirect()->route('index.register')->with('success', 'تم تسجيل الخروج بنجاح.');
     }
+
 
     public function indexForgotPassword()
     {
-        return view('pages.auth.forgot-password');
+        return view('pages.auth.forget-password');
     }
 
     public function forgotPassword(Request $request)
@@ -67,6 +68,11 @@ class AuthController extends Controller
         }
 
         return back()->with('error', 'تعذر إرسال رابط إعادة تعيين كلمة المرور. حاول مرة أخرى.');
+    }
+
+    public function showResetPasswordForm($token)
+    {
+        return view('pages.auth.reset', ['token' => $token]);
     }
 
     public function resetPassword(Request $request)

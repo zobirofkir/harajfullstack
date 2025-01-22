@@ -1,6 +1,18 @@
 <x-app-layout title="تسجيل حساب جديد">
     <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8 bg-white rounded-lg shadow-lg p-8">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <h2 class="text-center text-3xl font-extrabold text-gray-900">
                 إنشاء حساب جديد
             </h2>
@@ -68,6 +80,16 @@
                         تسجيل
                     </button>
                 </div>
+
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        لديك حساب؟
+                        <a href="{{ route('login') }}" class="text-gray-800 font-medium hover:underline">
+                            دخول
+                        </a>
+                    </p>
+                </div>
+
             </form>
         </div>
     </div>

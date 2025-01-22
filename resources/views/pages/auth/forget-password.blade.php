@@ -1,4 +1,4 @@
-<x-app-layout title="نسيت كلمة المرور">>
+<x-app-layout title="نسيت كلمة المرور">
     <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8 bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-center text-3xl font-extrabold text-gray-900">
@@ -24,6 +24,11 @@
                     </button>
                 </div>
             </form>
+
+            @if (session('success'))
+                <p class="text-green-500 text-sm mt-4 text-center">{{ session('success') }}</p>
+            @endif
+
             @if (session('status'))
                 <div class="mt-4 bg-green-100 text-green-700 p-4 rounded">
                     {{ session('status') }}

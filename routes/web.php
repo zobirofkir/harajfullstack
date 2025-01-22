@@ -111,8 +111,13 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/forgot-password', [AuthController::class, 'indexForgotPassword'])->name('index.forgot-password');
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
+
+Route::get('password/reset/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+
+Route::post('password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
+Route::get('forgot-password', [AuthController::class, 'indexForgotPassword'])->name('forgot-password');
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');

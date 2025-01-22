@@ -45,7 +45,7 @@
                 </p>
                 <p class="text-sm text-gray-600 mt-4">
                     نسيت كلمة المرور؟
-                    <a href="{{ route('index.forgot-password') }}" class="text-gray-800 font-medium hover:underline">
+                    <a href="{{ route('forgot-password') }}" class="text-gray-800 font-medium hover:underline">
                         استعادة كلمة المرور
                     </a>
                 </p>
