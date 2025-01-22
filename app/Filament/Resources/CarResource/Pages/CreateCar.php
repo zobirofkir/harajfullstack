@@ -45,10 +45,12 @@ class CreateCar extends CreateRecord
 
         if ($dailyAdsCount >= $maxDailyAds) {
             throw new \Exception('لقد وصلت إلى الحد الأقصى للإعلانات اليومية.');
+            abort(403, 'لقد وصلت إلى الحد الأقصى للإعلانات اليومية.');
         }
 
         if ($weeklyAdsCount >= $maxWeeklyAds) {
             throw new \Exception('لقد وصلت إلى الحد الأقصى للإعلانات الأسبوعية.');
+            abort(403, 'لقد وصلت إلى الحد الأقصى للإعلانات الأسبوعية.');
         }
     }
 }
