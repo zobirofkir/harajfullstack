@@ -106,7 +106,13 @@ Route::post('offers/{slug}', [OfferController::class, 'store'])->name('offers.st
 Route::get('/register', [AuthController::class, 'index'])->name('index.register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'indexLogin'])->name('index.login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/forgot-password', [AuthController::class, 'indexForgotPassword'])->name('index.forgot-password');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
 
 Route::middleware('auth')->group(function () {
     Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');
