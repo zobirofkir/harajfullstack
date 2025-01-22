@@ -84,30 +84,6 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class);
     }
 
-    public function canCreateCar(): bool
-    {
-        $lastCar = $this->cars()->latest()->first();
-        if (!$lastCar) {
-            return true;
-        }
-
-        return $lastCar->created_at->diffInHours(now()) >= 24;
-    }
-
-    public function carLimit(): int
-    {
-        switch ($this->plan) {
-            case 'free':
-                return 7;
-            case 'semi_annual':
-                return PHP_INT_MAX;
-            case 'annual':
-                return PHP_INT_MAX;
-            default:
-                return 2;
-        }
-    }
-
     public function scopePlan($query, $plan)
     {
         return $query->where('plan', $plan);
