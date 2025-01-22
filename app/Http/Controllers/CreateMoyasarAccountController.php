@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -14,27 +13,20 @@ class CreateMoyasarAccountController extends Controller
         return view('moyassar.packs');
     }
 
-    public function handlePaymentCallback(Request $request)
+    public function paymentCallback(Request $request)
     {
-        try {
-            $paymentStatus = $request->query('status');
-            $paymentId = $request->query('id');
+        $plan = $request->get('plan');
 
-            if (!$paymentStatus || !$paymentId) {
-                return back()->with('error', 'البيانات المطلوبة مفقودة.');
-            }
+        if ($plan) {
+            $user = Auth::user();
 
-            if ($paymentStatus === 'paid') {
-                $user = Auth::user();
-                if ($user) {
-                    $user->update(['is_active' => true]);
-                    return redirect('/admin')->with('success', 'تم تفعيل حسابك بنجاح.');
-                }
+            if ($user) {
+                $user->update(['plan' => $plan]);
+
+                return redirect('/admin')->with('success', 'تم تحديث خطتك بنجاح');
             }
-            return back()->with('error', 'حالة الدفع غير ناجحة.');
-        } catch (\Exception $e) {
-            Log::error('Payment Callback Error: ' . $e->getMessage());
-            return back()->with('error', 'حدث خطأ غير متوقع.');
         }
+
+        return redirect('/admin')->with('error', 'الدفع غير ناجح أو رد الاتصال غير صالح');
     }
 }

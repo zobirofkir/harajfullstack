@@ -110,14 +110,6 @@ Route::get('/payments', [CreateMoyasarAccountController::class, 'index'])->name(
 
 Route::middleware('auth')->group(function () {
     Route::get('/payments/activate/{user}', [CreateMoyasarAccountController::class, 'activate'])->name('moyasar.activate');
-    Route::get('/payment/callback', [CreateMoyasarAccountController::class, 'handlePaymentCallback'])->name('payment.callback');
 
-    Route::post('/api/update-plan', function (Request $request) {
-        $user = Auth::user();
-        if ($user) {
-            $user->update(['plan' => $request->plan]);
-            return response()->json(['success' => true]);
-        }
-        return response()->json(['success' => false]);
-    });
+    Route::get('/update-plan', [CreateMoyasarAccountController::class, 'paymentCallback'])->name('payment.callback');
 });

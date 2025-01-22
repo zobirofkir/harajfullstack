@@ -28,7 +28,8 @@ class User extends Authenticatable
         'role',
         'moyasar_account_id',
         'is_active',
-        'plan'
+        'plan',
+        'payment_status'
     ];
 
     /**
