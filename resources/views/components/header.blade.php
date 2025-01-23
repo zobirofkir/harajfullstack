@@ -36,16 +36,6 @@
 
         @endif
 
-        @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
-            <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
-                <a href="{{ url('/admin') }}">
-                    <i class="fas ml-4 fa-sliders mr-2"></i>لوحة التحكم
-                </a>
-            </span>
-        @else
-
-        @endif
-
         @if (Auth::check())
             <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
                 <form action="{{ route('logout') }}" method="POST">
