@@ -36,23 +36,29 @@ class ChatController extends Controller
             'username' => 'required|string|max:255',
         ]);
 
-        $chat = Chat::firstOrCreate([
-            'username' => $request->username,
-            'car_id' => $request->car_id,
-        ]);
+        if (Auth::check()) {
+            $chat = Chat::firstOrCreate([
+                'username' => $request->username,
+                'car_id' => $request->car_id,
+            ]);
+            return redirect()->route('chats.show', ['userName' => $request->username, 'carId' => $request->car_id]);
+        }
 
-        return redirect()->route('chats.show', ['userName' => $request->username, 'carId' => $request->car_id]);
+        return redirect()->route('login');
     }
 
     public function sendMessage(Request $request, Chat $chat)
     {
         $request->validate(['content' => 'required|string']);
 
-        $chat->messages()->create([
-            'username' => $chat->car->user->name,
-            'content' => $request->content,
-        ]);
+        if (Auth::check()) {
+            $chat->messages()->create([
+                'username' => Auth::user()->name,
+                'content' => $request->content,
+            ]);
+            return back();
+        }
 
-        return back();
+        return redirect()->route('login');
     }
 }

@@ -86,26 +86,6 @@ Route::get('/gasolines', [GasolineController::class, 'index'])->name('gasolines.
 Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolines.show');
 
 /**
- * List of chats
- */
-Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
-
-/**
- * Show a specific chat
- */
-Route::get('/chats/{userName}-{carId}', [ChatController::class, 'show'])->name('chats.show');
-
-/**
- * Store chat
- */
-Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
-
-/**
- * Store message
- */
-Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
-
-/**
  * Privacy page
  */
 Route::get('/privacy', function () {return view('pages.privacy.privacy');});
@@ -164,6 +144,26 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
  * Authenticated Routes
  */
 Route::middleware('auth')->group(function () {
+
+    /**
+     * List of chats
+     */
+    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+
+    /**
+     * Show a specific chat
+     */
+    Route::get('/chats/{userName}-{carId}', [ChatController::class, 'show'])->name('chats.show');
+
+    /**
+     * Store chat
+     */
+    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+
+    /**
+     * Store message
+     */
+    Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
 
     /**
      * Get Active Card
