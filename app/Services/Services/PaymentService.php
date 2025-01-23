@@ -11,7 +11,8 @@ class PaymentService implements PaymentConstructor
 {
     public function activate(User $user)
     {
-        return view('moyassar.packs');
+        $selectedPlan = $user->plan;
+        return view('moyassar.packs', compact('selectedPlan'));
     }
 
     public function paymentCallback(Request $request)

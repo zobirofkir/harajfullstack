@@ -56,6 +56,7 @@
                     data-description="اشتراك الخطة التجريبية نصف السنوية"
                     data-plan="semi_annual"
                     id="semi-annual-plan-button"
+                    {{ $selectedPlan === 'semi_annual' ? 'disabled' : '' }}
                 >
                     اشترك الآن
                 </button>
@@ -80,6 +81,7 @@
                     data-description="اشتراك الخطة التجريبية السنوية"
                     data-plan="annual"
                     id="annual-plan-button"
+                    {{ $selectedPlan === 'annual' ? 'disabled' : '' }}
                 >
                     اشترك الآن
                 </button>
