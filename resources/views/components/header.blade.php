@@ -26,17 +26,17 @@
             </a>
         </span>
 
-        @if (!Auth::check())
-
-        @else
+        @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
             <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
                 <a href="{{ route('moyasar.activate', ['user' => Auth::user()->id]) }}">
                     <i class="fas ml-4 fa-user mr-2"></i>اشترك
                 </a>
             </span>
+        @else
+
         @endif
 
-        @if (Auth::check() && Auth::user() && Auth::user()->role === 'supplier')
+        @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
             <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
                 <a href="{{ url('/admin') }}">
                     <i class="fas ml-4 fa-sliders mr-2"></i>لوحة التحكم
