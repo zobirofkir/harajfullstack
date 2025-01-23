@@ -17,7 +17,7 @@
 
     <title>خيارات الدفع</title>
 </head>
-<body class="bg-white flex md:justify-center md:items-center h-screen">
+<body class="bg-white flex md:justify-center md:items-center">
     <div class="container mx-auto p-4">
 
         <header class="bg-blue-950 text-white py-4 rounded">
