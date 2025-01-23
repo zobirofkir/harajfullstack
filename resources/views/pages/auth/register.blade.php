@@ -27,7 +27,7 @@
                         <label for="user" class="mr-2 text-sm text-gray-700">مستخدم</label>
 
                         <input id="buyer" name="account_type" type="radio" value="مشتري" required class="h-5 w-5 text-gray-600 focus:ring-gray-500 border-gray-300">
-                        <label for="buyer" class="ml-2 text-sm text-gray-700">مشتري</label>
+                        <label for="buyer" class="ml-2 text-sm text-gray-700">تاجر</label>
                     </div>
                 </div>
 
