@@ -78,6 +78,14 @@
         </a>
     </div>
 
+    @if (Auth::check())
+        <div class="text-green-500 hover:text-green-600 bg-green-100 py-2 px-4 rounded">
+            <a href="{{url('/admin/login')}}">Switch to Selling</a>
+        </div>
+    @else
+        
+    @endif
+
     <button id="menuButton" class="block focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
