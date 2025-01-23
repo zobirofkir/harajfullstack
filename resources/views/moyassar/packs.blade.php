@@ -18,10 +18,16 @@
     <title>خيارات الدفع</title>
 </head>
 <body class="bg-white flex md:justify-center md:items-center h-screen">
-
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-extrabold text-center mb-8 text-gray-800">اختر خطتك المثالية</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <header class="bg-blue-600 text-white py-4 rounded">
+            <div class="container mx-auto text-center">
+                <h1 class="text-3xl font-bold">مرحبًا بك في صفحة الدفع</h1>
+                <p class="mt-2 text-lg">اختر خطتك المفضلة وابدأ الاستخدام الآن!</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             <!-- Free Plan -->
             <div class="bg-white border border-gray-300 rounded-xl shadow-lg p-6 hover:scale-105 hover:shadow-2xl transition-transform duration-300" id="free-plan">
                 <div class="flex justify-center mb-4">
