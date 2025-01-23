@@ -36,7 +36,9 @@ class ContactSellerService implements ContactSellerConstructor
             'car_url' => $carUrl,
         ];
 
-        Mail::to($data['car_seller_email'])->send(new ContactSellerMail($data));
+        if (!empty($data['car_seller_email'])) {
+            Mail::to($data['car_seller_email'])->send(new ContactSellerMail($data));
+        }
 
         return [
             'success' => true,
