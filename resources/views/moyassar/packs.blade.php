@@ -25,6 +25,10 @@
                 <h1 class="text-3xl font-bold">مرحبًا بك في صفحة الدفع</h1>
                 <p class="mt-2 text-lg">اختر خطتك المفضلة وابدأ الاستخدام الآن!</p>
             </div>
+
+            <div class="flex justify-center mt-4">
+                <a href="{{ url('/') }}" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-600 hover:text-white transition-colors duration-300">الرئيسية</a>
+            </div>
         </header>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
