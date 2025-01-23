@@ -22,12 +22,12 @@
                 <!-- Account Type Selection -->
                 <div class="mb-4">
                     <label for="account_type" class="block text-sm font-medium text-gray-700">نوع الحساب</label>
-                    <div class="mt-2 flex items-center">
+                    <div class="mt-2 flex items-center gap-4">
                         <input id="user" name="account_type" type="radio" value="مستخدم" required class="h-4 w-4 text-gray-800 focus:ring-gray-500 border-gray-300">
-                        <label for="user" class="ml-2 text-sm text-gray-700">مستخدم</label>
+                        <label for="user" class="mr-1 text-sm text-gray-700">مستخدم</label>
 
                         <input id="buyer" name="account_type" type="radio" value="مشتري" required class="ml-4 h-4 w-4 text-gray-800 focus:ring-gray-500 border-gray-300">
-                        <label for="buyer" class="ml-2 text-sm text-gray-700">مشتري</label>
+                        <label for="buyer" class="ml-1 text-sm text-gray-700">مشتري</label>
                     </div>
                 </div>
 

@@ -78,7 +78,7 @@
         </a>
     </div>
 
-    @if (Auth::check())
+    @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
         <div class="text-green-500 hover:text-green-600 bg-green-100 py-2 px-4 rounded">
             <a href="{{url('/admin/login')}}">الانتقال لحساب البائع</a>
         </div>
