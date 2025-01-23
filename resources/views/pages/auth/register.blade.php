@@ -16,8 +16,25 @@
             <h2 class="text-center text-3xl font-extrabold text-gray-900">
                 إنشاء حساب جديد
             </h2>
+
             <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}">
                 @csrf
+                <!-- Account Type Selection -->
+                <div class="mb-4">
+                    <label for="account_type" class="block text-sm font-medium text-gray-700">نوع الحساب</label>
+                    <div class="mt-2 flex items-center">
+                        <input id="user" name="account_type" type="radio" value="مستخدم" required class="h-4 w-4 text-gray-800 focus:ring-gray-500 border-gray-300">
+                        <label for="user" class="ml-2 text-sm text-gray-700">مستخدم</label>
+
+                        <input id="buyer" name="account_type" type="radio" value="مشتري" required class="ml-4 h-4 w-4 text-gray-800 focus:ring-gray-500 border-gray-300">
+                        <label for="buyer" class="ml-2 text-sm text-gray-700">مشتري</label>
+                    </div>
+                </div>
+
+                @error('account_type')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
+
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label for="name" class="sr-only">الاسم الكامل</label>
@@ -59,6 +76,7 @@
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
                 </div>
+
                 <div>
                     <button type="submit"
                             class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-transform transform hover:scale-105">

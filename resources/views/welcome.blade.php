@@ -1,9 +1,13 @@
 <x-app-layout title="{{ config('app.name') }}">
     @include('components.search')
 
-    <section>
-        @include('components.plan')
-    </section>
+        @if (Auth::user()->account_type === 'مشتري')
+            <section>
+                @include('components.plan')
+            </section>
+        @else
+            
+        @endif
 
     <div>
         @include('components.cars')

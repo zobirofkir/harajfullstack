@@ -27,6 +27,7 @@ class User extends Authenticatable
         'moyasar_account_id',
         'is_active',
         'plan',
+        'account_type',
         'payment_status'
     ];
 
