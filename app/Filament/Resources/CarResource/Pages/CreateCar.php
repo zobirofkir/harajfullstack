@@ -16,7 +16,7 @@ class CreateCar extends CreateRecord
         $user = Auth::user();
 
         switch ($user->plan) {
-            case 'free':
+            case 'خطة مجانية':
                 $maxDailyAds = 2;
                 $maxWeeklyAds = 7;
                 break;
