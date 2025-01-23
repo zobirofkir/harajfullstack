@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chat;
 use App\Models\Message;
+use App\Services\Facades\ChatFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,54 +12,21 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $chats = Chat::where('username', request()->username)->with('car')->get();
-        return view('pages.chats.index', compact('chats'));
+        return ChatFacade::index();
     }
 
     public function show($userName, $carId)
     {
-        $chat = Chat::where('username', $userName)
-                    ->where('car_id', $carId)
-                    ->firstOrCreate([
-                        'username' => $userName,
-                        'car_id' => $carId,
-                    ]);
-
-        $messages = $chat->messages()->get();
-
-        return view('pages.chats.show', compact('chat', 'messages'));
+        return ChatFacade::show($userName, $carId);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'car_id' => 'required|exists:cars,id',
-            'username' => 'required|string|max:255',
-        ]);
-
-        if (Auth::check()) {
-            $chat = Chat::firstOrCreate([
-                'username' => $request->username,
-                'car_id' => $request->car_id,
-            ]);
-            return redirect()->route('chats.show', ['userName' => $request->username, 'carId' => $request->car_id]);
-        }
-
-        return redirect()->route('login');
+        return ChatFacade::store($request);
     }
 
     public function sendMessage(Request $request, Chat $chat)
     {
-        $request->validate(['content' => 'required|string']);
-
-        if (Auth::check()) {
-            $chat->messages()->create([
-                'username' => Auth::user()->name,
-                'content' => $request->content,
-            ]);
-            return back();
-        }
-
-        return redirect()->route('login');
+        return ChatFacade::sendMessage($request, $chat);
     }
 }
