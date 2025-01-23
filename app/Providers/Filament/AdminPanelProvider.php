@@ -93,6 +93,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->middleware([
+                \App\Http\Middleware\EnsureAccountTypeIsBuyer::class, 
             ]);
     }
 }
