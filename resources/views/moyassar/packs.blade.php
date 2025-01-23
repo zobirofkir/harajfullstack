@@ -50,16 +50,17 @@
                         نلتزم بعدم تغيير سعر الاشتراك طوال المدة.
                     </p>
                 </div>
+
                 <button
-                    class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
+                    class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form {{ $selectedPlan === 'semi_annual' ? 'hidden' : '' }}"
                     data-amount="34500"
                     data-description="اشتراك الخطة التجريبية نصف السنوية"
                     data-plan="semi_annual"
                     id="semi-annual-plan-button"
-                    {{ $selectedPlan === 'semi_annual' ? 'disabled' : '' }}
                 >
                     اشترك الآن
                 </button>
+
             </div>
 
             <!-- Annual Trial Plan -->
@@ -76,12 +77,11 @@
                     </p>
                 </div>
                 <button
-                    class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form"
+                    class="w-full bg-gray-100 text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-300 mysr-form {{ $selectedPlan === 'annual' ? 'hidden' : '' }}"
                     data-amount="57500"
                     data-description="اشتراك الخطة التجريبية السنوية"
                     data-plan="annual"
                     id="annual-plan-button"
-                    {{ $selectedPlan === 'annual' ? 'disabled' : '' }}
                 >
                     اشترك الآن
                 </button>
