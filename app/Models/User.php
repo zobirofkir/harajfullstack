@@ -23,12 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'location',
         'image',
         'moyasar_account_id',
         'is_active',
         'plan',
-        'role',
         'payment_status'
     ];
 

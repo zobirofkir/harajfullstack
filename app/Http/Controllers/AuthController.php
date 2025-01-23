@@ -21,12 +21,6 @@ class AuthController extends Controller
     {
         $user = User::create($request->validated());
 
-        if ($user->role == 'user') {
-            return redirect('/');
-        } else if($user->role == 'supplier') {
-            return redirect('/admin');
-        }
-
         return redirect()->route('index.login')->with('success', 'تم التسجيل بنجاح! يرجى تسجيل الدخول.');
     }
 
