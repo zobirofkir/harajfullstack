@@ -20,14 +20,14 @@
 <body class="bg-white flex md:justify-center md:items-center h-screen">
     <div class="container mx-auto p-4">
 
-        <header class="bg-blue-600 text-white py-4 rounded">
+        <header class="bg-blue-950 text-white py-4 rounded">
             <div class="container mx-auto text-center">
-                <h1 class="text-3xl font-bold">مرحبًا بك في صفحة الدفع</h1>
-                <p class="mt-2 text-lg">اختر خطتك المفضلة وابدأ الاستخدام الآن!</p>
+                <h1 class="text-3xl font-bold">مرحبا بك عزيزي التاجر</h1>
+                <p class="mt-2 text-lg">اختر ما يناسبك لنشر إعلاناتك للكثير من المشاهدين</p>
             </div>
 
             <div class="flex justify-center mt-4">
-                <a href="{{ url('/') }}" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-600 hover:text-white transition-colors duration-300">الرئيسية</a>
+                <a href="{{ url('/') }}" class="bg-white text-blue-950 px-4 py-2 rounded-lg font-bold hover:bg-blue-950 hover:text-white transition-colors duration-300">الرئيسية</a>
             </div>
         </header>
 
