@@ -43,14 +43,14 @@ class OverviewWidget extends BaseWidget
             $stats[] = Stat::make('الخطة', ' نصف سنوية')
                 ->description('عدد لا محدود من الإعلانات')
                 ->color('warning')
-                ->icon('heroicon-o-star');
-                // ->url(route('moyasar.activate', ['user' => $user->id]));
+                ->icon('heroicon-o-star')
+                ->url(route('moyasar.activate', ['user' => $user->id]));
         } elseif ($user->hasPlan('annual')) {
             $stats[] = Stat::make('الخطة', ' سنوية')
                 ->description('عدد لا محدود من الإعلانات مع سعر ثابت')
                 ->color('success')
-                ->icon('heroicon-o-star');
-                // ->url(route('moyasar.activate', ['user' => $user->id]));
+                ->icon('heroicon-o-star')
+                ->url(route('moyasar.activate', ['user' => $user->id]));
         }
 
         return $stats;
