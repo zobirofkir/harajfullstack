@@ -46,16 +46,19 @@ class MessageResource extends Resource
             ->columns([
                 TextColumn::make('username')->label('اسم المستخدم'),
                 TextColumn::make('content')->label('المحتوى'),
-            ])
+                TextColumn::make('created_at')
+                    ->label('التاريخ')
+                    ->getStateUsing(fn ($record) => $record->created_at->diffForHumans()),
+                ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('عرض'),
+                Tables\Actions\ViewAction::make()->label('عرض الرسائل'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->label('حذف'),
+                    Tables\Actions\DeleteBulkAction::make()->label('حذف الرسائل'),
                 ]),
             ]);
     }
