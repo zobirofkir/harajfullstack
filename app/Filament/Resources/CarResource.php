@@ -37,7 +37,7 @@ class CarResource extends Resource
         return $form
             ->schema([
 
-                TextInput::make('title')->label('عنوان السيارة')->required()->maxLength(255),
+                TextInput::make('title')->label('اسم السيارة')->required()->maxLength(255),
 
                 Textarea::make('description')->label('الوصف')->required()->maxLength(500),
 
@@ -50,7 +50,7 @@ class CarResource extends Resource
                         'fixed' => 'ثابت',
                     ])
                     ->required()
-                    ->reactive(), // لتفعيل التحديث الفوري عند تغيير القيمة
+                    ->reactive(),
 
                 TextInput::make('price')
                     ->label('السعر')
@@ -75,7 +75,7 @@ class CarResource extends Resource
             ->query(Car::query()->where('user_id', Auth::id()))
             ->columns([
                 ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn($record) => $record->images[0] ?? null),
-                TextColumn::make('title')->label('عنوان السيارة')->searchable(),
+                TextColumn::make('title')->label('اسم السيارة')->searchable(),
                 TextColumn::make('price')->label('السعر'),
                 TextColumn::make('created_at')->label('تم الإنشاء في')->dateTime()->sortable(),
             ])
