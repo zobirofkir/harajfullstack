@@ -19,7 +19,6 @@ class OfferController extends Controller
             return redirect()->back();
         }
 
-        // Create the offer
         $offer = Offer::create([
             'negotiable_offer_price' => $request->negotiable_offer_price,
             'offer_email' => $request->offer_email,

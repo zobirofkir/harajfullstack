@@ -61,7 +61,16 @@
                     <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-8 mb-2 rounded-lg">
                         <!-- Price Details -->
                         <span class="md:text-lg text-md text-green-500 font-medium text-center">قابل للتفاوض</span>
-                        <span class="md:text-lg text-md text-green-500 font-medium text-center">{{ $car->negotiable_price }} ريال</span>
+
+                        @if ($car->offers->isNotEmpty() && $car->negotiable_price < $car->highest_offer_price)
+                            <span class="md:text-lg text-md text-green-500 font-medium text-center">
+                                {{ $car->highest_offer_price }} ريال
+                            </span>
+                        @else
+                            <span class="md:text-lg text-md text-green-500 font-medium text-center">
+                                {{ $car->negotiable_price }} ريال
+                            </span>
+                        @endif
 
                         <!-- Button to toggle dropdown -->
                         <button

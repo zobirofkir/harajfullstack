@@ -40,4 +40,9 @@ class Car extends Model
     {
         return $this->hasMany(Offer::class);
     }
+
+    public function getHighestOfferPriceAttribute()
+    {
+        return $this->offers()->max('negotiable_offer_price');
+    }
 }
