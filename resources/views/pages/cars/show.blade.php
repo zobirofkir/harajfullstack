@@ -130,7 +130,7 @@
                     @endif
                 </div>
 
-                <div class="mb-2 rounded-lg flex items-start justify-end gap-4 transition-shadow duration-300 ease-in-out mx-10">
+                <div class="mb-2 rounded-lg flex items-start justify-end gap-4 transition-shadow duration-300 ease-in-out mx-10 md:hidden block">
                     <span class="md:text-lg text-2xl text-gray-400 font-medium">{{ $car->price }} ريال</span>
                 </div>
 
