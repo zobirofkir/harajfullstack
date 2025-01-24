@@ -18,7 +18,11 @@
         <div class="flex md:flex-row flex-col justify-center gap-6 mt-4">
             <a href="{{url('/privacy')}}" class="text-gray-600 hover:text-gray-800 whitespace-nowrap">اتفاقية الاستخدام</a>
             <a href="{{ url('/contacts') }}" class="text-gray-600 hover:text-gray-800 whitespace-nowrap">اتصل بنا</a>
-            <a href="{{ url('/admin/login') }}" class="text-gray-600 hover:text-gray-800 whitespace-nowrap">تسجيل الدخول</a>
+            @if (!Auth::check())
+                <a href="{{ url('/login') }}" class="text-gray-600 hover:text-gray-800 whitespace-nowrap">تسجيل الدخول</a>
+            @else
+                
+            @endif
         </div>
     </div>
 </footer>
