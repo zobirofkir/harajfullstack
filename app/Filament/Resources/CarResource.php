@@ -39,13 +39,30 @@ class CarResource extends Resource
 
                 TextInput::make('title')->label('عنوان السيارة')->required()->maxLength(255),
 
-                TextInput::make('price')->label('السعر')->required()->numeric()->maxLength(10),
-
-                TextInput::make('negotiable_price')->label('قابل للتفاوض')->numeric()->maxLength(255),
-
                 Textarea::make('description')->label('الوصف')->required()->maxLength(500),
 
                 FileUpload::make('images')->label('صور السيارة')->multiple()->image()->required(),
+
+                Select::make('price_type')
+                    ->label('نوع السعر')
+                    ->options([
+                        'negotiable' => 'قابل للتفاوض',
+                        'fixed' => 'ثابت',
+                    ])
+                    ->required()
+                    ->reactive(), // لتفعيل التحديث الفوري عند تغيير القيمة
+
+                TextInput::make('price')
+                    ->label('السعر')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(10),
+
+                TextInput::make('negotiable_price')
+                    ->label('قابل للتفاوض')
+                    ->numeric()
+                    ->maxLength(255)
+                    ->visible(fn ($get) => $get('price_type') === 'negotiable'),
 
                 Hidden::make('user_id')->default(Auth::user()->id),
             ])
