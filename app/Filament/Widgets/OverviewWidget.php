@@ -21,8 +21,8 @@ class OverviewWidget extends BaseWidget
         }
 
         $stats = [
-            Stat::make('الانتقال لحساب', 'المستخدم')
-                ->description('الانتقال لحساب البائع')
+            Stat::make('الصفحة ', 'الرئيسية')
+                ->description('الصفحة الرئيسية')
                 ->description('الصفحة الرئيسية')
                 ->color('info')
                 ->icon('heroicon-o-home')
