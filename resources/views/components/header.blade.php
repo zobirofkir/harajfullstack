@@ -2,13 +2,13 @@
     <!-- Contact Info -->
     <div class="flex justify-between items-center w-full max-w-screen-xl mx-auto overflow-x-auto overflow-y-hidden gap-10">
 
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/')}}">
                 <i class="fas ml-4 fa-house-user mr-2"></i>الرئيسية
             </a>
         </span>
 
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
+        <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
             <p>
                 <a href="{{url('search/cars')}}">
                     <i class="fas ml-4 fa-search mr-2"></i>بحث
@@ -16,20 +16,20 @@
             </p>
         </span>
 
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/abouts')}}">
                 <i class="fas ml-4 fa-building mr-2"></i>من نحن
             </a>
         </span>
 
-        <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+        <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/contacts')}}">
                 <i class="fas ml-4 fa-phone mr-2"></i>اتصل بنا
             </a>
         </span>
 
         @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
-            <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+            <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4">
                 <a href="{{ route('moyasar.activate', ['user' => Auth::user()->id]) }}">
                     <i class="fas ml-4 fa-user mr-2"></i>اشترك
                 </a>
@@ -39,7 +39,7 @@
         @endif
 
         @if (Auth::check())
-            <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+            <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">
@@ -48,7 +48,7 @@
                 </form>
             </span>
             @else
-            <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4">
+            <span class="font-bold text-orange-[#E74115] whitespace-nowrap mb-4 mt-4">
                 <a href="{{url('/login')}}">
                     <i class="fas ml-4 fa-user mr-2"></i>تسجيل الدخول
                 </a>
