@@ -58,7 +58,7 @@
                 </div>
 
                 @if ($car->negotiable_price)
-                    <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[65%] mt-8 mb-2 rounded-lg">
+                    <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-8 mb-2 rounded-lg">
                         <!-- Price Details -->
                         <span class="md:text-lg text-md text-green-500 font-medium text-center">قابل للتفاوض</span>
                         <span class="md:text-lg text-md text-green-500 font-medium text-center">{{ $car->negotiable_price }} ريال</span>
@@ -66,7 +66,7 @@
                         <!-- Button to toggle dropdown -->
                         <button
                             id="toggleFormButton"
-                            class="w-auto bg-green-600 text-white p-2 rounded-lg hover:bg-green-500 transition-all duration-300"
+                            class="w-auto bg-green-600 text-white py-2 md:px-4  rounded-lg hover:bg-green-500 transition-all duration-300"
                         >
                             إرسال عرض
                         </button>
@@ -112,7 +112,7 @@
                 @endif
 
                 <!-- Contact Seller Buttons -->
-                <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[65%] mt-2">
+                <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-2">
                     <button class="bg-blue-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
                         <i class="fas fa-user"></i>
                         اتصل
@@ -129,6 +129,11 @@
 
                     @endif
                 </div>
+
+                <div class="mb-2 rounded-lg flex items-start justify-end gap-4 transition-shadow duration-300 ease-in-out mx-10">
+                    <span class="md:text-lg text-2xl text-gray-400 font-medium">{{ $car->price }} ريال</span>
+                </div>
+
             </div>
 
         </div>

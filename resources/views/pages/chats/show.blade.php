@@ -11,7 +11,7 @@
                             <span class="text-gray-700 text-sm font-medium">{{ $message->username }}</span>
                             <span class="text-gray-500 text-xs">{{ $message->created_at->diffForHumans() }}</span>
                         </div>
-                        <p class="text-gray-600 text-sm">{{ $message->content }}</p>
+                        <p class="text-gray-600 text-md bg-gray-200 px-2 py-1 rounded">{{ $message->content }}</p>
                         @if(Auth::check() && Auth::id() === $message->user_id)
                             <form action="{{ route('messages.delete', $message) }}" method="POST" class="mt-2 text-right">
                                 @csrf
