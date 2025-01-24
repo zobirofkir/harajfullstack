@@ -67,7 +67,7 @@
             @if (!Auth::check())
                 {{-- <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">دينالي</span> --}}
             @else
-                <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">{{ Auth::user()->name }}</span>
+                {{-- <span class="font-bold text-gray-500 whitespace-nowrap md:block hidden text-xl">{{ Auth::user()->name }}</span> --}}
             @endif
         </a>
     </div>
