@@ -2,11 +2,13 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\CarResource\Pages\CreateCar;
 use App\Models\Car;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Filament\Tables\Actions\ButtonAction;
 use Illuminate\Support\Facades\Auth;
 
 class QCarTableWidget extends BaseWidget
@@ -18,9 +20,9 @@ class QCarTableWidget extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-        ->query(
-            Car::query()
-                ->where('user_id', Auth::id())
+            ->query(
+                Car::query()
+                    ->where('user_id', Auth::id())
             )
             ->columns([
                 ImageColumn::make('image')
@@ -37,9 +39,15 @@ class QCarTableWidget extends BaseWidget
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('تاريخ الأضافة')
+                    ->label('تاريخ الإضافة')
                     ->searchable()
                     ->sortable(),
+            ])
+            ->headerActions([
+                ButtonAction::make('create')
+                    ->label('إضافة سيارة جديدة')
+                    ->url('admin/cars/create')
+                    ->icon('heroicon-o-plus-circle'),
             ]);
     }
 }
