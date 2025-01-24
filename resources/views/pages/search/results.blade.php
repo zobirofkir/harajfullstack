@@ -1,5 +1,8 @@
 <x-app-layout>
     <div class="container mx-auto py-8 md:px-0 px-10">
+
+        @include('components.search')
+
         <h2 class="text-2xl font-semibold text-gray-400 mb-6">نتائج البحث</h2>
 
         @if ($cars->isEmpty())

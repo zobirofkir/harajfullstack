@@ -10,7 +10,9 @@
 
         <span class="font-bold text-gray-500 whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
             <p>
-                <i class="fas ml-4 fa-search mr-2"></i>بحث
+                <a href="{{url('search/cars')}}">
+                    <i class="fas ml-4 fa-search mr-2"></i>بحث
+                </a>
             </p>
         </span>
 
