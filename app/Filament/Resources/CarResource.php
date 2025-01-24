@@ -39,7 +39,7 @@ class CarResource extends Resource
 
                 TextInput::make('title')->label('اسم السيارة')->required()->maxLength(255),
 
-                Textarea::make('description')->label('الوصف')->required()->maxLength(500),
+                Textarea::make('description')->label('الوصف')->required()->maxLength(500)->rows(10),
 
                 FileUpload::make('images')->label('صور السيارة')->multiple()->image()->required(),
 
