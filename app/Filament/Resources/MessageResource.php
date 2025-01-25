@@ -3,18 +3,16 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MessageResource\Pages;
-use App\Filament\Resources\MessageResource\RelationManagers;
 use App\Models\Message;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MessageResource extends Resource
 {
@@ -28,51 +26,64 @@ class MessageResource extends Resource
 
     protected static ?string $pluralLabel = 'الرسائل';
 
-    protected static ?string $navigation = 'الرسائل';
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('username'),
-                TextInput::make('content'),
-            ]);
+                TextInput::make('email')
+                    ->label('البريد الإلكتروني')
+                    ->required()
+                    ->email()
+                    ->placeholder('example@example.com'),
+
+                Textarea::make('content')
+                    ->label('محتوى الرسالة')
+                    ->required()
+                    ->placeholder('اكتب رسالتك هنا...'),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Message::query()
-                ->whereHas('chat.car', function (Builder $query) {
-                    $query->where('user_id', Auth::user()->id);
-            }))
-
             ->columns([
-                TextColumn::make('username')->label('اسم المستخدم'),
-                TextColumn::make('content')->label('المحتوى'),
+                TextColumn::make('email')->label('البريد الإلكتروني'),
+                TextColumn::make('content')->label('محتوى الرسالة'),
                 TextColumn::make('created_at')
-                    ->label('التاريخ')
+                    ->label('تاريخ الإنشاء')
                     ->getStateUsing(fn ($record) => $record->created_at->diffForHumans()),
-                ])
-            ->defaultSort('created_at', 'desc')
-            ->filters([
-                //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('عرض الرسائل'),
+                Tables\Actions\Action::make('sendEmail')
+                    ->label('إرسال رسالة')
+                    ->form([
+                        TextInput::make('email')
+                            ->label('البريد الإلكتروني')
+                            ->required()
+                            ->email()
+                            ->placeholder('example@example.com'),
+
+                        Textarea::make('content')
+                            ->label('محتوى الرسالة')
+                            ->required()
+                            ->placeholder('اكتب رسالتك هنا...'),
+                    ])
+                    ->action(function (array $data) {
+                        Mail::raw($data['content'], function ($message) use ($data) {
+                            $message->to($data['email'])
+                                ->subject('رسالة جديدة');
+                        });
+
+                        // رسالة نجاح
+                        return redirect()->back()->with('success', 'تم إرسال الرسالة بنجاح.');
+                    }),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->label('حذف الرسائل'),
-                ]),
-            ]);
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
