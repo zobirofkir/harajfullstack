@@ -87,7 +87,7 @@
         </div>
 
         <!-- Cars Listing -->
-        <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px]">
+        <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px] mt-10">
             @if (!Auth::check())
                 <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
                     <i class="fas fa-car mr-2"></i> السيارات المتاحة

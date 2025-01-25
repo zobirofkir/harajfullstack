@@ -30,6 +30,13 @@ body {
     color: #E74115;
 }
 
+.text_custom_bg_blue {
+    background-color: #0C3148;
+}
+.text_custom_blue_ {
+    color: #0C3148;
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
