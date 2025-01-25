@@ -91,12 +91,12 @@
                             <div>
                                 <label for="offer_email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
                                 <input
-                                    type="email"
+                                    type="phone"
                                     id="offer_email"
                                     name="offer_email"
                                     required
                                     class="w-full border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
-                                    placeholder="أدخل بريدك الإلكتروني"
+                                    placeholder="أدخل رقم هاتفك"
                                 >
                             </div>
                             <div>
