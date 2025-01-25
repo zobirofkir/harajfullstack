@@ -74,7 +74,6 @@ class MessageResource extends Resource
                                 ->subject('رسالة جديدة');
                         });
 
-                        // رسالة نجاح
                         return redirect()->back()->with('success', 'تم إرسال الرسالة بنجاح.');
                     }),
             ])
