@@ -22,6 +22,14 @@
             </a>
         </span>
 
+        @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
+            <div class="text-green-500 hover:text-green-600 bg-green-100 py-2 px-4 rounded">
+                <a href="{{url('/admin/login')}}" class="whitespace-nowrap">الانتقال لحساب البائع</a>
+            </div>
+        @else
+
+        @endif
+
         <span class="font-bold text-orange-800 whitespace-nowrap mb-4 mt-4">
             <a href="{{url('/contacts')}}">
                 <i class="fas ml-4 fa-phone mr-2"></i>اتصل بنا
@@ -71,14 +79,6 @@
             @endif
         </a>
     </div>
-
-    @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
-        <div class="text-green-500 hover:text-green-600 bg-green-100 py-2 px-4 rounded">
-            <a href="{{url('/admin/login')}}">الانتقال لحساب البائع</a>
-        </div>
-    @else
-
-    @endif
 
     <button id="menuButton" class="block focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
