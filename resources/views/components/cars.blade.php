@@ -115,7 +115,7 @@
                             <div class="mt-1">
                                 <div class="flex items-center justify-end">
                                     <span class="text-sm text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap">
-                                        <i class="fas fa-money-bill-wave"></i> {{ number_format(substr($car->price, 0, 5)) }} ريال
+                                        <i class="fas fa-money-bill-wave"></i> {{ number_format($car->price) }} ريال
                                     </span>
                                 </div>
                             </div>
