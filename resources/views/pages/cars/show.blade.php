@@ -126,25 +126,27 @@
                         <i class="fas fa-user"></i>
                         اتصل
                     </button>
-                    <div class="flex">
+                    <div class="flex items-center">
                         @if (Auth::check())
+                        <div class="min-w-full">
                             <!-- Chat Button -->
                             <a href="{{ route('chats.show', ['userName' => $car->user->name, 'carId' => $car->id]) }}"
-                                class="bg-gray-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
+                                class="bg-gray-600  text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
                                     <i class="fas fa-comments"></i>
                                     بدء الدردشة
                             </a>
+                        </div>
                         @else
 
                         @endif
 
                         <div class="mb-2 rounded-lg flex items-start justify-end gap-4 transition-shadow duration-300 ease-in-out mx-10 md:block hidden">
-                            <span class="md:text-lg text-2xl text-gray-400 font-medium">{{ $car->price }} ريال</span>
+                            <span class="md:text-lg text-2xl text-gray-400 font-medium whitespace-nowrap">{{ $car->price }} ريال</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="mb-2 rounded-lg flex items-start justify-end gap-4 transition-shadow duration-300 ease-in-out mx-10 md:hidden block">
+                <div class="mb-2 rounded-lg flex items-start justify-center gap-4 transition-shadow duration-300 ease-in-out mx-10 md:hidden block">
                     <span class="md:text-lg text-2xl text-gray-400 font-medium">{{ $car->price }} ريال</span>
                 </div>
 
