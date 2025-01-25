@@ -24,6 +24,7 @@ class QCarTableWidget extends BaseWidget
                 Car::query()
                     ->where('user_id', Auth::id())
             )
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 ImageColumn::make('image')
                     ->label('صورة السيارة')
