@@ -54,6 +54,7 @@ class MessageResource extends Resource
                     ->label('التاريخ')
                     ->getStateUsing(fn ($record) => $record->created_at->diffForHumans()),
                 ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
