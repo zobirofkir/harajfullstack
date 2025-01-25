@@ -20,14 +20,14 @@
 <body class="bg-white flex md:justify-center md:items-center">
     <div class="container mx-auto p-4">
 
-        <header class="bg-blue-950 text-white py-4 rounded">
+        <header class="bg_custom_orange_ text-white py-4 rounded">
             <div class="container mx-auto text-center">
                 <h1 class="text-3xl font-bold">مرحبا بك عزيزي التاجر</h1>
                 <p class="mt-2 text-lg">اختر ما يناسبك لنشر إعلاناتك للكثير من المشاهدين</p>
             </div>
 
             <div class="flex justify-center mt-4">
-                <a href="{{ url('/') }}" class="bg-white text-blue-950 px-4 py-2 rounded-lg font-bold hover:bg-blue-950 hover:text-white transition-colors duration-300">الرئيسية</a>
+                <a href="{{ url('/') }}" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg_custom_orange_ hover:text-orange-800 transition-colors duration-300">الرئيسية</a>
             </div>
         </header>
 
@@ -48,7 +48,7 @@
 
             <!-- Semi-Annual Trial Plan -->
             <div class="bg-white border border-gray-300 rounded-xl shadow-lg p-6 relative hover:scale-105 hover:shadow-2xl transition-transform duration-300" id="semi-annual-plan">
-                <div class="absolute top-0 right-0 bg-blue-500 text-white text-sm px-3 py-1 rounded-bl-lg" id="semi-annual-plan-label">الأكثر اختيارًا</div>
+                <div class="absolute top-0 right-0 bg_custom_orange_ text-white text-sm px-3 py-1 rounded-bl-lg" id="semi-annual-plan-label">الأكثر اختيارًا</div>
                 <div class="flex justify-center mb-4">
                     <i class="fa-solid fa-star text-4xl text-yellow-500"></i>
                 </div>
