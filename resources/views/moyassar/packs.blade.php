@@ -17,20 +17,10 @@
 
     <title>خيارات الدفع</title>
 </head>
-<body class="bg-white flex md:justify-center md:items-center">
-    <div class="container mx-auto p-4">
+<body>
+    @include('components.header')
 
-        <header class="bg_custom_orange_ text-white py-4 rounded">
-            <div class="container mx-auto text-center">
-                <h1 class="text-3xl font-bold">مرحبا بك عزيزي التاجر</h1>
-                <p class="mt-2 text-lg">اختر ما يناسبك لنشر إعلاناتك للكثير من المشاهدين</p>
-            </div>
-
-            <div class="flex justify-center mt-4">
-                <a href="{{ url('/') }}" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg_custom_orange_ hover:text-orange-800 transition-colors duration-300">الرئيسية</a>
-            </div>
-        </header>
-
+    <div class="container mx-auto p-4 ">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             <!-- Free Plan -->
             <div class="bg-white border border-gray-300 rounded-xl shadow-lg p-6 hover:scale-105 hover:shadow-2xl transition-transform duration-300" id="free-plan">
@@ -98,6 +88,8 @@
             </div>
         </div>
     </div>
+
+    @include('components.footer')
 
     <script>
         document.querySelectorAll('.mysr-form').forEach(function(button) {
