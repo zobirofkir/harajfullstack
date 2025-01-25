@@ -41,6 +41,7 @@ class QCarTableWidget extends BaseWidget
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('تاريخ الإضافة')
                     ->searchable()
+                    ->getStateUsing(fn ($record) => $record->created_at->diffForHumans())
                     ->sortable(),
             ])
             ->headerActions([

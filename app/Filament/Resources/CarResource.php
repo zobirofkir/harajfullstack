@@ -77,7 +77,7 @@ class CarResource extends Resource
                 ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn($record) => $record->images[0] ?? null),
                 TextColumn::make('title')->label('اسم السيارة')->searchable(),
                 TextColumn::make('price')->label('السعر'),
-                TextColumn::make('created_at')->label('تم الإنشاء في')->dateTime()->sortable(),
+                TextColumn::make('created_at')->label('تم الإنشاء في')->sortable()->getStateUsing(fn ($record) => $record->created_at->diffForHumans()),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
