@@ -22,7 +22,7 @@
     $cars = $query->paginate(20);
 @endphp
 
-<div class="container mx-auto py-12 px-6 lg:px-16">
+<div class="py-12 px-6">
     <div class="flex flex-col lg:flex-row gap-8 justify-center">
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px] mt-10">
@@ -35,7 +35,7 @@
                     <i class="fas fa-hand mr-2"></i> مرحبًا بعودتك {{ Auth::user()->name }}
                 </h2>
             @endif
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
                         <div class="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">

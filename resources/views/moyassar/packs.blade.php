@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    @include('components.footer')
+    {{-- @include('components.footer') --}}
 
     <script>
         document.querySelectorAll('.mysr-form').forEach(function(button) {
