@@ -26,6 +26,10 @@ body {
     background-color: #E74115;
 }
 
+.text_custom_orange_ {
+    color: #E74115;
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
