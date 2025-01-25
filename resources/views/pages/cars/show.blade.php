@@ -60,14 +60,14 @@
                 @if ($car->negotiable_price)
                     <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-8 mb-2 rounded-lg">
                         <!-- Price Details -->
-                        <span class="md:text-lg text-md text-green-500 font-medium text-center">قابل للتفاوض</span>
+                        <span class="md:text-lg text-md text-orange-500 font-medium text-center">على السوم</span>
 
                         @if ($car->offers->isNotEmpty() && $car->negotiable_price < $car->highest_offer_price)
-                            <span class="md:text-lg text-md text-green-500 font-medium text-center">
+                            <span class="md:text-lg text-md text-orange-500 font-medium text-center">
                                 {{ $car->highest_offer_price }} ريال
                             </span>
                         @else
-                            <span class="md:text-lg text-md text-green-500 font-medium text-center">
+                            <span class="md:text-lg text-md text-orange-500 font-medium text-center">
                                 {{ $car->negotiable_price }} ريال
                             </span>
                         @endif
@@ -75,9 +75,9 @@
                         <!-- Button to toggle dropdown -->
                         <button
                             id="toggleFormButton"
-                            class="w-auto bg-green-600 text-white py-2 md:px-4  rounded-lg hover:bg-green-500 transition-all duration-300"
+                            class="w-auto bg-orange-600 text-white py-2 md:px-4  rounded-lg hover:bg-orange-500 transition-all duration-300"
                         >
-                            إرسال عرض
+                            ارسل عرضك
                         </button>
                     </div>
 
@@ -95,7 +95,7 @@
                                     id="offer_email"
                                     name="offer_email"
                                     required
-                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
                                     placeholder="أدخل بريدك الإلكتروني"
                                 >
                             </div>
@@ -106,13 +106,13 @@
                                     id="negotiable_offer_price"
                                     name="negotiable_offer_price"
                                     required
-                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"
                                     placeholder="أدخل السعر"
                                 >
                             </div>
                             <button
                                 type="submit"
-                                class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-all duration-300"
+                                class="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-all duration-300"
                             >
                                 إرسال
                             </button>
