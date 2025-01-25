@@ -23,69 +23,7 @@
 @endphp
 
 <div class="container mx-auto py-12 px-6 lg:px-16">
-    <div class="flex flex-col lg:flex-row gap-8">
-        <!-- Filters Sidebar -->
-        <div class="lg:w-1/4 w-full md:block hidden">
-            <div class="bg-white shadow-xl rounded-lg p-6 space-y-6">
-                <h2 class="text-xl font-bold text-gray-400 mb-4">
-                    <i class="fas fa-filter mr-2"></i> فلترة البحث
-                </h2>
-
-                <!-- Reset Filters -->
-                <div class="mb-6">
-                    <a href="{{ url()->current() }}" class="block text-center bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300">
-                        <i class="fas fa-times-circle mr-2"></i> إعادة التصفية
-                    </a>
-                </div>
-
-                <!-- Date Filter -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('dateDropdown')">
-                        <i class="fas fa-calendar-day mr-2"></i> تصفية حسب التاريخ
-                    </h3>
-                    <div id="dateDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                        <form action="#" method="GET">
-                            <div class="space-y-4">
-                                <label for="start_date" class="block text-gray-600">
-                                    <i class="fas fa-calendar-alt mr-2"></i> من:
-                                </label>
-                                <input type="date" id="start_date" name="start_date" value="{{ $startDate }}" class="w-full border-gray-300 rounded-md shadow-sm p-2">
-                            </div>
-                            <div class="space-y-4 mt-4">
-                                <label for="end_date" class="block text-gray-600">
-                                    <i class="fas fa-calendar-alt mr-2"></i> إلى:
-                                </label>
-                                <input type="date" id="end_date" name="end_date" value="{{ $endDate }}" class="w-full border-gray-300 rounded-md shadow-sm p-2">
-                            </div>
-                            <div class="mt-6">
-                                <button type="submit" class="w-full bg-primary-600 text-white py-2 rounded-md hover:bg-primary-700 transition duration-300">
-                                    <i class="fas fa-search mr-2"></i> تصفية
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Price Filter -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-400 mb-2 cursor-pointer" onclick="toggleDropdown('priceDropdown')">
-                        <i class="fas fa-dollar-sign mr-2"></i> تصفية حسب السعر
-                    </h3>
-                    <div id="priceDropdown" class="filter-dropdown space-y-4 max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                        <form action="#" method="GET">
-                            <div class="space-y-4">
-                                <label for="price" class="block text-gray-600">
-                                    <i class="fas fa-arrow-alt-circle-down mr-2"></i> السعر:
-                                </label>
-                                <input type="number" id="price" name="price" value="{{ $price }}" placeholder="أدخل السعر الأقصى" class="w-full border-gray-300 rounded-md shadow-sm p-2">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+    <div class="flex flex-col lg:flex-row gap-8 justify-center">
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px] mt-10">
             @if (!Auth::check())
