@@ -31,12 +31,14 @@ class ChatService implements ChatConstructor
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => 'required|exists:users,id',
             'car_id' => 'required|exists:cars,id',
             'username' => 'required|string|max:255',
         ]);
 
         if (Auth::check()) {
             $chat = Chat::firstOrCreate([
+                'user_id' => Auth::id(),
                 'username' => $request->username,
                 'car_id' => $request->car_id,
             ]);
@@ -52,6 +54,7 @@ class ChatService implements ChatConstructor
 
         if (Auth::check()) {
             $chat->messages()->create([
+                'user_id' => Auth::id(),
                 'username' => Auth::user()->name,
                 'content' => $request->content,
             ]);
