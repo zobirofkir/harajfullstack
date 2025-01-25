@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                @if ($car->negotiable_price)
+                {{-- @if ($car->negotiable_price)
                     <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-8 mb-2 rounded-lg">
                         <!-- Price Details -->
                         <span class="md:text-lg text-md text-orange-500 font-medium text-center">على السوم</span>
@@ -118,7 +118,7 @@
                             </button>
                         </form>
                     </div>
-                @endif
+                @endif --}}
 
                 <!-- Contact Seller Buttons -->
                 <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-2">
