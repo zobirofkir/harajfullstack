@@ -42,7 +42,11 @@ class MessageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->query(Message::query()->where('chat_id', Auth::user()->id))
+            ->query(Message::query()
+                ->whereHas('chat.car', function (Builder $query) {
+                    $query->where('user_id', Auth::user()->id);
+            }))
+
             ->columns([
                 TextColumn::make('username')->label('اسم المستخدم'),
                 TextColumn::make('content')->label('المحتوى'),
