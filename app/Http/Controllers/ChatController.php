@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChatRequest;
 use App\Models\Chat;
 use App\Models\Message;
 use App\Services\Facades\ChatFacade;
@@ -20,7 +21,7 @@ class ChatController extends Controller
         return ChatFacade::show($userName, $carId);
     }
 
-    public function store(Request $request)
+    public function store(ChatRequest $request)
     {
         return ChatFacade::store($request);
     }

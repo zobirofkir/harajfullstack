@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Services;
 
+use App\Http\Requests\ChatRequest;
 use App\Models\Chat;
 use App\Services\Constructors\ChatConstructor;
 use Illuminate\Http\Request;
@@ -28,13 +29,9 @@ class ChatService implements ChatConstructor
         return view('pages.chats.show', compact('chat', 'messages'));
     }
 
-    public function store(Request $request)
+    public function store(ChatRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'car_id' => 'required|exists:cars,id',
-            'username' => 'required|string|max:255',
-        ]);
+        $request->validate();
 
         if (Auth::check()) {
             $chat = Chat::firstOrCreate([
