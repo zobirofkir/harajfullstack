@@ -38,6 +38,7 @@ class ChatService implements ChatConstructor
                 'user_id' => Auth::id(),
                 'username' => $request->username,
                 'car_id' => $request->car_id,
+                'email' => Auth::user()->email
             ]);
             return redirect()->route('chats.show', ['userName' => $request->username, 'carId' => $request->car_id]);
         }
@@ -54,6 +55,7 @@ class ChatService implements ChatConstructor
                 'user_id' => Auth::id(),
                 'username' => Auth::user()->name,
                 'content' => $request->content,
+                'email' => Auth::user()->email
             ]);
             return back();
         }

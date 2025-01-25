@@ -25,6 +25,7 @@ class ChatRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'car_id' => 'required|exists:cars,id',
             'username' => 'required|string|max:255',
+            'email' => 'required|email|exists:users,email',
         ];
     }
 }
