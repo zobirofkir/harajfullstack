@@ -38,7 +38,9 @@
 
                     <!-- Car Description Section -->
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
-                        <span class="md:text-lg text-md text-gray-400 font-medium">{{ $car->description }}</span>
+                        <span class="md:text-lg text-md text-gray-400 font-medium">
+                            {!! nl2br(e($car->description)) !!}
+                        </span>
                     </div>
 
                     <div class="mb-2 rounded-lg flex flex-col items-start gap-4 transition-shadow duration-300 ease-in-out">
