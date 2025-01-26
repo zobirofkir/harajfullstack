@@ -4,6 +4,7 @@
 
         <!-- Layout for User and Chat -->
         <div class="relative grid grid-cols-1 md:grid-cols-3 gap-4 h-[80vh]">
+
             <!-- Sidebar: User Info -->
             <div id="user-sidebar" class="fixed inset-y-0 left-0 bg-white shadow-lg p-4 w-64 transform -translate-x-full transition-transform duration-300 z-10 md:static md:translate-x-0 md:w-full md:col-span-1 h-full overflow-y-auto">
                 <h2 class="text-lg font-bold text-gray-700 mb-4">المستخدم</h2>
@@ -11,8 +12,10 @@
                 <div class="space-y-4">
                     @foreach ($messages as $message)
                         <div class="flex items-center space-x-3 gap-4">
-                            <img src="{{ $message->user->image ? asset('storage/' . $message->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="User Avatar" class="w-10 h-10 rounded-full">
-                            <span class="text-gray-700 font-medium">{{ $message->username }}</span>
+                            <img src="{{ $message->user->image ? asset('storage/' . $message->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                            <a href="{{ route('chats.show', ['userName' => $message->username, 'carId' => $chat->car_id]) }}" class="text-gray-700 font-medium hover:text-blue-600">
+                                {{ $message->username }}
+                            </a>
                         </div>
                     @endforeach
                 </div>
@@ -29,17 +32,20 @@
             </div>
 
             <!-- Main Content: Chat and Form -->
-            <div class="col-span-3 md:col-span-2 flex flex-col justify-between  bg-gray-50 p-4 rounded-lg shadow-lg">
+            <div class="col-span-3 md:col-span-2 flex flex-col justify-between bg-gray-50 p-4 rounded-lg shadow-lg">
                 <!-- Chat Messages -->
                 <div class="overflow-y-auto mb-4 space-y-4 flex-grow">
                     @foreach($messages as $message)
-                        <div class="flex items-start {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-center' : '' }}">
-                            <div class="{{ Auth::check() && Auth::id() === $message->user_id ? 'bg-blue-100' : 'bg-white' }} p-3 rounded-lg shadow-md w-3/4">
+                        <div class="flex items-start {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }}">
+                            <div class="{{ Auth::check() && Auth::id() === $message->user_id ? 'bg-orange-100' : 'bg-white' }} p-3 rounded-lg shadow-md max-w-[80%]">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-gray-700 text-sm font-medium">{{ $message->username }}</span>
+                                </div>
+                                <p class="text-gray-600 text-md bg-white px-2 py-1 rounded">{{ $message->content }}</p>
+
+                                <div>
                                     <span class="text-gray-500 text-xs">{{ $message->created_at->diffForHumans() }}</span>
                                 </div>
-                                <p class="text-gray-600 text-md bg-gray-200 px-2 py-1 rounded">{{ $message->content }}</p>
                             </div>
                         </div>
                     @endforeach

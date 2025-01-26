@@ -153,8 +153,8 @@ Route::middleware('auth')->group(function () {
     /**
      * Show a specific chat
      */
-    Route::get('/chats/{userName}-{carId}', [ChatController::class, 'show'])->name('chats.show');
-
+    Route::get('/chats/{userName}/{carId}', [ChatController::class, 'show'])->name('chats.show');
+    
     /**
      * Store chat
      */
