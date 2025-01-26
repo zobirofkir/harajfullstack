@@ -104,4 +104,42 @@ class AuthController extends Controller
 
         return back()->with('error', 'فشل في إعادة تعيين كلمة المرور. حاول مرة أخرى.');
     }
+
+    public function updateProfileForm()
+    {
+        return view('pages.auth.update-profile');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|confirmed|min:8',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+
+        if ($request->has('password') && $request->password) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        if ($request->hasFile('image')) {
+            if ($user->image && file_exists(storage_path('app/public/' . $user->image))) {
+                unlink(storage_path('app/public/' . $user->image));
+            }
+
+            $imagePath = $request->file('image')->store('profile_images', 'public');
+            $user->image = $imagePath;
+        }
+
+        $user->save();
+
+        return back()->with('success', 'تم تحديث المعلومات بنجاح!');
+    }
+
 }

@@ -174,4 +174,14 @@ Route::middleware('auth')->group(function () {
      * Get Payment Callback
      */
     Route::get('/update-plan', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
+
+    /**
+     *Get Profile Form
+     */
+    Route::get('/profile/form', [AuthController::class, 'updateProfileForm'])->name('profile.form');
+
+    /**
+     * Update Current Authenticated User
+     */
+    Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
 });

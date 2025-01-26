@@ -125,6 +125,17 @@
             <a href="{{url('/contacts')}}" class="hover:text-gray-500">اتصل بنا</a>
         </li>
 
+        @if (Auth::check())
+            <!-- Login Item -->
+            <li class="px-4 py-2 border-b border-gray-200 flex gap-2 items-center">
+                <i class="fa-solid fa-user"></i>
+                <a href="{{route('profile.form')}}" class="hover:text-gray-500">الحساب</a>
+            </li>
+
+            @else
+
+        @endif
+
         {{--Logout Item --}}
         @if (!Auth::check())
             <!-- Login Item -->
