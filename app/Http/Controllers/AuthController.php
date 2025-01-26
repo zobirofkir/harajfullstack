@@ -115,7 +115,7 @@ class AuthController extends Controller
     {
         $user = Auth::user();
 
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         $user->name = $validated['name'];
         $user->email = $validated['email'];

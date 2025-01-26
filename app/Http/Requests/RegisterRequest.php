@@ -29,4 +29,25 @@ class RegisterRequest extends FormRequest
             'account_type' => 'required|in:مستخدم,مشتري',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'الاسم مطلوب',
+            'name.string' => 'الاسم يجب ان يكون نص',
+            'name.max' => 'الاسم يجب ان يكون اكثر من 255 حرف',
+            'email.required' => 'البريد الالكتروني مطلوب',
+            'email.string' => 'البريد الالكتروني يجب ان يكون نص',
+            'email.email' => 'البريد الالكتروني يجب ان يكون انجليسي',
+            'email.max' => 'البريد الالكتروني يجب ان يكون اكثر من 255 حرف',
+            'email.unique' => 'البريد الالكتروني موجود مسبقا',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.string' => 'كلمة المرور يجب ان يكون نص',
+            'password.confirmed' => 'كلمة المرور غير متطابقة',
+            'image.image' => 'الصورة يجب ان تكون صورة',
+            'image.mimes' => 'الصورة يجب ان يكون اكتب من jpeg,png,jpg,gif',
+            'image.max' => 'الصورة يجب ان يكون اكثر من 2048 كيلوبايت',
+            'account_type.required' => 'نوع الحساب مطلوب',
+            'account_type.in' => 'نوع الحساب غير صحيح',
+        ];
 }

@@ -28,4 +28,19 @@ class ChatRequest extends FormRequest
             'email' => 'required|email|exists:users,email',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'user_id.required' => 'المستخدم مطلوب',
+            'user_id.exists' => 'المستخدم غير صحيح',
+            'car_id.required' => 'السيارة مطلوبة',
+            'car_id.exists' => 'السيارة غير صحيحة',
+            'username.required' => 'اسم المستخدم مطلوب',
+            'username.string' => 'اسم المستخدم يجب ان يكون نص',
+            'username.max' => 'اسم المستخدم يجب ان يكون اكثر من 255 حرف',
+            'email.required' => 'البريد الالكتروني مطلوب',
+            'email.email' => 'البريد الالكتروني يجب ان يكون انجليسي',
+            'email.exists' => 'البريد الالكتروني غير صحيح',
+        ];
 }

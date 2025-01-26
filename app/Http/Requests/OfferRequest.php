@@ -23,7 +23,17 @@ class OfferRequest extends FormRequest
     {
         return [
             'negotiable_offer_price' => 'required|numeric',
-            'offer_email' => 'required'
+            'offer_email' => 'required|email'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'negotiable_offer_price.required' => 'السعر مطلوب',
+            'negotiable_offer_price.numeric' => 'السعر يجب ان يكون رقم',
+            'offer_email.required' => 'البريد الالكتروني مطلوب',
+            'offer_email.email' => 'البريد الالكتروني يجب ان يكون انجليسي',
         ];
     }
 }
