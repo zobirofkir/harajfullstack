@@ -50,4 +50,5 @@ class RegisterRequest extends FormRequest
             'account_type.required' => 'نوع الحساب مطلوب',
             'account_type.in' => 'نوع الحساب غير صحيح',
         ];
+    }
 }
