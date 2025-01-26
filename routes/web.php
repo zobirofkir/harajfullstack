@@ -47,7 +47,7 @@ Route::get('/car/{car}', [CarController::class, 'show'])->name('cars.show');
 /**
  * Search cars
  */
-Route::get('/search/cars', [SearchController::class, 'searchByTitle']);
+Route::get('/search/cars', [SearchController::class, 'searchByTitle'])->name('search.cars');
 
 /**
  * Show a specific logo
