@@ -17,7 +17,7 @@
                 إنشاء حساب جديد
             </h2>
 
-            <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}">
+            <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                 @csrf
                 <!-- Account Type Selection -->
                 <div class="mb-6">
@@ -75,6 +75,16 @@
                     @error('password_confirmation')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
+
+                    <!-- Upload Image -->
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-700">تحميل الصورة</label>
+                        <input id="image" name="image" type="file" accept="image/*"
+                               class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
+                    </div>
+                    @error('image')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -92,8 +102,8 @@
                         </a>
                     </p>
                 </div>
-
             </form>
+
         </div>
     </div>
 </x-app-layout>

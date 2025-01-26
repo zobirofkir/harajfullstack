@@ -19,7 +19,14 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create($request->validated());
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('profile_images', 'public');
+            $validated['image'] = $imagePath;
+        }
+
+        User::create($validated);
 
         return redirect()->route('index.login')->with('success', 'تم التسجيل بنجاح! يرجى تسجيل الدخول.');
     }
