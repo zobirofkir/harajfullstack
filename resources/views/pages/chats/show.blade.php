@@ -29,11 +29,11 @@
             </div>
 
             <!-- Main Content: Chat and Form -->
-            <div class="col-span-3 md:col-span-2 flex flex-col justify-between bg-gray-50 p-4 rounded-lg shadow-lg">
+            <div class="col-span-3 md:col-span-2 flex flex-col justify-between  bg-gray-50 p-4 rounded-lg shadow-lg">
                 <!-- Chat Messages -->
                 <div class="overflow-y-auto mb-4 space-y-4 flex-grow">
                     @foreach($messages as $message)
-                        <div class="flex items-start {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : '' }}">
+                        <div class="flex items-start {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-center' : '' }}">
                             <div class="{{ Auth::check() && Auth::id() === $message->user_id ? 'bg-blue-100' : 'bg-white' }} p-3 rounded-lg shadow-md w-3/4">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-gray-700 text-sm font-medium">{{ $message->username }}</span>
