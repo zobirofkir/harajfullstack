@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-semibold mb-4 text-gray-700">{{ $chat->car->title }}</h1>
 
         <!-- Layout for User and Chat -->
-        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-4 h-[80vh]">
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-4">
 
             <!-- Sidebar: User Info -->
             <div id="user-sidebar" class="fixed inset-y-0 left-0 bg-white shadow-lg p-4 w-64 transform -translate-x-full transition-transform duration-300 z-10 md:static md:translate-x-0 md:w-full md:col-span-1 h-full overflow-y-auto">
@@ -34,7 +34,7 @@
             <!-- Main Content: Chat and Form -->
             <div class="col-span-3 md:col-span-2 flex flex-col justify-between bg-gray-50 p-4 rounded-lg shadow-lg">
                 <!-- Chat Messages -->
-                <div class="overflow-y-auto mb-4 space-y-4 flex-grow">
+                <div class="overflow-y-auto mb-4 space-y-4 flex-grow" id="messages-container">
                     @foreach($messages as $message)
                         <div class="flex items-start {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }}">
                             <div class="{{ Auth::check() && Auth::id() === $message->user_id ? 'bg-orange-100' : 'bg-white' }} p-3 rounded-lg shadow-md max-w-[80%]">
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <!-- JavaScript for Sidebar Toggle -->
+    <!-- JavaScript for Sidebar Toggle and Sound Notification -->
     <script>
         const sidebar = document.getElementById('user-sidebar');
         const overlay = document.getElementById('sidebar-overlay');
@@ -85,5 +85,17 @@
 
         toggleButton.addEventListener('click', openSidebar);
         overlay.addEventListener('click', closeSidebar);
+
+        const audio = new Audio('/sounds/notification.mp3');
+        const messagesContainer = document.getElementById('messages-container');
+
+        const observer = new MutationObserver(() => {
+            audio.play();
+        });
+
+        observer.observe(messagesContainer, {
+            childList: true,
+            subtree: true,
+        });
     </script>
 </x-app-layout>
