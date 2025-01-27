@@ -1,30 +1,54 @@
 <x-app-layout title="الرسائل">
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-2xl font-semibold mb-4 text-gray-700 text-center">الرسائل</h1>
+        <h1 class="text-3xl font-semibold mb-6 text-gray-800 text-center">الرسائل</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Left: User List -->
-            <div class="bg-white p-4 rounded-lg shadow-lg col-span-1 h-full overflow-y-auto">
-                <h2 class="text-lg font-bold text-gray-700 mb-4">المستخدمون الذين أرسلوا لي رسائل</h2>
-                <!-- User List -->
-                <div class="overflow-y-auto space-y-4">
-                    @foreach ($chats as $chat)
-                        @foreach ($chat->messages as $message)
-                            @if($message->user_id != Auth::id()) 
-                                <div class="flex items-center space-x-3">
-                                    <img src="{{ $message->user->image ? asset('storage/' . $message->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
-                                         alt="User Avatar"
-                                         class="w-10 h-10 rounded-full ml-4">
+        <!-- Filter Input Form -->
+        <div class="mb-6">
+            <input id="filterInput" type="text" placeholder="ابحث عن محادثات"
+                   class="w-full sm:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Chats -->
+            @foreach ($chats as $chat)
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 user-item">
+                    <!-- Display each chat's messages -->
+                    @foreach ($chat->messages as $message)
+                        @if ($message->user_id != Auth::id())
+                            <div class="flex items-start space-x-4 mb-5">
+                                <img src="{{ $message->user->image ? asset('storage/' . $message->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
+                                     alt="User Avatar"
+                                     class="w-12 h-12 rounded-full object-cover ml-4">
+                                <div class="flex flex-col space-y-2">
                                     <a href="{{ route('chats.show', ['userName' => $message->user->name, 'carId' => $chat->car_id]) }}"
-                                       class="text-gray-700 font-medium hover:text-blue-600">
+                                       class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-all duration-200">
                                         {{ $message->user->name }}
                                     </a>
+                                    <p class="text-sm text-gray-600">{{ $message->content }}</p>
+                                    <!-- Created At -->
+                                    <p class="text-xs text-gray-400">{{ $message->created_at->format('M d, Y \a\t h:i A') }}</p>
                                 </div>
-                            @endif
-                        @endforeach
+                            </div>
+                        @endif
                     @endforeach
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
+
+    <script>
+        document.getElementById('filterInput').addEventListener('input', function() {
+            const filterValue = this.value.toLowerCase();
+            const userItems = document.querySelectorAll('.user-item');
+
+            userItems.forEach(item => {
+                const userName = item.querySelector('a').textContent.toLowerCase();
+                if (userName.includes(filterValue)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </x-app-layout>
