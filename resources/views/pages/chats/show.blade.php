@@ -22,7 +22,7 @@
 
             <!-- Right: Chat and Form -->
             @if(isset($chat) && $chat->messages->isNotEmpty())
-                <div class="col-span-2 flex flex-col justify-between bg-gray-50 p-4 rounded-lg shadow-lg">
+                <div class="col-span-2 flex flex-col justify-between bg-gray-50 p-4 rounded-lg shadow-lg overflow-y-auto">
                     <!-- Chat Messages -->
                     <div class="overflow-y-auto mb-4 space-y-4 flex-grow">
                         @foreach($messages as $message)
