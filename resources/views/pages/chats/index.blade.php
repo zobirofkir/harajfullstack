@@ -20,7 +20,7 @@
                                      alt="User Avatar"
                                      class="w-12 h-12 rounded-full object-cover ml-4">
                                 <div class="flex flex-col space-y-2">
-                                    <a href="{{ route('chats.show', ['userName' => $message->user->name, 'carId' => $chat->car_id]) }}"
+                                    <a href="{{ route('chats.show', ['userName' => $chat->car->user->name, 'carId' => $chat->car_id]) }}"
                                        class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-all duration-200">
                                         {{ $message->user->name }}
                                     </a>
