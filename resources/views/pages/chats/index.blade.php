@@ -8,7 +8,7 @@
                    class="w-full sm:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" />
         </div>
 
-        <div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <!-- Chats -->
             @foreach ($chats as $chat)
                 <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 user-item">
