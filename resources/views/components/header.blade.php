@@ -35,7 +35,7 @@
             </a>
         </span>
 
-        @if (Auth::check() && Auth::user()->account_type === 'مشتري')
+        {{-- @if (Auth::check() && Auth::user()->account_type === 'مشتري')
             <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4">
                 <a href="{{url('/admin/messages')}}">
                     <i class="fas ml-4 fa-message mr-2"></i>الرسائل
@@ -44,7 +44,7 @@
 
             @else
 
-        @endif
+        @endif --}}
 
         @if (Auth::check() &&Auth::user()->account_type === 'مشتري')
             <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4">
