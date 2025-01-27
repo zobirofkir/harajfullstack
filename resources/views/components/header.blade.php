@@ -30,7 +30,7 @@
                 </a>
             </span>
         @else
-            <p class="text-gray-700">يرجى تسجيل الدخول لمتابعة المحادثات.</p>
+            
         @endif
 
         <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
