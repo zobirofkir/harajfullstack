@@ -8,27 +8,27 @@
         </div>
 
         <!-- User Info Section -->
-        <div class="flex flex-col gap-6 md:px-12 px-8 bg-blue-50 rounded-lg shadow-md py-4 mt-6">
-
+        <div class="flex flex-col gap-6 md:px-12 px-8 bg-blue-50 rounded-lg shadow-lg py-4 mt-6">
             <div class="flex justify-between items-center w-full">
-                <h1 class="text-2xl text-gray-800 font-semibold text-start truncate max-w-lg">
-                    {{ $car->title }}
-                </h1>
+                <div class="w-full md:w-auto flex flex-col gap-4">
+                    <h1 class="text-2xl text-gray-800 font-semibold text-start truncate max-w-lg">
+                        {{ $car->title }}
+                    </h1>
 
-                <div class="flex items-center gap-4">
-                    <img src="{{ $car->user->image ? asset('storage/' . $car->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="{{ $car->title }}" class="rounded-full object-cover w-16 h-16 border-2 border-gray-300">
-                </div>
-            </div>
-
-            <div class="flex justify-between items-center w-full gap-6">
-                <div class="w-full md:w-auto">
                     <p class="md:text-lg text-sm text-gray-600 text-center md:text-start flex items-center gap-3 whitespace-nowrap">
                         <i class="fas fa-calendar-day text-lg text-gray-500"></i>
                         {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
                     </p>
                 </div>
+
+
+                <div class="flex flex-col items-center gap-2">
+                    <img src="{{ $car->user->image ? asset('storage/' . $car->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="{{ $car->title }}" class="rounded-full object-cover w-16 h-16 border-2 border-gray-300 shadow-md">
+                    <h1 class="text-lg text-gray-800 font-semibold text-center truncate max-w-lg mt-2">{{ $car->user->name }}</h1>
+                </div>
             </div>
         </div>
+
 
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
 
