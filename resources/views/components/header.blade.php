@@ -10,13 +10,29 @@
 
         @if (Auth::check())
             <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4">
-                <a href="{{route('chats.index')}}">
+                <a href="{{ route('chats.index') }}" class="relative">
                     <i class="fas ml-4 fa-message mr-2"></i>الرسائل
+                    @php
+                        $unreadCount = Auth::user()->cars()
+                            ->with('chats.messages')
+                            ->get()
+                            ->flatMap(function ($car) {
+                                return $car->chats->filter(function ($chat) {
+                                    return $chat->messages->where('read', false)->count() > 0;
+                                });
+                            })
+                            ->count();
+                    @endphp
+
+                    @if ($unreadCount > 0)
+                        <span class="absolute top-0 right-0 text-xs text-white bg-red-500 rounded-full px-2 ">{{ $unreadCount }}</span>
+                    @endif
                 </a>
             </span>
         @else
-            
+            <p class="text-gray-700">يرجى تسجيل الدخول لمتابعة المحادثات.</p>
         @endif
+
         <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
             <p>
                 <a href="{{url('search/cars')}}">
