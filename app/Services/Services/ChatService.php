@@ -4,6 +4,7 @@ namespace App\Services\Services;
 use App\Http\Requests\ChatRequest;
 use App\Jobs\SendNewMessageNotification;
 use App\Models\Chat;
+use App\Models\User;
 use App\Notifications\NewMessageNotification;
 use App\Services\Constructors\ChatConstructor;
 use Illuminate\Http\Request;
@@ -13,16 +14,7 @@ class ChatService implements ChatConstructor
 {
     public function index()
     {
-        $chats = Chat::query()
-            ->whereHas('messages', function ($query) {
-                $query->whereHas('chat.car', function ($query) {
-                    $query->where('user_id', Auth::user()->id);
-                });
-            })
-            ->with(['messages' => function ($query) {
-                $query->where('user_id', Auth::id())->latest();
-            }])
-            ->get();
+        $chats = Chat::with('messages.user')->get();
 
         return view('pages.chats.index', compact('chats'));
     }
