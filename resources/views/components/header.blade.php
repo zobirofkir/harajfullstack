@@ -8,6 +8,12 @@
             </a>
         </span>
 
+        <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4">
+            <a href="{{route('chats.index')}}">
+                <i class="fas ml-4 fa-message mr-2"></i>الرسائل
+            </a>
+        </span>
+
         <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
             <p>
                 <a href="{{url('search/cars')}}">
