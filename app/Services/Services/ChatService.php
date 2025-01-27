@@ -14,7 +14,7 @@ class ChatService implements ChatConstructor
 {
     public function index()
     {
-        $chats = Chat::with('messages.user')->get();
+        $chats = Chat::with('messages.user')->orderBy('created_at', 'desc')->get();
 
         return view('pages.chats.index', compact('chats'));
     }
