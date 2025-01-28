@@ -11,9 +11,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <!-- Chats -->
             @foreach ($chats as $chat)
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 user-item">
-                    <!-- Display only the first message of each chat -->
-                    @if ($chat->messages->isNotEmpty())
+                @if ($chat->messages->isNotEmpty()) <!-- Ensure messages are not empty -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 user-item">
+                        <!-- Display only the first message of each chat -->
                         @php $firstMessage = $chat->messages->first(); @endphp
                         @if ($firstMessage->user_id != Auth::id())
                             <div class="flex items-start space-x-4 mb-5">
@@ -31,8 +31,8 @@
                                 </div>
                             </div>
                         @endif
-                    @endif
-                </div>
+                    </div>
+                @endif
             @endforeach
         </div>
     </div>
