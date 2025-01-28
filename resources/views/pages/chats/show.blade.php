@@ -7,7 +7,7 @@
             <div class="w-1/4 bg-gray-100 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto mr-4">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">المستخدمون</h2>
                 <ul>
-                    @foreach ($users->where('id', '!=', Auth::id()) as $user)
+                    @foreach ($users->take(1) as $user)
                         <li class="mb-2">
                             <a href="{{ route('chats.show', ['userName' => $user->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
                                 {{ $user->name }}

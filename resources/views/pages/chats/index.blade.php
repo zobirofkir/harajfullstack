@@ -12,25 +12,26 @@
             <!-- Chats -->
             @foreach ($chats as $chat)
                 <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 user-item">
-                    <!-- Display each chat's messages -->
-                    @foreach ($chat->messages as $message)
-                        @if ($message->user_id != Auth::id())
+                    <!-- Display only the first message of each chat -->
+                    @if ($chat->messages->isNotEmpty())
+                        @php $firstMessage = $chat->messages->first(); @endphp
+                        @if ($firstMessage->user_id != Auth::id())
                             <div class="flex items-start space-x-4 mb-5">
-                                <img src="{{ $message->user->image ? asset('storage/' . $message->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
+                                <img src="{{ $firstMessage->user->image ? asset('storage/' . $firstMessage->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
                                      alt="User Avatar"
                                      class="w-12 h-12 rounded-full object-cover ml-4">
                                 <div class="flex flex-col space-y-2">
-                                    <a href="{{ route('chats.show', ['userName' => $message->user->name, 'carId' => $chat->car_id]) }}"
+                                    <a href="{{ route('chats.show', ['userName' => $firstMessage->user->name, 'carId' => $chat->car_id]) }}"
                                        class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-all duration-200">
-                                        {{ $message->user->name }}
+                                        {{ $firstMessage->user->name }}
                                     </a>
-                                    <p class="text-sm text-gray-600">{{ $message->content }}</p>
+                                    <p class="text-sm text-gray-600">{{ $firstMessage->content }}</p>
                                     <!-- Created At -->
-                                    <p class="text-xs text-gray-400">{{ $message->created_at->format('M d, Y \a\t h:i A') }}</p>
+                                    <p class="text-xs text-gray-400">{{ $firstMessage->created_at->format('M d, Y \a\t h:i A') }}</p>
                                 </div>
                             </div>
                         @endif
-                    @endforeach
+                    @endif
                 </div>
             @endforeach
         </div>

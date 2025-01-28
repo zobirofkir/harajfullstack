@@ -15,11 +15,21 @@ class ChatService implements ChatConstructor
 {
     public function index()
     {
-        $userId = Auth::id();
+        $user = Auth::user();
+        $chats = Chat::with(['messages.user'])
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
-        $chats = Chat::whereHas('messages', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })->with('messages.user')->orderBy('created_at', 'desc')->get();
+        foreach ($chats as $chat) {
+            // If the user created the car (creator of the car)
+            if ($chat->car->user_id == $user->id) {
+                $chat->messages;
+            } else {
+                $chat->messages = $chat->messages->filter(function ($message) use ($user) {
+                    return $message->user_id == $user->id;
+                });
+            }
+        }
 
         return view('pages.chats.index', compact('chats'));
     }
