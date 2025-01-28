@@ -7,23 +7,14 @@
             <div class="w-1/4 bg-gray-100 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto mr-4">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">المستخدمون</h2>
                 <ul>
-                    @if (Auth::user()->id === $chat->car->user_id)
-                        <!-- If the current user is the car creator, display all users in the chat -->
-                        @foreach ($users as $user)
-                            <li class="mb-2">
-                                <a href="{{ route('chats.show', ['userName' => $user->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
-                                    {{ $user->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    @else
-                        <!-- If the current user is not the car creator, display only their own name -->
+                    @foreach ($users->where('id', '!=', Auth::id()) as $user)
                         <li class="mb-2">
-                            <a href="{{ route('chats.show', ['userName' => Auth::user()->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
-                                {{ Auth::user()->name }}
+                            <a href="{{ route('chats.show', ['userName' => $user->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
+                                {{ $user->name }}
                             </a>
                         </li>
-                    @endif
+                    @endforeach
+
                 </ul>
             </div>
 
