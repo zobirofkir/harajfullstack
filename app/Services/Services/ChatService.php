@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Services;
 
 use App\Http\Requests\ChatRequest;
@@ -21,16 +22,26 @@ class ChatService implements ChatConstructor
 
     public function show($userName, $carId)
     {
-        $chat = Chat::where('username', $userName)
-                    ->where('car_id', $carId)
-                    ->firstOrCreate([
-                        'username' => $userName,
-                        'car_id' => $carId,
-                    ]);
+        $chat = Chat::firstOrCreate(
+            ['username' => $userName, 'car_id' => $carId]
+        );
 
-        $messages = $chat->messages()->get();
+        $userId = Auth::id();
+        $carCreatorId = $chat->car->user_id;
 
-        return view('pages.chats.show', compact('chat', 'messages'));
+        $messages = $chat->messages()
+            ->where(function ($query) use ($userId, $carCreatorId) {
+                $query->where('user_id', $userId)
+                    ->orWhere('receiver_id', $userId)
+                    ->where('user_id', $carCreatorId)
+                    ->orWhere('receiver_id', $carCreatorId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $users = User::where('id', $carCreatorId)->get();
+
+        return view('pages.chats.show', compact('chat', 'messages', 'users'));
     }
 
     public function store(ChatRequest $request)
@@ -56,16 +67,23 @@ class ChatService implements ChatConstructor
         $request->validate(['content' => 'required|string']);
 
         if (Auth::check()) {
-            $message = $chat->messages()->create([
-                'user_id' => Auth::id(),
-                'username' => Auth::user()->name,
-                'content' => $request->content,
-                'email' => Auth::user()->email
-            ]);
+            $receiver = User::where('name', $chat->username)->first();
 
-            SendNewMessageNotification::dispatch($message);
+            if ($receiver) {
+                $message = $chat->messages()->create([
+                    'user_id' => Auth::id(),
+                    'receiver_id' => $receiver->id,
+                    'username' => Auth::user()->name,
+                    'content' => $request->content,
+                    'email' => Auth::user()->email
+                ]);
 
-            return back();
+                SendNewMessageNotification::dispatch($message);
+
+                return back();
+            }
+
+            return back()->withErrors(['error' => 'Receiver not found']);
         }
 
         return redirect()->route('login');
