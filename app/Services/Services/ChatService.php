@@ -29,17 +29,24 @@ class ChatService implements ChatConstructor
         $userId = Auth::id();
         $carCreatorId = $chat->car->user_id;
 
-        $messages = $chat->messages()
-            ->where(function ($query) use ($userId, $carCreatorId) {
-                $query->where('user_id', $userId)
-                    ->orWhere('receiver_id', $userId)
-                    ->where('user_id', $carCreatorId)
-                    ->orWhere('receiver_id', $carCreatorId);
-            })
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if ($userId !== $carCreatorId) {
+            $messages = $chat->messages()
+                ->where(function ($query) use ($userId, $carCreatorId) {
+                    $query->where('user_id', $userId)
+                        ->orWhere('user_id', $carCreatorId)
+                        ->where('receiver_id', $userId);
+                })
+                ->orderBy('created_at', 'asc')
+                ->get();
 
-        $users = User::where('id', $carCreatorId)->get();
+            $users = User::where('id', $carCreatorId)->get();
+        } else {
+            $messages = $chat->messages()
+                ->orderBy('created_at', 'asc')
+                ->get();
+
+            $users = User::whereIn('id', $chat->messages->pluck('user_id')->unique())->get();
+        }
 
         return view('pages.chats.show', compact('chat', 'messages', 'users'));
     }

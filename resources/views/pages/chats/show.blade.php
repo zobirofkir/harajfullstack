@@ -7,14 +7,23 @@
             <div class="w-1/4 bg-gray-100 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto mr-4">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">المستخدمون</h2>
                 <ul>
-                    @foreach ($users as $user)
+                    @if (Auth::user()->id === $chat->car->user_id)
+                        <!-- If the current user is the car creator, display all users in the chat -->
+                        @foreach ($users as $user)
+                            <li class="mb-2">
+                                <a href="{{ route('chats.show', ['userName' => $user->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
+                                    {{ $user->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    @else
+                        <!-- If the current user is not the car creator, display only their own name -->
                         <li class="mb-2">
-                            <!-- Correcting the route and passing both userName and carId -->
-                            <a href="{{ route('chats.show', ['userName' => $user->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
-                                {{ $user->name }}
+                            <a href="{{ route('chats.show', ['userName' => Auth::user()->name, 'carId' => $chat->car_id]) }}" class="text-blue-600 hover:text-blue-800">
+                                {{ Auth::user()->name }}
                             </a>
                         </li>
-                    @endforeach
+                    @endif
                 </ul>
             </div>
 
@@ -25,7 +34,7 @@
                         <div class="bg-gray-100 p-3 rounded-lg shadow-md w-3/4">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-gray-700 text-sm font-medium">
-                                    {{ $message->user_id === Auth::id() ? 'You' : $message->username }}
+                                    {{ $message->user_id === Auth::id() ? 'You' : $message->user->name }}
                                 </span>
                                 <span class="text-gray-500 text-xs">
                                     {{ $message->created_at->diffForHumans() }}
