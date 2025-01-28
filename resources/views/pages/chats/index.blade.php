@@ -5,7 +5,7 @@
         <!-- Filter Input Form -->
         <div class="mb-6">
             <input id="filterInput" type="text" placeholder="ابحث عن محادثات"
-                   class="w-full sm:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200" />
+                   class="w-full sm:w-80 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-200" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -22,7 +22,7 @@
                                      class="w-12 h-12 rounded-full object-cover ml-4">
                                 <div class="flex flex-col space-y-2">
                                     <a href="{{ route('chats.show', ['userName' => $firstMessage->user->name, 'carId' => $chat->car_id]) }}"
-                                       class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-all duration-200">
+                                       class="text-lg font-semibold text-gray-800 hover:text-gray-600 transition-all duration-200">
                                         {{ $firstMessage->user->name }}
                                     </a>
                                     <p class="text-sm text-gray-600">{{ $firstMessage->content }}</p>
