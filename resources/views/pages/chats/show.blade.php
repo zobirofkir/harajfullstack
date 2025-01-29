@@ -3,7 +3,7 @@
 
         <!-- Alert Message -->
         <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg mb-6 text-center shadow-md" role="alert">
-            <strong>تنبيه!</strong> يرجى زيارة قسم الدردشات لعرض الرسائل بينك وبين البائع بعد إرسال الرسالة.
+            <strong>تنبيه!</strong> يرجى زيارة قسم الدردشات لعرض الرسائل بينك وبين البائع بعد إرسال الرسالة، وذلك لضمان أمان محادثاتك.
         </div>
 
         <h1 class="text-2xl font-semibold mb-4 text-gray-700 text-center">{{ $chat->car->title }}</h1>
