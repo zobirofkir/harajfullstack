@@ -132,7 +132,7 @@
                         @if (Auth::check())
                             <div class="min-w-full">
                                 <!-- Chat Button -->
-                                <a href="{{ route('chats.show', ['userName' => Auth::user()->name, 'carId' => $car->id]) }}"
+                                <a href="{{ route('chats.show', ['userName' => $car->user->name, 'carId' => $car->id]) }}"
                                     class="bg-gray-600  text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center">
                                         <i class="fas fa-comments"></i>
                                         بدء الدردشة
