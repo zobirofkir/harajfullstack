@@ -100,16 +100,20 @@
 
                         return `
                             <div class="flex ${msg.user_id == {{ Auth::id() }} ? 'justify-end' : 'justify-start'} mb-6">
-                                <div class="bg-gradient-to-r ${msg.user_id == {{ Auth::id() }} ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200'} p-4 rounded-xl shadow-lg w-3/4 max-w-md">
+                                <div class="bg-gradient-to-r ${msg.user_id == {{ Auth::id() }} ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200'} p-4 rounded-xl shadow-xl w-3/4 max-w-md">
                                     <div class="flex justify-between items-center mb-3">
-                                        <span class="text-gray-800 text-sm font-semibold">
-                                            ${msg.user.name}
-                                        </span>
-                                        <span class="text-gray-500 text-xs italic">
-                                            ${formattedDate}
-                                        </span>
+                                        <img src="{{ asset('storage/') }}/${msg.user.image}" alt="def" class="w-10 h-10 rounded-full border-2 border-white shadow-md">
+
+                                        <div class="flex flex-col ml-2">
+                                            <span class="text-gray-800 text-sm font-semibold">
+                                                ${msg.user.name}
+                                            </span>
+                                            <span class="text-gray-500 text-xs italic">
+                                                ${formattedDate}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="p-3 bg-white rounded-lg shadow-inner">
+                                    <div class="p-4 bg-white rounded-lg shadow-inner">
                                         <p class="text-gray-800 text-lg">
                                             ${msg.content}
                                         </p>
@@ -117,7 +121,8 @@
                                 </div>
                             </div>
                         `;
-                    }).join('');
+
+                        }).join('');
 
                     // Set the form action URL for sending messages to the selected chat
                     document.getElementById('messageForm').action = "/chats/" + selectedChat.id + "/messages";
