@@ -1,5 +1,11 @@
 <x-app-layout title="الدردشة">
     <div class="container mx-auto px-4 py-6">
+
+        <!-- Alert Message -->
+        <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg mb-6 text-center shadow-md" role="alert">
+            <strong>تنبيه!</strong> يرجى زيارة قسم الدردشات لعرض الرسائل بينك وبين البائع بعد إرسال الرسالة.
+        </div>
+
         <h1 class="text-2xl font-semibold mb-4 text-gray-700 text-center">{{ $chat->car->title }}</h1>
 
         <div class="flex">
@@ -10,7 +16,7 @@
                     <div class="bg-gradient-to-r {{ Auth::check() && Auth::id() === $message->user_id ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200' }} p-4 rounded-xl shadow-lg w-3/4 max-w-md">
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-gray-800 text-sm font-semibold">
-                                {{ $message->user_id === Auth::id() ? 'You' : $message->user->name }}
+                                {{ $message->user_id === Auth::id() ? 'أنت' : $message->user->name }}
                             </span>
                             <span class="text-gray-500 text-xs italic">
                                 {{ $message->created_at->diffForHumans() }}
@@ -21,10 +27,8 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-
-        </div>
-
+                @endforeach
+            </div>
         </div>
 
         <!-- Send Message Form -->
