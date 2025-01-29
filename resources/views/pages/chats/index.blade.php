@@ -64,23 +64,46 @@
                     // Update chat header and display messages
                     document.getElementById('chatHeader').textContent = selectedChat.messages[0].user.name;
                     const messagesContainer = document.getElementById('chatMessages');
-                    messagesContainer.innerHTML = selectedChat.messages.map(msg => `
-                        <div class="flex ${msg.user_id == {{ Auth::id() }} ? 'justify-end' : 'justify-start'} mb-4">
-                            <div class="bg-gray-100 p-3 rounded-lg shadow-md w-3/4">
-                                <div class="text-gray-700 text-sm font-medium">${msg.user.name}</div>
-                                <p class="text-gray-600 text-md">${msg.content}</p>
-                                <span class="text-gray-500 text-xs">${msg.created_at}</span>
+                    messagesContainer.innerHTML = selectedChat.messages.map(msg => {
+                        // Format the created_at date
+                        const createdAt = new Date(msg.created_at);
+                        const formattedDate = createdAt.toLocaleString('ar-EG', {
+                            weekday: 'short', // "Mon"
+                            year: 'numeric', // "2025"
+                            month: 'short', // "Jan"
+                            day: 'numeric', // "29"
+                            hour: '2-digit', // "10"
+                            minute: '2-digit', // "30"
+                        });
+
+                        return `
+                            <div class="flex ${msg.user_id == {{ Auth::id() }} ? 'justify-end' : 'justify-start'} mb-6">
+                                <div class="bg-gradient-to-r ${msg.user_id == {{ Auth::id() }} ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200'} p-4 rounded-xl shadow-lg w-3/4 max-w-md">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-gray-800 text-sm font-semibold">
+                                            ${msg.user.name}
+                                        </span>
+                                        <span class="text-gray-500 text-xs italic">
+                                            ${formattedDate}
+                                        </span>
+                                    </div>
+                                    <div class="p-3 bg-white rounded-lg shadow-inner">
+                                        <p class="text-gray-800 text-lg">
+                                            ${msg.content}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
 
                     // Set the form action URL for sending messages to the selected chat
                     document.getElementById('messageForm').action = "/chats/" + selectedChat.id + "/messages";
-
                     document.getElementById('messageForm').classList.remove('hidden');
                 } else {
                     document.getElementById('chatMessages').innerHTML = '<p class="text-gray-700 text-center">لا توجد رسائل بعد.</p>';
                 }
+
             });
         });
     </script>
