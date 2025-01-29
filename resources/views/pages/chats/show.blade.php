@@ -5,23 +5,25 @@
         <div class="flex">
             <!-- Chat Messages (right side) -->
             <div class="flex-1 bg-gray-50 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto">
-                @foreach ($messages as $message)
-                    <div class="flex {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }} mb-4">
-                        <div class="bg-gray-100 p-3 rounded-lg shadow-md w-3/4">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-gray-700 text-sm font-medium">
-                                    {{ $message->user_id === Auth::id() ? 'You' : $message->user->name }}
-                                </span>
-                                <span class="text-gray-500 text-xs">
-                                    {{ $message->created_at->diffForHumans() }}
-                                </span>
-                            </div>
-                            <!-- Message Content -->
-                            <p class="text-gray-600 text-md">{{ $message->content }}</p>
+                @foreach ($messages as $index => $message)
+                <div class="flex {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }} mb-6">
+                    <div class="bg-gradient-to-r {{ Auth::check() && Auth::id() === $message->user_id ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200' }} p-4 rounded-xl shadow-lg w-3/4 max-w-md">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-gray-800 text-sm font-semibold">
+                                {{ $message->user_id === Auth::id() ? 'You' : $message->user->name }}
+                            </span>
+                            <span class="text-gray-500 text-xs italic">
+                                {{ $message->created_at->diffForHumans() }}
+                            </span>
+                        </div>
+                        <div class="p-2 bg-white rounded-lg shadow-inner">
+                            <p class="text-gray-800 text-lg">{{ $message->content }}</p>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+
+        </div>
 
         </div>
 
