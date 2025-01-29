@@ -10,31 +10,51 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <!-- Chats -->
+            @if ($chats->isNotEmpty())
             @foreach ($chats as $chat)
-                @if ($chat->messages->isNotEmpty()) <!-- Ensure messages are not empty -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 user-item">
-                        <!-- Display only the first message of each chat -->
-                        @php $firstMessage = $chat->messages->first(); @endphp
-                        @if ($firstMessage->user_id != Auth::id())
-                            <div class="flex items-start space-x-4 mb-5">
-                                <img src="{{ $firstMessage->user->image ? asset('storage/' . $firstMessage->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
-                                     alt="User Avatar"
-                                     class="w-12 h-12 rounded-full object-cover ml-4">
-                                <div class="flex flex-col space-y-2">
-                                    <a href="{{ route('chats.show', ['userName' => $firstMessage->user->name, 'carId' => $chat->car_id]) }}"
-                                       class="text-lg font-semibold text-gray-800 hover:text-gray-600 transition-all duration-200">
-                                        {{ $firstMessage->user->name }}
-                                    </a>
-                                    <p class="text-sm text-gray-600">{{ $firstMessage->content }}</p>
-                                    <!-- Created At -->
-                                    <p class="text-xs text-gray-400">{{ $firstMessage->created_at->format('M d, Y \a\t h:i A') }}</p>
+                <div class="container mx-auto px-4 py-6">
+                    <h1 class="text-2xl font-semibold mb-4 text-gray-700 text-center">{{ $chat->car->title }}</h1>
+
+                    <div class="flex">
+                        <div class="flex-1 bg-gray-50 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto">
+                            @foreach ($chat->messages as $message)
+                                <div class="flex {{ Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }} mb-4">
+                                    <div class="bg-gray-100 p-3 rounded-lg shadow-md w-3/4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-gray-700 text-sm font-medium">
+                                                {{ $message->user_id === Auth::id() ? 'You' : $message->user->name }}
+                                            </span>
+                                            <span class="text-gray-500 text-xs">
+                                                {{ $message->created_at->diffForHumans() }}
+                                            </span>
+                                        </div>
+                                        <p class="text-gray-600 text-md">{{ $message->content }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endforeach
+                        </div>
                     </div>
-                @endif
+
+                    @auth
+                        <form action="{{ route('chats.send', $chat) }}" method="POST" class="flex space-x-4 mt-4">
+                            @csrf
+                            <textarea name="content" rows="2" placeholder="اكتب رسالتك هنا..."
+                                      class="flex-grow px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                                      required></textarea>
+                            <button type="submit" class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                إرسال
+                            </button>
+                        </form>
+                    @else
+                        <p class="text-gray-700 mt-4">يرجى تسجيل الدخول لإرسال رسالة.</p>
+                    @endauth
+                </div>
             @endforeach
-        </div>
+        @else
+            <p class="text-center text-gray-500 mt-6">لا توجد محادثات متاحة.</p>
+        @endif
+
+    </div>
     </div>
 
     <script>
