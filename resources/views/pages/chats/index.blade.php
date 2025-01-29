@@ -1,11 +1,13 @@
 <x-app-layout title="الرسائل">
-    <div class="container mx-auto px-4 py-6 h-screen flex border rounded-lg shadow-lg overflow-hidden">
-        <!-- Sidebar: Users List -->
-        <div class="w-1/3 bg-gray-50 border-r p-4 overflow-y-auto">
-            <input id="filterInput" type="text" placeholder="ابحث عن محادثات"
-                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4" />
-
-                   <ul id="userList" class="space-y-4">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row border rounded-lg shadow-lg overflow-hidden">
+        <!-- Sidebar: Users List (Dropdown on Mobile) -->
+        <div class="w-full md:w-1/3 bg-gray-50 border-b md:border-r p-4 overflow-y-auto md:h-full">
+            <div class="block md:hidden">
+                <!-- Button to toggle the dropdown -->
+                <button id="dropdownToggle" class="w-full text-left px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                    اختر مستخدمًا
+                </button>
+                <ul id="userDropdown" class="space-y-4 mt-2 hidden md:block">
                     @foreach ($users as $user)
                         <li class="user-item p-2 rounded-lg hover:bg-gray-200 cursor-pointer" data-user-id="{{ $user->id }}">
                             <a class="text-gray-700 font-medium">
@@ -15,13 +17,27 @@
                         </li>
                     @endforeach
                 </ul>
+            </div>
 
+            <input id="filterInput" type="text" placeholder="ابحث عن محادثات"
+                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4 hidden md:block" />
+
+            <ul id="userList" class="space-y-4 md:block hidden">
+                @foreach ($users as $user)
+                    <li class="user-item p-2 rounded-lg hover:bg-gray-200 cursor-pointer" data-user-id="{{ $user->id }}">
+                        <a class="text-gray-700 font-medium">
+                            {{ $user->name }}
+                            <span class="text-sm text-gray-500">({{ $user->message_count }} رسائل)</span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
 
         <!-- Chat Area -->
-        <div class="w-2/3 flex flex-col">
+        <div class="w-full md:w-2/3 flex flex-col">
             <div id="chatHeader" class="p-4 bg-gray-100 border-b text-gray-800 font-semibold text-lg">حدد مستخدمًا لعرض الدردشة</div>
-            <div id="chatMessages" class="flex-1 bg-gray-50 p-4 overflow-y-auto h-[70vh]"></div>
+            <div id="chatMessages" class="flex-1 bg-gray-50 p-4 overflow-y-auto h-[50vh] md:h-[70vh]"></div>
 
             @auth
                 <form id="messageForm" method="POST" class="flex space-x-4 p-4 border-t hidden">
@@ -39,6 +55,12 @@
     </div>
 
     <script>
+        // Toggle the visibility of the user dropdown on mobile
+        document.getElementById('dropdownToggle').addEventListener('click', function() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
         // Handle filtering of users list
         document.getElementById('filterInput').addEventListener('input', function() {
             const filterValue = this.value.toLowerCase();
