@@ -62,7 +62,7 @@ class ChatService implements ChatConstructor
                 ->where(function ($query) use ($userId, $carCreatorId) {
                     $query->where('user_id', $userId)
                         ->orWhere('user_id', $carCreatorId)
-                        ->where('receiver_id', $userId);
+                        ->where('receiver_id', $carCreatorId);
                 })
                 ->orderBy('created_at', 'asc')
                 ->get();
