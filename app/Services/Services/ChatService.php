@@ -17,8 +17,10 @@ class ChatService implements ChatConstructor
     {
         $userId = Auth::id();
 
+        // Get all users except the current one
         $users = User::where('id', '!=', $userId)->get();
 
+        // Get all chats where the logged-in user is either the sender or receiver
         $chats = Chat::with(['messages.user', 'car'])
                     ->whereHas('messages', function ($query) use ($userId) {
                         $query->where('user_id', $userId)
@@ -27,7 +29,23 @@ class ChatService implements ChatConstructor
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-        return view('pages.chats.index', ['chats' => $chats, 'users' => $users]);
+        $usersWithMessageCount = $users->map(function ($user) use ($userId) {
+            $messageCount = Chat::whereHas('messages', function ($query) use ($user, $userId) {
+                $query->where(function ($q) use ($user, $userId) {
+                    $q->where('user_id', $user->id)
+                      ->where('receiver_id', $userId);
+                })
+                ->orWhere(function ($q) use ($user, $userId) {
+                    $q->where('user_id', $userId)
+                      ->where('receiver_id', $user->id);
+                });
+            })->count();
+
+            $user->message_count = $messageCount;
+            return $user;
+        });
+
+        return view('pages.chats.index', ['chats' => $chats, 'users' => $usersWithMessageCount]);
     }
 
     public function show($userName, $carId)

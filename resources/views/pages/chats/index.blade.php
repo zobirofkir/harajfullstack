@@ -5,13 +5,17 @@
             <input id="filterInput" type="text" placeholder="ابحث عن محادثات"
                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4" />
 
-            <ul id="userList" class="space-y-4">
-                @foreach ($users as $user)
-                    <li class="user-item p-2 rounded-lg hover:bg-gray-200 cursor-pointer" data-user-id="{{ $user->id }}">
-                        <a class="text-gray-700 font-medium">{{ $user->name }}</a>
-                    </li>
-                @endforeach
-            </ul>
+                   <ul id="userList" class="space-y-4">
+                    @foreach ($users as $user)
+                        <li class="user-item p-2 rounded-lg hover:bg-gray-200 cursor-pointer" data-user-id="{{ $user->id }}">
+                            <a class="text-gray-700 font-medium">
+                                {{ $user->name }}
+                                <span class="text-sm text-gray-500">({{ $user->message_count }} رسائل)</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+
         </div>
 
         <!-- Chat Area -->
