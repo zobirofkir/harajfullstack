@@ -17,6 +17,8 @@ class ChatService implements ChatConstructor
     {
         $userId = Auth::id();
 
+        $users = User::where('id', '!=', $userId)->get();
+
         $chats = Chat::with(['messages.user', 'car'])
                     ->whereHas('messages', function ($query) use ($userId) {
                         $query->where('user_id', $userId)
@@ -25,7 +27,7 @@ class ChatService implements ChatConstructor
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-        return view('pages.chats.index', ['chats' => $chats]);
+        return view('pages.chats.index', ['chats' => $chats, 'users' => $users]);
     }
 
     public function show($userName, $carId)

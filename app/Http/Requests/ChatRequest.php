@@ -43,4 +43,5 @@ class ChatRequest extends FormRequest
             'email.email' => 'البريد الالكتروني يجب ان يكون انجليسي',
             'email.exists' => 'البريد الالكتروني غير صحيح',
         ];
+    }
 }
