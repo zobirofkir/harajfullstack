@@ -22,7 +22,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -33,9 +33,11 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
+            
             'name.required' => 'الاسم مطلوب',
-            'name.string' => 'الاسم يجب ان يكون نص',
             'name.max' => 'الاسم يجب ان يكون اكثر من 255 حرف',
+            'name.unique' => 'الاسم موجود مسبقا',
+            'email.required' => 'البريد الالكتروني مطلوب',
             'email.required' => 'البريد الالكتروني مطلوب',
             'email.string' => 'البريد الالكتروني يجب ان يكون نص',
             'email.email' => 'البريد الالكتروني يجب ان يكون انجليسي',

@@ -22,6 +22,7 @@
                     </div>
                 @endforeach
             </div>
+
         </div>
 
         <!-- Send Message Form -->
