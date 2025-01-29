@@ -17,10 +17,9 @@ class ChatService implements ChatConstructor
     {
         $userId = Auth::id();
 
-        // Get all users except the current one
         $users = User::where('id', '!=', $userId)->get();
 
-        // Get all chats where the logged-in user is either the sender or receiver
+        // استرجاع المحادثات الخاصة بالمستخدم المصادق عليه فقط
         $chats = Chat::with(['messages.user', 'car'])
                     ->whereHas('messages', function ($query) use ($userId) {
                         $query->where('user_id', $userId)
@@ -62,7 +61,7 @@ class ChatService implements ChatConstructor
                 ->where(function ($query) use ($userId, $carCreatorId) {
                     $query->where('user_id', $userId)
                         ->orWhere('user_id', $carCreatorId)
-                        ->where('receiver_id', $carCreatorId);
+                        ->where('receiver_id', $userId);
                 })
                 ->orderBy('created_at', 'asc')
                 ->get();
