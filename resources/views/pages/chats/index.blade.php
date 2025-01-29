@@ -76,7 +76,6 @@
                     document.getElementById('messageForm').classList.remove('hidden');
                 } else {
                     document.getElementById('chatMessages').innerHTML = '<p class="text-gray-700 text-center">لا توجد رسائل بعد.</p>';
-                    document.getElementById('messageForm').classList.add('hidden');
                 }
             });
         });
