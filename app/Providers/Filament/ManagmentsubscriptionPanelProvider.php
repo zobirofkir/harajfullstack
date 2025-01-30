@@ -37,7 +37,6 @@ class ManagmentsubscriptionPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Managmentsubscription/Widgets'), for: 'App\\Filament\\Managmentsubscription\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
