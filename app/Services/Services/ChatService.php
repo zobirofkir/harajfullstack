@@ -26,7 +26,7 @@ class ChatService implements ChatConstructor
             ->whereHas('chat', function($query) {
                 $query->whereNotNull('car_id');
             })
-            ->with(['user', 'receiver', 'chat.car'])
+            ->with(['user', 'receiver', 'chat.car']) // جلب بيانات السيارة لكل رسالة
             ->orderBy('created_at', 'desc')
             ->get();
 
