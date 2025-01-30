@@ -2,13 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Car;
-use App\Models\Category;
-use App\Models\Logo;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 class OverviewWidget extends BaseWidget
 {
@@ -20,20 +16,30 @@ class OverviewWidget extends BaseWidget
             return [];
         }
 
-        $stats = [
-            Stat::make('الصفحة ', 'الرئيسية')
-                ->description('الصفحة الرئيسية')
-                ->description('الصفحة الرئيسية')
-                ->color('info')
-                ->icon('heroicon-o-home')
-                ->url(route('home')),
+        $stats = [];
 
-            Stat::make('السيارات', $user->cars()->count())
-                ->description('عدد السيارات المرتبطة بك')
+        if ($user->name === "دينالي" && $user->email === "deenali@admin.com") {
+            $stats[] = Stat::make('لوحة التحكم', 'الإدارية')
+                ->description('الانتقال إلى لوحة التحكم ')
                 ->color('success')
-                ->icon('heroicon-o-truck')
-        ];
+                ->icon('heroicon-o-cog')
+                ->url(url('managment/subscriptions'));
+        }
 
+        $stats[] = Stat::make('الصفحة ', 'الرئيسية')
+            ->description('الصفحة الرئيسية')
+            ->color('info')
+            ->icon('heroicon-o-home')
+            ->url(route('home'));
+
+        $stats[] = Stat::make('السيارات', $user->cars()->count())
+            ->description('عدد السيارات المرتبطة بك')
+            ->color('success')
+            ->icon('heroicon-o-truck');
+
+        /**
+         * Users Plans
+         */
         if ($user->hasPlan('خطة مجانية')) {
             $stats[] = Stat::make('الخطة', 'مجانية')
                 ->description('إعلانين يوميًا كحد أقصى')
