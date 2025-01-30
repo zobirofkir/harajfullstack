@@ -8,25 +8,38 @@
             </div>
             <ul id="chatList" class="space-y-3 overflow-y-auto flex-1">
                 @foreach ($messages as $message)
-                    <li class="chat-item p-4 bg-white rounded-lg shadow-md hover:bg-blue-100 cursor-pointer transition-all duration-300">
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600">
-                                المرسل: {{ $message->user->name }} - المستلم: {{ $message->receiver->name }}
-                            </span>
-                        </div>
+                    @if($message->chat && $message->chat->car)
+                        <li class="chat-item p-4 bg-white rounded-lg shadow-md hover:bg-blue-100 cursor-pointer transition-all duration-300">
+                            <!-- Use the chat's car_id for the link -->
+                            <a href="{{ route('chats.start', ['userName' => $message->user->name, 'carId' => $message->chat->car_id]) }}">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">
+                                        المرسل: {{ $message->user->name }} - المستلم: {{ $message->receiver->name }}
+                                    </span>
+                                </div>
 
-                        <div class="mt-4">
-                            <h4 class="font-semibold text-gray-800">المحادثة</h4>
-                            <div class="messages mt-2 space-y-2">
-                                <div class="message flex justify-{{ $message->user_id == Auth::id() ? 'end' : 'start' }}">
-                                    <div class="bg-{{ $message->user_id == Auth::id() ? 'blue' : 'gray' }}-100 p-3 rounded-lg max-w-xs">
-                                        <p class="text-sm text-gray-800">{{ $message->content }}</p>
-                                        <span class="text-xs text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
+                                <div class="mt-4">
+                                    <h4 class="font-semibold text-gray-800">المحادثة</h4>
+                                    <div class="messages mt-2 space-y-2">
+                                        <div class="message flex justify-{{ $message->user_id == Auth::id() ? 'end' : 'start' }}">
+                                            <div class="bg-{{ $message->user_id == Auth::id() ? 'blue' : 'gray' }}-100 p-3 rounded-lg max-w-xs">
+                                                <p class="text-sm text-gray-800">{{ $message->content }}</p>
+                                                <span class="text-xs text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </a>
+                        </li>
+                    @else
+                        <li class="p-4 bg-white rounded-lg shadow-md hover:bg-blue-100 cursor-pointer transition-all duration-300">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">
+                                    المرسل: {{ $message->user->name }} - المستلم: {{ $message->receiver->name }}
+                                </span>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>
