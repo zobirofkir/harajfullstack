@@ -34,7 +34,7 @@
                                     <div class="flex-1 text-center">
                                         <span class="block text-lg font-semibold text-gray-800">{{ $sender->name }}</span>
                                         <span class="block text-xs text-gray-600 mt-1">📩 آخر رسالة: {{ $latestMessage ? $latestMessage->created_at->diffForHumans() : 'لا توجد رسائل' }}</span>
-                                        <span class="block text-xs text-blue-600 font-medium mt-1">🚗 {{ $carTitle }}</span>
+                                        <span class="block text-md text-blue-600 font-medium mt-1">🚗 {{ $carTitle }}</span>
                                     </div>
                                 </div>
                             </a>
