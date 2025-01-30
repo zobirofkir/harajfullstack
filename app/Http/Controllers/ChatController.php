@@ -16,6 +16,10 @@ class ChatController extends Controller
         return ChatFacade::index();
     }
 
+    public function startChat($userName, $carId)
+    {
+        return ChatFacade::startChat($userName, $carId);
+    }
     public function show($userName, $carId)
     {
         return ChatFacade::show($userName, $carId);

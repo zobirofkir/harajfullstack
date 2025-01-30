@@ -11,7 +11,7 @@
         <div class="flex">
             <!-- Chat Messages (right side) -->
             <div class="flex-1 bg-gray-50 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto">
-                @foreach ($messages as $index => $message)
+                @foreach ($messages as $message)
                 <div class="flex {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }} mb-6">
                     <div class="bg-gradient-to-r {{ Auth::check() && Auth::id() === $message->user_id ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200' }} p-4 rounded-xl shadow-lg w-3/4 max-w-md">
                         <div class="flex justify-between items-center mb-3">
@@ -33,15 +33,19 @@
 
         <!-- Send Message Form -->
         @auth
-            <form action="{{ route('chats.send', $chat) }}" method="POST" class="flex space-x-4 mt-4">
-                @csrf
-                <textarea name="content" rows="2" placeholder="اكتب رسالتك هنا..."
-                          class="flex-grow px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                          required></textarea>
-                <button type="submit" class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    إرسال
-                </button>
-            </form>
+            @if($messageSent)
+                <p class="text-gray-700 mt-4">لقد قمت بإرسال رسالة بالفعل. لا يمكنك إرسال رسائل أخرى.</p>
+            @else
+                <form action="{{ route('chats.send', $chat) }}" method="POST" class="flex space-x-4 mt-4">
+                    @csrf
+                    <textarea name="content" rows="2" placeholder="اكتب رسالتك هنا..."
+                              class="flex-grow px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                              required></textarea>
+                    <button type="submit" class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        إرسال
+                    </button>
+                </form>
+            @endif
         @else
             <p class="text-gray-700 mt-4">يرجى تسجيل الدخول لإرسال رسالة.</p>
         @endauth

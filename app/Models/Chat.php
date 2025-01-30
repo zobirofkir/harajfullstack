@@ -8,7 +8,9 @@ class Chat extends Model
 {
     protected $fillable = [
         'username',
-        'car_id'
+        'car_id',
+        'user_id',
+        'receiver_id'
     ];
 
     public function user()
@@ -24,5 +26,10 @@ class Chat extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 }

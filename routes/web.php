@@ -154,7 +154,7 @@ Route::middleware('auth')->group(function () {
      * Show a specific chat
      */
     Route::get('/chats/{userName}/{carId}', [ChatController::class, 'show'])->name('chats.show');
-    
+
     /**
      * Store chat
      */
@@ -184,4 +184,9 @@ Route::middleware('auth')->group(function () {
      * Update Current Authenticated User
      */
     Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+
+    /**
+     * Start Chat
+     */
+    Route::get('/chats/start/{userName}/{carId}', [ChatController::class, 'startChat'])->name('chats.start');
 });
