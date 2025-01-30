@@ -1,47 +1,30 @@
 <x-app-layout title="الرسائل">
     <div class="flex bg-gray-50">
-        <div class="w-full bg-white shadow-lg border-r p-6 overflow-y-auto flex flex-col">
-            <h2 class="text-2xl font-bold text-gray-800 mb-5 text-center">المحادثات</h2>
-            <div class="relative mb-4">
-                <input id="filterInput" type="text" placeholder="🔍 ابحث عن المحادثات"
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm text-gray-700 placeholder-gray-400" />
-            </div>
-            <ul id="chatList" class="space-y-3 overflow-y-auto flex-1">
-                @foreach ($messages as $message)
-                    @if($message->chat && $message->chat->car)
-                        <li class="chat-item p-4 bg-white rounded-lg shadow-md hover:bg-blue-100 cursor-pointer transition-all duration-300">
-                            <!-- Use the chat's car_id for the link -->
-                            <a href="{{ route('chats.start', ['userName' => $message->user->name, 'carId' => $message->chat->car_id]) }}">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm text-gray-600">
-                                        المرسل: {{ $message->user->name }} - المستلم: {{ $message->receiver->name }}
-                                    </span>
-                                </div>
+        <div class="w-full bg-white shadow-lg border-r p-6 overflow-y-auto flex flex-col space-y-6">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center">المحادثات</h2>
 
-                                <div class="mt-4">
-                                    <h4 class="font-semibold text-gray-800">المحادثة</h4>
-                                    <div class="messages mt-2 space-y-2">
-                                        <div class="message flex justify-{{ $message->user_id == Auth::id() ? 'end' : 'start' }}">
-                                            <div class="bg-{{ $message->user_id == Auth::id() ? 'blue' : 'gray' }}-100 p-3 rounded-lg max-w-xs">
-                                                <p class="text-sm text-gray-800">{{ $message->content }}</p>
-                                                <span class="text-xs text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="relative">
+                <input id="filterInput" type="text" placeholder="🔍 ابحث عن المحادثات"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm text-gray-700 placeholder-gray-400 transition-all duration-300 ease-in-out" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach ($conversationsWithUsers as $carId => $conversation)
+                    @foreach ($conversation['senders'] as $sender)
+                        <div class="user-card p-5 bg-white rounded-lg shadow-md hover:bg-blue-50 cursor-pointer transition-all duration-300 ease-in-out">
+                            <a href="{{ route('chats.start', ['userName' => $sender->name, 'carId' => $carId]) }}">
+                                <div class="text-center">
+                                    <span class="block text-lg font-semibold text-gray-800">{{ $sender->name }}</span>
+                                    <span class="block text-sm text-gray-600 mt-2">
+                                        {{ $conversation['messages']->where('user_id', $sender->id)->count() }} رسائل
+                                    </span>
+                                    <span class="block text-xs text-gray-500 mt-1">آخر رسالة: {{ $conversation['messages']->where('user_id', $sender->id)->first()->created_at->diffForHumans() }}</span>
                                 </div>
                             </a>
-                        </li>
-                    @else
-                        <li class="p-4 bg-white rounded-lg shadow-md hover:bg-blue-100 cursor-pointer transition-all duration-300">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">
-                                    المرسل: {{ $message->user->name }} - المستلم: {{ $message->receiver->name }}
-                                </span>
-                            </div>
-                        </li>
-                    @endif
+                        </div>
+                    @endforeach
                 @endforeach
-            </ul>
+            </div>
         </div>
     </div>
 </x-app-layout>

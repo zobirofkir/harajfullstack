@@ -23,10 +23,27 @@ class ChatService implements ChatConstructor
                 $query->where('user_id', $senderId)
                       ->orWhere('receiver_id', $senderId);
             })
+            ->whereHas('chat', function($query) {
+                $query->whereNotNull('car_id');
+            })
+            ->with(['user', 'receiver', 'chat.car'])
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('pages.chats.index', compact('messages'));
+        $conversations = $messages->groupBy(function($message) {
+            return $message->chat->car_id;
+        });
+
+        $conversationsWithUsers = $conversations->map(function($conversationMessages) {
+            $senders = $conversationMessages->pluck('user_id')->unique();
+
+            return [
+                'senders' => User::whereIn('id', $senders)->get(),
+                'messages' => $conversationMessages
+            ];
+        });
+
+        return view('pages.chats.index', compact('conversationsWithUsers'));
     }
 
     public function startChat($userName, $carId)
@@ -38,34 +55,22 @@ class ChatService implements ChatConstructor
 
         $user = User::where('name', $userName)->firstOrFail();
 
-        $chat = Chat::where(function ($query) use ($user, $carId) {
-                    $query->where('user_id', Auth::id())
-                        ->where('receiver_id', $user->id)
-                        ->where('car_id', $carId);
-                })->orWhere(function ($query) use ($user, $carId) {
-                    $query->where('user_id', $user->id)
-                        ->where('receiver_id', Auth::id())
-                        ->where('car_id', $carId);
-                })->first();
+        $messages = Message::where(function($query) use ($user) {
+                                $query->where('user_id', Auth::id())
+                                      ->where('receiver_id', $user->id);
+                            })
+                            ->orWhere(function($query) use ($user) {
+                                $query->where('user_id', $user->id)
+                                      ->where('receiver_id', Auth::id());
+                            })
+                            ->whereHas('chat', function($query) use ($carId) {
+                                $query->where('car_id', $carId);
+                            })
+                            ->with(['user', 'receiver'])
+                            ->orderBy('created_at', 'asc')
+                            ->get();
 
-        if (!$chat) {
-            $chat = Chat::create([
-                'user_id' => Auth::id(),
-                'receiver_id' => $user->id,
-                'car_id' => $carId,
-                'username' => $user->name,
-            ]);
-        }
-
-        $chat->load('user', 'receiver', 'car');
-        $messages = $chat->messages()->orderBy('created_at', 'asc')->get();
-
-        // Retrieve all chats for the current user
-        $chats = Chat::where('user_id', Auth::id())
-                     ->orWhere('receiver_id', Auth::id())
-                     ->get();
-
-        return view('pages.chats.start', compact('chat', 'messages', 'user', 'chats'));
+        return view('pages.chats.start', compact('messages', 'user', 'car'));
     }
 
     public function show($userName, $carId)
@@ -150,28 +155,31 @@ class ChatService implements ChatConstructor
 
     public function sendMessage(Request $request, Chat $chat)
     {
-        $request->validate(['content' => 'required|string']);
+        $request->validate([
+            'content' => 'required|string',
+        ]);
 
-        if (Auth::check()) {
-            $receiver = User::where('name', $chat->username)->first();
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
 
-            if ($receiver) {
-                $message = $chat->messages()->create([
-                    'user_id' => Auth::id(),
-                    'receiver_id' => $receiver->id,
-                    'username' => Auth::user()->name,
-                    'content' => $request->content,
-                    'email' => Auth::user()->email
-                ]);
+        $receiver = User::where('name', $chat->username)->first();
 
-                SendNewMessageNotification::dispatch($message);
-
-                return back();
-            }
-
+        if (!$receiver) {
             return back()->withErrors(['error' => 'Receiver not found']);
         }
 
-        return redirect()->route('login');
+        // Create the message
+        $message = $chat->messages()->create([
+            'user_id' => Auth::id(),
+            'receiver_id' => $receiver->id,
+            'username' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'content' => $request->content,
+        ]);
+
+        SendNewMessageNotification::dispatch($message);
+
+        return back();
     }
 }
