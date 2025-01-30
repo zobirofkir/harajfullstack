@@ -17,7 +17,7 @@ class RestrictManagementAccess
         $user = Auth::user();
 
         if (!$user || $user->name !== 'دينالي' || $user->email !== 'deenali@admin.com' || $user->account_type !== 'مشتري') {
-            abort(403, 'ليس لديك الصلاحية للوصول إلى هذه الصفحة.');
+            return redirect('/admin');
         }
 
         return $next($request);
