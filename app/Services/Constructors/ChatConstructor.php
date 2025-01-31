@@ -13,7 +13,5 @@ interface ChatConstructor
 
     public function show($userName, $carId);
 
-    public function store(ChatRequest $request);
-
     public function sendMessage(Request $request, Chat $chat);
 }

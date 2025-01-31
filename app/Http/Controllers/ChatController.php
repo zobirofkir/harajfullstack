@@ -25,11 +25,6 @@ class ChatController extends Controller
         return ChatFacade::show($userName, $carId);
     }
 
-    public function store(ChatRequest $request)
-    {
-        return ChatFacade::store($request);
-    }
-
     public function sendMessage(Request $request, Chat $chat)
     {
         return ChatFacade::sendMessage($request, $chat);

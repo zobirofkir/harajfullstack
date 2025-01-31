@@ -156,11 +156,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/chats/{userName}/{carId}', [ChatController::class, 'show'])->name('chats.show');
 
     /**
-     * Store chat
-     */
-    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
-
-    /**
      * Store message
      */
     Route::post('/chats/{chat}/messages', [ChatController::class, 'sendMessage'])->name('chats.send');
