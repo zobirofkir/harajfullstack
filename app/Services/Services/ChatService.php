@@ -2,6 +2,7 @@
 
 namespace App\Services\Services;
 
+use App\Events\MessageSent;
 use App\Http\Requests\ChatRequest;
 use App\Jobs\SendNewMessageNotification;
 use App\Models\Car;
@@ -120,6 +121,8 @@ class ChatService implements ChatConstructor
             'email' => Auth::user()->email,
             'content' => $request->content,
         ]);
+
+        broadcast(new MessageSent($message))->toOthers();
 
         SendNewMessageNotification::dispatch($message);
 
