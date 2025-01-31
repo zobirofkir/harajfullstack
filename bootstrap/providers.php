@@ -2,6 +2,7 @@
 
 return [
     App\Providers\AppServiceProvider::class,
+    App\Providers\AuthServiceProvider::class,
     App\Providers\CarServiceProvider::class,
     App\Providers\ChatServiceProvider::class,
     App\Providers\ContactSellerProvider::class,
