@@ -17,80 +17,50 @@ class ChatService implements ChatConstructor
 {
     public function index()
     {
-        $senderId = Auth::id();
+        $userId = Auth::id();
 
-        $messages = Message::where(function($query) use ($senderId) {
-                $query->where('user_id', $senderId)
-                      ->orWhere('receiver_id', $senderId);
-            })
-            ->whereHas('chat', function($query) {
-                $query->whereNotNull('car_id');
-            })
+        $messages = Message::where('user_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->whereHas('chat', fn($q) => $q->whereNotNull('car_id'))
             ->with(['user', 'receiver', 'chat.car'])
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->get();
 
-        $conversations = $messages->groupBy(function($message) {
-            return $message->chat->car_id;
-        });
+        $conversations = $messages->groupBy(fn($msg) => $msg->chat->car_id);
 
-        $conversationsWithUsers = $conversations->map(function($conversationMessages) {
-            $senders = $conversationMessages->pluck('user_id')->unique();
-
-            return [
-                'senders' => User::whereIn('id', $senders)->get(),
-                'messages' => $conversationMessages
-            ];
-        });
+        $conversationsWithUsers = $conversations->map(fn($msgs) => [
+            'senders' => User::whereIn('id', $msgs->pluck('user_id')->unique())->get(),
+            'messages' => $msgs
+        ]);
 
         return view('pages.chats.index', compact('conversationsWithUsers'));
     }
 
     public function startChat($userName, $carId)
     {
+        $userId = Auth::id();
+
         $chat = Chat::firstOrCreate(
             ['username' => $userName, 'car_id' => $carId],
-            ['user_id' => Auth::id()]
+            ['user_id' => $userId]
         );
 
         $user = User::where('name', $userName)->firstOrFail();
-        $userId = Auth::id();
+        $car = Car::findOrFail($carId);
 
-        $car = Car::find($carId);
-        if (!$car) {
-            return back()->withErrors(['error' => 'Car not found']);
-        }
-
-        // Check if the logged-in user is the one who created the car
         $isCreator = $car->user_id === $userId;
 
-        // If the user is the car creator, show all users who have interacted with the car
-        if ($isCreator) {
-            $users = Chat::where('car_id', $carId)
-                ->with(['user', 'receiver'])
-                ->get()
-                ->pluck('user', 'receiver')
-                ->flatten()
-                ->unique('id');
-        } else {
-            // If not the creator, show only the creator of the car
-            $users = User::where('id', $car->user_id)
-                ->get();
-        }
+        $users = $isCreator
+            ? Chat::where('car_id', $carId)->with(['user', 'receiver'])->get()->pluck('user', 'receiver')->flatten()->unique('id')
+            : User::where('id', $car->user_id)->get();
 
         $messages = Message::where(function ($query) use ($userId, $user) {
-                $query->where('user_id', $userId)
-                      ->where('receiver_id', $user->id);
+                $query->where('user_id', $userId)->where('receiver_id', $user->id);
             })
-            ->orWhere(function ($query) use ($userId, $user) {
-                $query->where('user_id', $user->id)
-                      ->where('receiver_id', $userId);
-            })
-            ->whereHas('chat', function ($query) use ($carId) {
-                $query->where('car_id', $carId);
-            })
+            ->orWhere(fn($query) => $query->where('user_id', $user->id)->where('receiver_id', $userId))
+            ->whereHas('chat', fn($q) => $q->where('car_id', $carId))
             ->with(['user', 'receiver'])
-            ->orderBy('created_at', 'asc')
+            ->oldest()
             ->get();
 
         return view('pages.chats.start', compact('messages', 'users', 'user', 'car', 'chat', 'isCreator'));
@@ -98,34 +68,30 @@ class ChatService implements ChatConstructor
 
     public function show($userName, $carId)
     {
+        $userId = Auth::id();
+
         $chat = Chat::firstOrCreate(
             ['username' => $userName, 'car_id' => $carId],
-            ['user_id' => Auth::id()]
+            ['user_id' => $userId]
         );
 
-        $userId = Auth::id();
         $carCreatorId = $chat->car->user_id;
+        $isNotCreator = $userId !== $carCreatorId;
 
-        if ($userId !== $carCreatorId) {
-            $messageSent = $chat->messages()->where('user_id', $userId)->exists();
+        $messages = $chat->messages()
+            ->when($isNotCreator, function ($query) use ($userId, $carCreatorId) {
+                $query->where(fn($q) => $q->where('user_id', $userId)
+                                         ->orWhere('user_id', $carCreatorId)
+                                         ->where('receiver_id', $userId));
+            })
+            ->oldest()
+            ->get();
 
-            $messages = $chat->messages()
-                ->where(function ($query) use ($userId, $carCreatorId) {
-                    $query->where('user_id', $userId)
-                        ->orWhere('user_id', $carCreatorId)
-                        ->where('receiver_id', $userId);
-                })
-                ->orderBy('created_at', 'asc')
-                ->get();
+        $users = $isNotCreator
+            ? User::find($carCreatorId)
+            : User::whereIn('id', $chat->messages->pluck('user_id')->unique())->get();
 
-            $users = User::find($carCreatorId);
-        } else {
-            $messages = $chat->messages()
-                ->orderBy('created_at', 'asc')
-                ->get();
-
-            $users = User::whereIn('id', $chat->messages->pluck('user_id')->unique())->get();
-        }
+        $messageSent = $isNotCreator ? $chat->messages()->where('user_id', $userId)->exists() : null;
 
         return view('pages.chats.show', compact('chat', 'messages', 'users', 'messageSent'));
     }
