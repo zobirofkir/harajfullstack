@@ -10,7 +10,7 @@
 
         <div class="flex">
             <!-- Chat Messages (right side) -->
-            <div class="flex-1 bg-gray-50 p-4 rounded-lg shadow-lg h-[80vh] overflow-y-auto">
+            <div class="flex-1 bg-gray-50 p-4 rounded-lg shadow-lg  overflow-y-auto">
                 @foreach ($messages as $message)
                 <div class="flex {{ Auth::check() && Auth::id() === $message->user_id ? 'justify-end' : 'justify-start' }} mb-6">
                     <div class="bg-gradient-to-r {{ Auth::check() && Auth::id() === $message->user_id ? 'from-green-400 to-green-500' : 'from-gray-100 to-gray-200' }} p-4 rounded-xl shadow-lg w-3/4 max-w-md">
