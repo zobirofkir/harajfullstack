@@ -61,12 +61,22 @@ class ChatService implements ChatConstructor
             return back()->withErrors(['error' => 'Car not found']);
         }
 
-        $users = Chat::where('car_id', $carId)
-            ->with(['user', 'receiver'])
-            ->get()
-            ->pluck('user', 'receiver')
-            ->flatten()
-            ->unique('id');
+        // Check if the logged-in user is the one who created the car
+        $isCreator = $car->user_id === $userId;
+
+        // If the user is the car creator, show all users who have interacted with the car
+        if ($isCreator) {
+            $users = Chat::where('car_id', $carId)
+                ->with(['user', 'receiver'])
+                ->get()
+                ->pluck('user', 'receiver')
+                ->flatten()
+                ->unique('id');
+        } else {
+            // If not the creator, show only the creator of the car
+            $users = User::where('id', $car->user_id)
+                ->get();
+        }
 
         $messages = Message::where(function ($query) use ($userId, $user) {
                 $query->where('user_id', $userId)
@@ -83,7 +93,7 @@ class ChatService implements ChatConstructor
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view('pages.chats.start', compact('messages', 'users', 'user', 'car', 'chat'));
+        return view('pages.chats.start', compact('messages', 'users', 'user', 'car', 'chat', 'isCreator'));
     }
 
     public function show($userName, $carId)
