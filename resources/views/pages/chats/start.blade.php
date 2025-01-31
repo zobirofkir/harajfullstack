@@ -18,17 +18,24 @@
                     <h2 class="text-xl font-semibold text-gray-900 mb-4">المستخدمين الذين اختاروا هذه السيارة</h2>
                     <ul class="space-y-4">
                         @foreach ($users as $user)
+                            <!-- Count messages for each user -->
+                            @php
+                                $messageCount = $user->messages()->where('chat_id', $chat->id)->count();
+                            @endphp
                             <li class="flex items-center justify-between p-4 border-b border-gray-200 hover:bg-gray-100 transition cursor-pointer">
+                            <a href="{{ route('chats.start', ['userName' => $user->name, 'carId' => $car->id]) }}" class="text-blue-600 hover:text-blue-800 transition">
+
                                 <div class="flex gap-4 items-center space-x-3">
                                     <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
                                         {{ strtoupper($user->name[0]) }}
                                     </div>
                                     <span class="text-gray-900 text-lg">{{ $user->name }}</span>
+                                    <!-- Display message count -->
+                                    <div class="w-8 h-8 bg-red-500 text-white text-sm rounded-full flex justify-center items-center">
+                                        {{ $messageCount }}
+                                    </div>
                                 </div>
-                                <a href="{{ route('chats.start', ['userName' => $user->name, 'carId' => $car->id]) }}" class="text-blue-600 hover:text-blue-800 transition">
-                                    <i class="fas fa-comments text-xl"></i>
                                 </a>
-
                             </li>
                         @endforeach
                     </ul>
