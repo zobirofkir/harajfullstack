@@ -19,8 +19,7 @@ class ChatService implements ChatConstructor
     {
         $userId = Auth::id();
 
-        $messages = Message::where('user_id', $userId)
-            ->orWhere('receiver_id', $userId)
+        $messages = Message::where(fn($q) => $q->where('user_id', $userId)->orWhere('receiver_id', $userId))
             ->whereHas('chat', fn($q) => $q->whereNotNull('car_id'))
             ->with(['user', 'receiver', 'chat.car'])
             ->latest()
@@ -29,7 +28,9 @@ class ChatService implements ChatConstructor
         $conversations = $messages->groupBy(fn($msg) => $msg->chat->car_id);
 
         $conversationsWithUsers = $conversations->map(fn($msgs) => [
-            'senders' => User::whereIn('id', $msgs->pluck('user_id')->unique())->get(),
+            'senders' => User::whereIn('id', $msgs->pluck('user_id')->unique())
+                ->where('id', '!=', $userId)
+                ->get(),
             'messages' => $msgs
         ]);
 
