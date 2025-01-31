@@ -17,6 +17,7 @@ use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class UserManagmentSubscriptionResource extends Resource
 {
@@ -52,6 +53,7 @@ class UserManagmentSubscriptionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->query(User::where('id', '!=', Auth::id()))
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('email'),
