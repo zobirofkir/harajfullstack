@@ -32,7 +32,7 @@ class ManagmentsubscriptionPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Managmentsubscription/Resources'), for: 'App\\Filament\\Managmentsubscription\\Resources')
             ->discoverPages(in: app_path('Filament/Managmentsubscription/Pages'), for: 'App\\Filament\\Managmentsubscription\\Pages')
             ->pages([
-                //
+                Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Managmentsubscription/Widgets'), for: 'App\\Filament\\Managmentsubscription\\Widgets')
             ->widgets([

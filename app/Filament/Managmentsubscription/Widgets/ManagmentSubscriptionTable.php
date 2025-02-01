@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ManagmentSubscriptionTable extends BaseWidget
 {
+    protected int | string | array $columnSpan = 'full';
+
     public function table(Table $table): Table
     {
         return $table
@@ -19,7 +21,7 @@ class ManagmentSubscriptionTable extends BaseWidget
                 User::query()
             )
             ->columns([
-                ImageColumn::make('name'),
+                TextColumn::make('name'),
                 TextColumn::make('email'),
                 TextColumn::make('plan'),
                 TextColumn::make('account_type'),

@@ -19,8 +19,8 @@ class OverviewWidget extends BaseWidget
         $stats = [];
 
         if ($user->name === "دينالي" && $user->email === "deenali@admin.com") {
-            $stats[] = Stat::make('لوحة التحكم', 'الإدارية')
-                ->description('الانتقال إلى لوحة التحكم ')
+            $stats[] = Stat::make('إدارة المستخدمين ', 'إدارة المستخدمين')
+                ->description('إدارة المستخدمين ')
                 ->color('success')
                 ->icon('heroicon-o-cog')
                 ->url(url('managment/subscriptions'));
