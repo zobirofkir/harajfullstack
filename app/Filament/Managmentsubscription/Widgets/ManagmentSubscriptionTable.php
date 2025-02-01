@@ -3,6 +3,7 @@
 namespace App\Filament\Managmentsubscription\Widgets;
 
 use App\Models\User;
+use Filament\Actions\ViewAction;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -26,6 +27,11 @@ class ManagmentSubscriptionTable extends BaseWidget
                 TextColumn::make('email')->label('البريد الألكتروني'),
                 TextColumn::make('plan')->label('نوع الاشتراك'),
                 TextColumn::make('account_type')->label('نوع الحساب'),
+            ])
+            ->defaultSort('created_at', 'desc')
+            ->headerActions([
+                Tables\Actions\ViewAction::make()->label('عرض المستخدمين')->url('/managment/subscriptions/user-managment-subscriptions')->icon('heroicon-s-user')->color('success'),
+                Tables\Actions\ViewAction::make()->label('الصفحة الرئيسية')->url('/admin')->icon('heroicon-s-home')->color('info'),
             ]);
     }
 }
