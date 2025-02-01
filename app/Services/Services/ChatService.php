@@ -122,7 +122,7 @@ class ChatService implements ChatConstructor
             'content' => $request->content,
         ]);
 
-        broadcast(new MessageSent($message))->toOthers();
+        broadcast(new MessageSent($message));
 
         SendNewMessageNotification::dispatch($message);
 
