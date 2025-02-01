@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class ManagmentSubscriptionTable extends BaseWidget
 {
     protected int | string | array $columnSpan = 'full';
+    protected static ?string $heading = 'إحصائيات المستخدمين';
 
     public function table(Table $table): Table
     {
@@ -21,10 +22,10 @@ class ManagmentSubscriptionTable extends BaseWidget
                 User::query()
             )
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
-                TextColumn::make('plan'),
-                TextColumn::make('account_type'),
+                TextColumn::make('name')->label('اسم المستخدم'),
+                TextColumn::make('email')->label('البريد الألكتروني'),
+                TextColumn::make('plan')->label('نوع الاشتراك'),
+                TextColumn::make('account_type')->label('نوع الحساب'),
             ]);
     }
 }
