@@ -12,6 +12,7 @@ class Message extends Model
         'chat_id',
         'username',
         'email',
+        'read',
         'content'
     ];
 

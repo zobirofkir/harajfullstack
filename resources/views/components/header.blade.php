@@ -13,14 +13,11 @@
                 <a href="{{ route('chats.index') }}" class="relative">
                     <i class="fas ml-4 fa-message mr-2"></i>الرسائل
                     @php
-                        $unreadCount = Auth::user()->cars()
-                            ->with('chats.messages')
-                            ->get()
-                            ->flatMap(function ($car) {
-                                return $car->chats->filter(function ($chat) {
-                                    return $chat->messages->where('read', false)->count() > 0;
-                                });
-                            })
+                        $unreadCount = DB::table('messages')
+                            ->join('chats', 'messages.chat_id', '=', 'chats.id')
+                            ->join('cars', 'chats.car_id', '=', 'cars.id')
+                            ->where('cars.user_id', Auth::id())
+                            ->where('messages.read', false)
                             ->count();
                     @endphp
 
