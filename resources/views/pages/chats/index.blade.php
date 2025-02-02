@@ -24,11 +24,10 @@
                                 <div class="flex flex-row items-center gap-4 justify-between w-full">
 
                                     <div class="md:max-w-[20%] max-w-[30%] md:max-h-[20%] max-h-[30%] md:min-w-[20%] min-w-[30%] md:min-h-[20%] min-h-[30%] flex  flex-col items-center gap-4 justify-start">
-
+                                        <span class="block text-xl font-bold uppercase text-gray-800 md:hidden block">{{ $sender->name }}</span>
                                         <!-- صورة المستخدم -->
-                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($sender->name) }}" alt="User"
-                                            class="w-full h-full rounded-full object-cover border-2 border-blue-500 shadow-md" />
-                                            
+                                        <img src="{{ $sender->image ? asset('storage/' . $sender->image) : 'https://ui-avatars.com/api/?name=' . urlencode($sender->name) }}" alt="User"
+                                            class="md:w-[60%] md:h-[60%] w-full h-full rounded-full object-cover border-2 border-blue-500 shadow-md hover:animate-spin transition duration-700 ease-in-out"/>
                                     </div>
 
                                     <div class="md:block hidden">
