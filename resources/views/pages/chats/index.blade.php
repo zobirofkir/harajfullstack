@@ -4,13 +4,13 @@
             <h2 class="text-3xl font-bold text-gray-900 text-center mb-6">المحادثات</h2>
 
             <!-- Search Input -->
-            <div class="relative">
+            <div class="relative container mx-auto">
                 <input id="filterInput" type="text" placeholder="🔍 ابحث عن المحادثات"
                     class="w-full px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow text-gray-700 placeholder-gray-500 transition-all duration-300 ease-in-out" />
             </div>
 
             <!-- User Cards Grid -->
-            <div id="usersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div id="usersGrid" class="flex flex-col gap-6 container mx-auto">
                 @foreach ($conversationsWithUsers as $carId => $conversation)
                     @foreach ($conversation['senders'] as $sender)
                         @php
@@ -21,21 +21,34 @@
                         @endphp
                         <div class="user-card p-5 bg-white rounded-xl shadow-lg hover:shadow-2xl cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105">
                             <a href="{{ route('chats.start', ['userName' => $sender->name, 'carId' => $carId]) }}" class="block">
-                                <div class="flex flex-col items-center gap-4 justify-center items-center">
+                                <div class="flex flex-row items-center gap-4 justify-between w-full">
 
-                                    <!-- صورة المستخدم -->
-                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($sender->name) }}" alt="User"
-                                        class="w-12 h-12 rounded-full object-cover border-2 border-blue-500 shadow-md" />
+                                    <div class="md:max-w-[20%] max-w-[30%] md:max-h-[20%] max-h-[30%] md:min-w-[20%] min-w-[30%] md:min-h-[20%] min-h-[30%] flex  flex-col items-center gap-4 justify-start">
+
+                                        <!-- صورة المستخدم -->
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($sender->name) }}" alt="User"
+                                            class="w-full h-full rounded-full object-cover border-2 border-blue-500 shadow-md" />
+                                            
+                                    </div>
+
+                                    <div class="md:block hidden">
+                                        <div class="flex flex-col gap-4 justify-center items-center">
+                                            <span class="block text-lg font-semibold text-gray-800">{{ $sender->name }}</span>
+                                            <span class="block text-lg font-semibold text-gray-800">{{ $sender->email }}</span>
+                                            <span class="block text-lg font-semibold text-gray-800">{{ $latestMessage ? Str::limit($latestMessage->content, 10) : 'لا توجد رسائل' }}</span>
+                                        </div>
+                                    </div>
 
                                     <!-- صورة السيارة -->
-                                    <img src="{{ asset('storage/' . $carImage) }}" alt="Car Image"
-                                        class="w-16 h-16 rounded-lg object-cover border-2 border-gray-300" />
-
-                                    <div class="flex-1 text-center">
-                                        <span class="block text-lg font-semibold text-gray-800">{{ $sender->name }}</span>
-                                        <span class="block text-xs text-gray-600 mt-1">📩 آخر رسالة: {{ $latestMessage ? $latestMessage->created_at->diffForHumans() : 'لا توجد رسائل' }}</span>
+                                    <div class="md:max-w-[20%] max-w-[50%] md:max-h-[20%] max-h-[50%] md:min-w-[20%] min-w-[50%] md:min-h-[20%] min-h-[50%] flex flex-col gap-4 items-center justify-center">
                                         <span class="block text-md text-blue-600 font-medium mt-1">🚗 {{ $carTitle }}</span>
+
+                                        <img src="{{ asset('storage/' . $carImage) }}" alt="Car Image"
+                                        class="w-full h-full rounded-lg object-cover border-2 border-gray-300" />
+
+                                        <span class="block text-xs text-gray-600 mt-1 text-center">📩 {{ $latestMessage ? $latestMessage->created_at->diffForHumans() : 'لا توجد رسائل' }}</span>
                                     </div>
+
                                 </div>
                             </a>
                         </div>
