@@ -20,7 +20,7 @@
     <meta name="twitter:description" content="{{$description ?? 'أفضل العروض لبيع السيارات الجديدة والمستعملة.'}}">
     <meta name="twitter:image" content="{{$twitterImage ?? 'default-car-image-url.jpg'}}">
 
-    <link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
