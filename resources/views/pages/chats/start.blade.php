@@ -48,24 +48,34 @@
                 <div class="flex flex-col h-full">
                     <div class="flex-grow overflow-y-auto pb-6" id="chat-box">
                         <ul id="message-list" class="space-y-4">
-                                @php
-                                    $carId = request()->carId;
-                                @endphp
+                            @php
+                                $carId = request()->carId;
+                            @endphp
 
-                                @foreach ($messages->filter(function ($message) use ($carId) {
-                                    return optional($message->chat)->car_id == $carId;
-                                }) as $message)
-                                    <li class="flex gap-4 items-start {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
-                                        @if($message->user_id !== Auth::id())
-                                            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
+                            @foreach ($messages->filter(function ($message) use ($carId) {
+                                return optional($message->chat)->car_id == $carId;
+                            }) as $message)
+                                <li class="flex gap-4 items-start {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                                    @if($message->user_id !== Auth::id())
+                                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
+                                            @if($message->user->image)
+                                                <img src="{{ asset('storage/' . $message->user->image) }}" alt="Profile Image" class="w-12 h-12 rounded-full object-cover">
+                                            @else
                                                 {{ strtoupper(optional($message->user)->name[0] ?? '') }}
-                                            </div>
-                                        @endif
-                                        <div class="max-w-lg p-4 rounded-lg shadow-md text-sm {{ $message->user_id === Auth::id() ? 'bg-blue-600 text-white' : 'bg-white text-gray-900' }} relative">
-                                            <p>{{ $message->content }}</p>
+                                            @endif
                                         </div>
-                                    </li>
-                                @endforeach
+                                    @endif
+                                    <div class="max-w-lg p-4 rounded-lg shadow-md text-sm {{ $message->user_id === Auth::id() ? 'bg-blue-600 text-white' : 'bg-white text-gray-900' }} relative">
+                                        <p>{{ $message->content }}</p>
+                                        <div class="text-xs text-gray-500 mt-2 flex gap-1">
+                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->user->name }} </span>
+                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">إلى</span>
+                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->receiver->name }}</span>
+                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->created_at->format('H:i') }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 
