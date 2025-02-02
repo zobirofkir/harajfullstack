@@ -9,26 +9,28 @@
         </span>
 
         @if (Auth::check())
-            <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4">
-                <a href="{{ route('chats.index') }}" class="relative">
-                    <i class="fas ml-4 fa-message mr-2"></i>الرسائل
-                    @php
-                        $unreadCount = DB::table('messages')
-                            ->join('chats', 'messages.chat_id', '=', 'chats.id')
-                            ->join('cars', 'chats.car_id', '=', 'cars.id')
-                            ->where('cars.user_id', Auth::id())
-                            ->where('messages.read', false)
-                            ->count();
-                    @endphp
+        <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4">
+            <a href="{{ route('chats.index') }}" class="relative">
+                <i class="fas ml-4 fa-message mr-2"></i>الرسائل
+                        @php
+                            $unreadCount = DB::table('messages')
+                                ->join('chats', 'messages.chat_id', '=', 'chats.id')
+                                ->join('cars', 'chats.car_id', '=', 'cars.id')
+                                ->where(function ($query) {
+                                    $query->where('messages.user_id', Auth::id()) 
+                                        ->orWhere('messages.receiver_id', Auth::id());
+                                })
+                                ->where('messages.read', false)
+                                ->count();
+                        @endphp
 
-                    @if ($unreadCount > 0)
-                        <span class="absolute top-0 right-0 text-xs text-white bg-red-500 rounded-full px-2 ">{{ $unreadCount }}</span>
-                    @endif
-                </a>
-            </span>
-        @else
-
-        @endif
+                        @if ($unreadCount > 0)
+                            <span class="absolute top-0 right-0 text-xs text-white bg-red-500 rounded-full px-2 ">{{ $unreadCount }}</span>
+                        @endif
+                    </a>
+                </span>
+            @else
+            @endif
 
         <span class="font-bold text_custom_orange_ whitespace-nowrap mb-4 mt-4 cursor-pointer" onclick="openModal()">
             <p>
