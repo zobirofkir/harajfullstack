@@ -32,7 +32,7 @@ class ChatService implements ChatConstructor
             'senders' => User::whereIn('id', $msgs->pluck('user_id')->unique())
                 ->where('id', '!=', $userId)
                 ->get(),
-            'messages' => $msgs
+            'messages' => $msgs->sortByDesc('created_at')
         ]);
 
         return view('pages.chats.index', compact('conversationsWithUsers'));
