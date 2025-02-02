@@ -49,7 +49,6 @@
                     <div class="flex-grow overflow-y-auto pb-6" id="chat-box">
                         <ul id="message-list" class="space-y-4">
                                 @php
-                                    // Get the carId from the route URL
                                     $carId = request()->carId;
                                 @endphp
 
