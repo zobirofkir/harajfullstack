@@ -56,22 +56,28 @@
                                 return optional($message->chat)->car_id == $carId;
                             }) as $message)
                                 <li class="flex gap-4 items-start {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
-                                    @if($message->user_id !== Auth::id())
-                                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
-                                            @if($message->user->image)
-                                                <img src="{{ asset('storage/' . $message->user->image) }}" alt="Profile Image" class="w-12 h-12 rounded-full object-cover">
-                                            @else
-                                                {{ strtoupper(optional($message->user)->name[0] ?? '') }}
-                                            @endif
-                                        </div>
-                                    @endif
-                                    <div class="max-w-lg p-4 rounded-lg shadow-md text-sm {{ $message->user_id === Auth::id() ? 'bg-blue-600 text-white' : 'bg-white text-gray-900' }} relative">
-                                        <p>{{ $message->content }}</p>
-                                        <div class="text-xs text-gray-500 mt-2 flex gap-1">
-                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->user->name }} </span>
-                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">إلى</span>
-                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->receiver->name }}</span>
-                                            <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->created_at->format('H:i') }}</span>
+                                    <!-- Sender's image and message -->
+                                    <div class="flex items-center gap-4">
+                                        @if($message->user_id !== Auth::id())
+                                            <!-- Sender's Profile Image (Left Side) -->
+                                            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
+                                                @if($message->user->image)
+                                                    <img src="{{ asset('storage/' . $message->user->image) }}" alt="Sender Profile Image" class="w-12 h-12 rounded-full object-cover">
+                                                @else
+                                                    {{ strtoupper(optional($message->user)->name[0] ?? '') }}
+                                                @endif
+                                            </div>
+                                        @endif
+
+                                        <!-- Message Bubble (for Sender or Receiver) -->
+                                        <div class="max-w-lg p-4 rounded-lg shadow-md text-sm {{ $message->user_id === Auth::id() ? 'bg-blue-600 text-white' : 'bg-white text-gray-900' }} relative">
+                                            <p>{{ $message->content }}</p>
+                                            <div class="text-xs text-gray-500 mt-2 flex gap-1">
+                                                <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->user->name }} </span>
+                                                <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">إلى</span>
+                                                <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->receiver->name }}</span>
+                                                <span class="{{ $message->user_id === Auth::id() ? 'text-white' : 'text-gray-900' }}">{{ $message->created_at->format('H:i') }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -80,10 +86,10 @@
                     </div>
 
                     <!-- Message Input -->
-                    <form id="messageForm" class="flex items-center bg-white shadow-md rounded-lg p-4">
+                    <form id="messageForm" class="flex items-center bg-white shadow-md rounded-lg p-4 mt-4">
                         @csrf
-                        <input id="messageInput" type="text" name="content" class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none text-gray-800 placeholder-gray-400 transition" placeholder="اكتب رسالتك..." required>
-                        <button type="submit" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 focus:outline-none transition ml-4">
+                        <input id="messageInput" type="text" name="content" class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none text-gray-800 placeholder-gray-400 transition-all duration-300" placeholder="اكتب رسالتك..." required>
+                        <button type="submit" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 focus:outline-none transition-all duration-300 mr-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
@@ -91,6 +97,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 
