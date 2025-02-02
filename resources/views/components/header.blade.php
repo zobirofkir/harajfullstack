@@ -98,7 +98,7 @@
 <header class="flex justify-between items-center bg-white shadow-md p-4 md:px-20 px-8">
     <div>
         <a href="{{url('/')}}" class="flex items-center gap-4">
-            <div class="max-w-10 max-h-10">
+            <div class="max-w-[100px] max-h-[100px]">
                 <img src="{{asset('assets/images/logo.png')}}" alt="Logo" class="w-full h-full">
             </div>
             @if (!Auth::check())
