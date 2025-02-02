@@ -48,18 +48,25 @@
                 <div class="flex flex-col h-full">
                     <div class="flex-grow overflow-y-auto pb-6" id="chat-box">
                         <ul id="message-list" class="space-y-4">
-                            @foreach ($messages as $message)
-                                <li class="flex gap-4 items-start {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
-                                    @if($message->user_id !== Auth::id())
-                                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
-                                            {{ strtoupper(optional($message->user)->name[0] ?? '') }}
+                                @php
+                                    // Get the carId from the route URL
+                                    $carId = request()->carId;
+                                @endphp
+
+                                @foreach ($messages->filter(function ($message) use ($carId) {
+                                    return optional($message->chat)->car_id == $carId;
+                                }) as $message)
+                                    <li class="flex gap-4 items-start {{ $message->user_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                                        @if($message->user_id !== Auth::id())
+                                            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg font-semibold">
+                                                {{ strtoupper(optional($message->user)->name[0] ?? '') }}
+                                            </div>
+                                        @endif
+                                        <div class="max-w-lg p-4 rounded-lg shadow-md text-sm {{ $message->user_id === Auth::id() ? 'bg-blue-600 text-white' : 'bg-white text-gray-900' }} relative">
+                                            <p>{{ $message->content }}</p>
                                         </div>
-                                    @endif
-                                    <div class="max-w-lg p-4 rounded-lg shadow-md text-sm {{ $message->user_id === Auth::id() ? 'bg-blue-600 text-white' : 'bg-white text-gray-900' }} relative">
-                                        <p>{{ $message->content }}</p>
-                                    </div>
-                                </li>
-                            @endforeach
+                                    </li>
+                                @endforeach
                         </ul>
                     </div>
 
@@ -102,8 +109,8 @@
                     `;
                     const messageList = document.getElementById("message-list");
                     messageList.insertAdjacentHTML('beforeend', newMessage);
-                    chatBox.scrollTop = chatBox.scrollHeight;  // Scroll down after adding the message
-                    messageInput.value = ''; // Clear input after sending
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    messageInput.value = '';
                 }).catch(error => {
                     console.log("Error sending message", error);
                 });
