@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             "name" => "دينالي",
             "email" => "deenali@admin.com",
             "password" => "deenali123@@@",
+            "plan" => "annual",
             "account_type" => 'مشتري'
         ]);
     }
