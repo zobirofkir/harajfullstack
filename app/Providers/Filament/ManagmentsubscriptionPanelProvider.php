@@ -27,7 +27,7 @@ class ManagmentsubscriptionPanelProvider extends PanelProvider
             ->id('managmentsubscription')
             ->path('/managment/subscriptions')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Cyan,
             ])
             ->discoverResources(in: app_path('Filament/Managmentsubscription/Resources'), for: 'App\\Filament\\Managmentsubscription\\Resources')
             ->discoverPages(in: app_path('Filament/Managmentsubscription/Pages'), for: 'App\\Filament\\Managmentsubscription\\Pages')
