@@ -161,13 +161,13 @@
                 <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2 justify-start" onclick="openContactModal()">
                     <i class="fas fa-user text-sm"></i>
                     <h2>
-                        مراسلة
+                        ارسال طلب تواصل
                     </h2>
                 </div>
-                <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2 justify-start" onclick="toggleFavorite(this)">
+                {{-- <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2 justify-start" onclick="toggleFavorite(this)">
                     <i class="fas fa-heart text-sm" id="heart-icon"></i>
                     <h2>تفضيل</h2>
-                </div>
+                </div> --}}
                 <div class="flex flex-row items-center gap-4 text-gray-400 cursor-pointer mb-2 mt-2 justify-start" onclick="copyToClipboard('{{ route('cars.show', $car->slug) }}')">
                     <i class="fas fa-share text-sm"></i>
                     <h2>
