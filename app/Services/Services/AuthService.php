@@ -43,7 +43,9 @@ class AuthService implements AuthConstructor
     {
         $credentials = $request->validated();
 
-        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+        $field = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        if (Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']])) {
             return redirect()->route('home')->with('success', 'تم تسجيل الدخول بنجاح!');
         }
 

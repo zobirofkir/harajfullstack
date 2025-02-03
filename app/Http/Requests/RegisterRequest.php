@@ -22,6 +22,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'username' => 'required|string|min:3|max:20|regex:/^[a-zA-Z0-9]+$/|unique:users,username',
             'name' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed',
@@ -33,7 +34,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            
+
             'name.required' => 'الاسم مطلوب',
             'name.max' => 'الاسم يجب ان يكون اكثر من 255 حرف',
             'name.unique' => 'الاسم موجود مسبقا',

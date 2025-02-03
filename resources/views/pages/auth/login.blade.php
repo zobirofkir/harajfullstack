@@ -7,11 +7,13 @@
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
-                    <input id="email" name="email" type="email" required autofocus
+                    <label for="login" class="block text-sm font-medium text-gray-700">
+                        البريد الإلكتروني أو اسم المستخدم
+                    </label>
+                    <input id="login" name="login" type="text" required autofocus
                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                           placeholder="البريد الإلكتروني" value="{{ old('email') }}">
-                    @error('email')
+                           placeholder="أدخل البريد الإلكتروني أو اسم المستخدم" value="{{ old('login') }}">
+                    @error('login')
                         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
                 </div>

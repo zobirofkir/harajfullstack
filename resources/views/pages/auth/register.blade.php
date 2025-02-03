@@ -37,6 +37,16 @@
 
                 <div class="rounded-md shadow-sm space-y-4">
                     <div>
+                        <label for="username" class="sr-only">اسم المستخدم</label>
+                        <input id="username" name="username" type="text" required
+                               class="appearance-none rounded-md block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                               placeholder="اسم المستخدم (حروف وأرقام إنجليزية فقط)">
+                    </div>
+                    @error('username')
+                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
+                    
+                    <div>
                         <label for="name" class="sr-only">الاسم الكامل</label>
                         <input id="name" name="name" type="text" required
                                class="appearance-none rounded-md block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
