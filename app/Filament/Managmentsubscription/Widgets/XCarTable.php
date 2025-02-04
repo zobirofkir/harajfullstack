@@ -20,8 +20,7 @@ class XCarTable extends BaseWidget
         return $table
             ->query(
                 Car::query()
-                    ->where('user_id', Auth::id())
-            )
+                )
             ->defaultSort('created_at', 'desc')
             ->columns([
                 ImageColumn::make('image')
