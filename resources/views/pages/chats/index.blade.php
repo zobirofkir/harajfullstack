@@ -5,13 +5,13 @@
             <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">المحادثات</h2>
 
             <!-- Search Input -->
-            <div class="relative mb-6">
+            <div class="relative mb-6 container mx-auto">
                 <input id="filterInput" type="text" placeholder="🔍 ابحث عن المحادثات"
                     class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm text-gray-700 placeholder-gray-400 transition-all duration-300 ease-in-out" />
             </div>
 
             <!-- User Cards Grid -->
-            <div id="usersGrid" class="space-y-4">
+            <div id="usersGrid" class="space-y-4 container mx-auto">
                 @foreach ($conversationsWithUsers as $carId => $conversation)
                     @foreach ($conversation['senders'] as $sender)
                         @php
