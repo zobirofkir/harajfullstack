@@ -22,20 +22,32 @@
     $cars = $query->paginate(20);
 @endphp
 
+<style>
+    #dynamic-header {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .hidden-header {
+        opacity: 0;
+        transform: translateY(-50px);
+        pointer-events: none;
+    }
+</style>
+
 <div class="py-12 px-6">
     <div class="flex flex-col lg:flex-row gap-8 justify-center">
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px] mt-10">
             @if (!Auth::check())
-                <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
-                    <i class="fas fa-car mr-2"></i> السيارات المتاحة
-                </h2>
-            @else
-                <h2 class="text-2xl font-semibold text-center text-gray-500 mb-8">
-                    <i class="fas fa-hand mr-2"></i> مرحبًا بعودتك {{ Auth::user()->name }}
-                </h2>
-            @endif
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8">
+                <i class="fas fa-car mr-2"></i> السيارات المتاحة
+            </h2>
+        @else
+            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8">
+                <i class="fas fa-hand mr-2"></i> مرحبًا بعودتك {{ Auth::user()->name }}
+            </h2>
+        @endif
+
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 @foreach ($cars as $car)
                     <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
                         <div class="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
@@ -115,4 +127,22 @@
         dropdown.classList.add('max-h-0');
     }
 }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const header = document.getElementById("dynamic-header");
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > lastScrollY) {
+                // يخفي العنوان عند التمرير للأسفل
+                header.classList.add("hidden-header");
+            } else {
+                // يُظهر العنوان عند التمرير للأعلى
+                header.classList.remove("hidden-header");
+            }
+            lastScrollY = window.scrollY;
+        });
+    });
 </script>
