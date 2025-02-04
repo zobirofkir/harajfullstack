@@ -114,9 +114,9 @@
 </header>
 
 <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-gray-50 shadow-lg sidebar-hidden sidebar-transition z-50">
-    <div class="p-4 flex justify-center">
-        <a href="{{url('/')}}">
-            <img src="{{asset('assets/images/logo.png')}}" alt="Sidebar Logo" class="w-20 h-20 rounded-full">
+    <div class="p-4 flex justify-center mt-10">
+        <a href="{{url('/')}}" class="max-w-[60%] max-h-[60%]">
+            <img src="{{asset('assets/images/logo.png')}}" alt="Sidebar Logo" class="w-full h-full rounded-md">
         </a>
     </div>
 
