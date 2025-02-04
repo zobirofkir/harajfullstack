@@ -4,15 +4,14 @@ namespace App\Filament\Managmentsubscription\Widgets;
 
 use App\Models\Car;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Actions\Action;
 
 class XCarTable extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'إحصائيات السيارات';
 

@@ -1,17 +1,16 @@
 <?php
+
 namespace App\Services\Services;
 
-use App\Services\Constructors\AuthConstructor;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use App\Services\Constructors\AuthConstructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
-
 
 class AuthService implements AuthConstructor
 {
@@ -58,7 +57,6 @@ class AuthService implements AuthConstructor
 
         return redirect()->route('index.login')->with('success', 'تم تسجيل الخروج بنجاح.');
     }
-
 
     public function indexForgotPassword()
     {
@@ -129,8 +127,8 @@ class AuthService implements AuthConstructor
         }
 
         if ($request->hasFile('image')) {
-            if ($user->image && file_exists(storage_path('app/public/' . $user->image))) {
-                unlink(storage_path('app/public/' . $user->image));
+            if ($user->image && file_exists(storage_path('app/public/'.$user->image))) {
+                unlink(storage_path('app/public/'.$user->image));
             }
 
             $imagePath = $request->file('image')->store('profile_images', 'public');

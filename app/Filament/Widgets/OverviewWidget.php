@@ -12,12 +12,11 @@ class OverviewWidget extends BaseWidget
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (! $user) {
             return [];
         }
 
         $stats = [];
-
 
         $stats[] = Stat::make('الصفحة ', 'الرئيسية')
             ->description('الصفحة الرئيسية')
@@ -25,14 +24,13 @@ class OverviewWidget extends BaseWidget
             ->icon('heroicon-o-home')
             ->url(route('home'));
 
-        if ($user->name === "دينالي" && $user->email === "deenali@admin.com") {
+        if ($user->name === 'دينالي' && $user->email === 'deenali@admin.com') {
             $stats[] = Stat::make('إدارة المستخدمين ', 'إدارة المستخدمين')
                 ->description('إدارة المستخدمين ')
                 ->color('success')
                 ->icon('heroicon-o-cog')
                 ->url(url('managment/subscriptions'));
         }
-
 
         $stats[] = Stat::make('السيارات', $user->cars()->count())
             ->description('عدد السيارات المرتبطة بك')

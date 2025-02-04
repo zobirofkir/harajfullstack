@@ -3,9 +3,8 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class NewMessageNotification extends Notification
 {
@@ -27,8 +26,8 @@ class NewMessageNotification extends Notification
     {
         return (new MailMessage)
             ->subject('You have a new message!')
-            ->line('You have received a new message from ' . $this->message->username)
-            ->line('Message: ' . $this->message->content)
+            ->line('You have received a new message from '.$this->message->username)
+            ->line('Message: '.$this->message->content)
             ->line('Thank you for using our application!');
     }
 }

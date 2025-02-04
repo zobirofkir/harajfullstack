@@ -18,5 +18,4 @@ class SellerContact extends Model
     {
         return $this->belongsTo(Car::class);
     }
-
 }

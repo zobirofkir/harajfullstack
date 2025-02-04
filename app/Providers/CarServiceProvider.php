@@ -13,7 +13,7 @@ class CarServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('CarService', function () {
-            return new CarService();
+            return new CarService;
         });
     }
 

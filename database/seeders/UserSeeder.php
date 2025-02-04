@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\enums\RolesEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -16,12 +14,12 @@ class UserSeeder extends Seeder
     {
 
         User::create([
-            "username" => "deenali",
-            "name" => "دينالي",
-            "email" => "deenali@admin.com",
-            "password" => "deenali123@@@",
-            "plan" => "annual",
-            "account_type" => 'مشتري'
+            'username' => 'deenali',
+            'name' => 'دينالي',
+            'email' => 'deenali@admin.com',
+            'password' => 'deenali123@@@',
+            'plan' => 'annual',
+            'account_type' => 'مشتري',
         ]);
     }
 }

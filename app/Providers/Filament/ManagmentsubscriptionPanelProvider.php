@@ -51,7 +51,7 @@ class ManagmentsubscriptionPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                RestrictManagementAccess::class
+                RestrictManagementAccess::class,
             ]);
     }
 }

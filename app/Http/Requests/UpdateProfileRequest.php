@@ -23,9 +23,10 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         $user = Auth::user();
+
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'password' => 'nullable|confirmed|min:8',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];

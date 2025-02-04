@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Notification;
 
 class SendNewMessageNotification implements ShouldQueue
 {
@@ -20,7 +19,6 @@ class SendNewMessageNotification implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param  Message  $message
      * @return void
      */
     public function __construct(Message $message)

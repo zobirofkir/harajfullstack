@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Car;
-use App\Models\Category;
 use App\Models\User;
 use App\Observers\CarObserver;
-use App\Observers\CategoryObserver;
 use App\Policies\UserPolicy;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;

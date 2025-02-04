@@ -9,7 +9,7 @@ class Offer extends Model
     protected $fillable = [
         'negotiable_offer_price',
         'offer_email',
-        'car_id'
+        'car_id',
     ];
 
     public function car()

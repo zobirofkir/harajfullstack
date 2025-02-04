@@ -22,7 +22,7 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('user.' . $this->message->receiver_id);
+        return new Channel('user.'.$this->message->receiver_id);
     }
 
     public function broadcastWith()

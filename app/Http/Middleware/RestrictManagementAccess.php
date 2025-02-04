@@ -16,7 +16,7 @@ class RestrictManagementAccess
     {
         $user = Auth::user();
 
-        if (!$user || $user->name !== 'دينالي' || $user->email !== 'deenali@admin.com' || $user->account_type !== 'مشتري') {
+        if (! $user || $user->name !== 'دينالي' || $user->email !== 'deenali@admin.com' || $user->account_type !== 'مشتري') {
             return redirect('/admin');
         }
 

@@ -15,7 +15,7 @@ class CarObserver
         $slug = Str::slug($car->title);
         $existingCar = Car::where('slug', 'like', "$slug%")->orderBy('slug', 'desc')->first();
 
-        $car->slug = $existingCar ? "{$slug}-" . ((int) last(explode('-', $existingCar->slug)) + 1) : $slug;
+        $car->slug = $existingCar ? "{$slug}-".((int) last(explode('-', $existingCar->slug)) + 1) : $slug;
     }
 
     /**
@@ -27,8 +27,7 @@ class CarObserver
             $slug = Str::slug($car->title);
             $existingCar = Car::where('slug', 'like', "$slug%")->orderBy('slug', 'desc')->first();
 
-            $car->slug = $existingCar ? "{$slug}-" . ((int) last(explode('-', $existingCar->slug)) + 1) : $slug;
+            $car->slug = $existingCar ? "{$slug}-".((int) last(explode('-', $existingCar->slug)) + 1) : $slug;
         }
     }
-
 }

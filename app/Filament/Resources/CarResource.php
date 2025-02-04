@@ -4,10 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CarResource\Pages;
 use App\Models\Car;
-use App\Models\Category;
-use App\Models\Logo;
-use App\Models\Gasoline;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -28,8 +24,11 @@ class CarResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'السيارات';
+
     protected static ?string $navigationLabel = 'السيارات';
+
     protected static ?string $pluralLabel = 'السيارات';
+
     protected static ?string $navigation = 'السيارات';
 
     public static function form(Form $form): Form
@@ -74,7 +73,7 @@ class CarResource extends Resource
         return $table
             ->query(Car::query()->where('user_id', Auth::id()))
             ->columns([
-                ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn($record) => $record->images[0] ?? null),
+                ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn ($record) => $record->images[0] ?? null),
                 TextColumn::make('title')->label('اسم السيارة')->searchable(),
                 TextColumn::make('price')->label('السعر'),
                 TextColumn::make('created_at')->label('تم الإنشاء في')->sortable()->getStateUsing(fn ($record) => $record->created_at->diffForHumans()),

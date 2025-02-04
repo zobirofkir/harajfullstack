@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
@@ -12,9 +11,6 @@ use App\Http\Controllers\LogoController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
-use App\Http\Middleware\AuthenticateWithCookie;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -54,11 +50,12 @@ Route::get('/search/cars', [SearchController::class, 'searchByTitle'])->name('se
  */
 Route::get('/logos/{id}', [LogoController::class, 'show'])->name('logos.show');
 
-
 /**
  * About page
  */
-Route::get('/abouts', function () {return view('pages.abouts.index');});
+Route::get('/abouts', function () {
+    return view('pages.abouts.index');
+});
 
 /**
  * Contact page
@@ -88,7 +85,9 @@ Route::get('/gasoline/{id}', [GasolineController::class, 'show'])->name('gasolin
 /**
  * Privacy page
  */
-Route::get('/privacy', function () {return view('pages.privacy.privacy');});
+Route::get('/privacy', function () {
+    return view('pages.privacy.privacy');
+});
 
 /**
  * Store offer

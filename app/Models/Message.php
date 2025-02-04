@@ -13,7 +13,7 @@ class Message extends Model
         'username',
         'email',
         'read',
-        'content'
+        'content',
     ];
 
     public function chat()

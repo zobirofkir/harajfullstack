@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Services;
 
 use App\Http\Requests\ContactSellerRequest;
@@ -36,14 +37,14 @@ class ContactSellerService implements ContactSellerConstructor
             'car_url' => $carUrl,
         ];
 
-        if (!empty($data['car_seller_email'])) {
+        if (! empty($data['car_seller_email'])) {
             Mail::to($data['car_seller_email'])->send(new ContactSellerMail($data));
         }
 
         return [
             'success' => true,
-            'message' => "تم إرسال استفسارك إلى بائع السيارة بنجاح.",
-            'car_slug' => $car->slug
+            'message' => 'تم إرسال استفسارك إلى بائع السيارة بنجاح.',
+            'car_slug' => $car->slug,
         ];
     }
 }

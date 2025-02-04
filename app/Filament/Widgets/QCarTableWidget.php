@@ -2,18 +2,17 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\CarResource\Pages\CreateCar;
 use App\Models\Car;
 use Filament\Tables;
+use Filament\Tables\Actions\ButtonAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Filament\Tables\Actions\ButtonAction;
 use Illuminate\Support\Facades\Auth;
 
 class QCarTableWidget extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'إحصائيات السيارات';
 

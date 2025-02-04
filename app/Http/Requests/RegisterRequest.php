@@ -34,7 +34,11 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-
+            'username.required' => 'اسم المستخدم مطلوب',
+            'username.string' => 'اسم المستخدم يجب ان يكون نص',
+            'username.min' => 'اسم المستخدم يجب ان يكون اكثر من 3 حروف',
+            'username.regex' => 'اسم المستخدم يجب ان يكون اكتب من احرف وارقام',
+            'username.unique' => 'اسم المستخدم موجود مسبقا',
             'name.required' => 'الاسم مطلوب',
             'name.max' => 'الاسم يجب ان يكون اكثر من 255 حرف',
             'name.unique' => 'الاسم موجود مسبقا',

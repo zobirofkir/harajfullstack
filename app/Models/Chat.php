@@ -10,7 +10,7 @@ class Chat extends Model
         'username',
         'car_id',
         'user_id',
-        'receiver_id'
+        'receiver_id',
     ];
 
     public function user()

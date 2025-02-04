@@ -13,7 +13,7 @@ class PaymentServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('PaymentService', function () {
-            return new PaymentService();
+            return new PaymentService;
         });
     }
 

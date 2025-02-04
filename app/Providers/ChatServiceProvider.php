@@ -13,7 +13,7 @@ class ChatServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('ChatService', function () {
-            return new ChatService();
+            return new ChatService;
         });
     }
 

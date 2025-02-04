@@ -3,10 +3,7 @@
 namespace App\Filament\Managmentsubscription\Resources;
 
 use App\Filament\Managmentsubscription\Resources\AdminCarResource\Pages;
-use App\Filament\Managmentsubscription\Resources\AdminCarResource\RelationManagers;
-use App\Models\AdminCar;
 use App\Models\Car;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -18,8 +15,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
 class AdminCarResource extends Resource
@@ -29,53 +24,55 @@ class AdminCarResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'السيارات';
-    protected static ?string $navigationLabel = 'السيارات';
-    protected static ?string $pluralLabel = 'السيارات';
-    protected static ?string $navigation = 'السيارات';
 
+    protected static ?string $navigationLabel = 'السيارات';
+
+    protected static ?string $pluralLabel = 'السيارات';
+
+    protected static ?string $navigation = 'السيارات';
 
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
+            ->schema([
 
-            TextInput::make('title')->label('اسم السيارة')->required()->maxLength(255),
+                TextInput::make('title')->label('اسم السيارة')->required()->maxLength(255),
 
-            Textarea::make('description')->label('الوصف')->required()->maxLength(500)->rows(10),
+                Textarea::make('description')->label('الوصف')->required()->maxLength(500)->rows(10),
 
-            FileUpload::make('images')->label('صور السيارة')->multiple()->image()->required(),
+                FileUpload::make('images')->label('صور السيارة')->multiple()->image()->required(),
 
-            Select::make('price_type')
-                ->label('نوع السعر')
-                ->options([
-                    'negotiable' => 'قابل للتفاوض',
-                    'fixed' => 'ثابت',
-                ])
-                ->required()
-                ->reactive(),
+                Select::make('price_type')
+                    ->label('نوع السعر')
+                    ->options([
+                        'negotiable' => 'قابل للتفاوض',
+                        'fixed' => 'ثابت',
+                    ])
+                    ->required()
+                    ->reactive(),
 
-            TextInput::make('price')
-                ->label('السعر')
-                ->required()
-                ->numeric()
-                ->maxLength(10),
+                TextInput::make('price')
+                    ->label('السعر')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(10),
 
-            TextInput::make('negotiable_price')
-                ->label('قابل للتفاوض')
-                ->numeric()
-                ->maxLength(255)
-                ->visible(fn ($get) => $get('price_type') === 'negotiable'),
+                TextInput::make('negotiable_price')
+                    ->label('قابل للتفاوض')
+                    ->numeric()
+                    ->maxLength(255)
+                    ->visible(fn ($get) => $get('price_type') === 'negotiable'),
 
-            Hidden::make('user_id')->default(Auth::user()->id),
-        ])
-        ->columns(1);
+                Hidden::make('user_id')->default(Auth::user()->id),
+            ])
+            ->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn($record) => $record->images[0] ?? null),
+                ImageColumn::make('images')->label('صور السيارة')->getStateUsing(fn ($record) => $record->images[0] ?? null),
                 TextColumn::make('title')->label('اسم السيارة')->searchable(),
                 TextColumn::make('price')->label('السعر'),
                 TextColumn::make('created_at')->label('تم الإنشاء في')->sortable()->getStateUsing(fn ($record) => $record->created_at->diffForHumans()),

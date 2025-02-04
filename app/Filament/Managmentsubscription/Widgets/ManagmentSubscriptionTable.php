@@ -3,23 +3,22 @@
 namespace App\Filament\Managmentsubscription\Widgets;
 
 use App\Models\User;
-use Filament\Tables\Actions\Action;
-use Filament\Actions\ViewAction;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Support\Facades\Auth;
 
 class ManagmentSubscriptionTable extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
+
     protected static ?string $heading = 'إحصائيات المستخدمين';
 
     public function table(Table $table): Table
     {
         $userCount = User::count();
+
         return $table
             ->query(
                 User::query()

@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Services\Constructors;
 
-use App\Http\Requests\ChatRequest;
 use App\Models\Chat;
 use Illuminate\Http\Request;
 

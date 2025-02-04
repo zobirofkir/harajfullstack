@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Services;
 
 use App\Models\Car;
@@ -9,21 +10,18 @@ class SearchService implements SearchConstructor
 {
     /**
      * Search cars by title
-     *
-     * @param Request $request
-     * @return array
      */
-    public function searchByTitle(Request $request) : array
+    public function searchByTitle(Request $request): array
     {
         $query = $request->input('query');
 
-        $cars = Car::where('title', 'LIKE', '%' . $query . '%')->get();
+        $cars = Car::where('title', 'LIKE', '%'.$query.'%')->get();
 
         $message = $cars->isEmpty() ? 'لا توجد سيارات بهذا العنوان.' : null;
 
         return [
             'cars' => $cars,
-            'message' => $message
+            'message' => $message,
         ];
     }
 }

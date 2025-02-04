@@ -13,7 +13,7 @@ class ContactServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('ContactService', function () {
-            return new ContactService();
+            return new ContactService;
         });
     }
 

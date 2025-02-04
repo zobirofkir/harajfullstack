@@ -1,17 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Models\Chat;
-use App\Models\User;
 use App\Services\Facades\AuthFacade;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {

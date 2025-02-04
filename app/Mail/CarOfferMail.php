@@ -13,6 +13,7 @@ class CarOfferMail extends Mailable
     use Queueable, SerializesModels;
 
     public $car;
+
     public $offer;
 
     public function __construct(Car $car, Offer $offer)
@@ -24,6 +25,6 @@ class CarOfferMail extends Mailable
     public function build()
     {
         return $this->subject('تفاصيل عرض سيارتك')
-                    ->view('emails.car_offer');
+            ->view('emails.car_offer');
     }
 }

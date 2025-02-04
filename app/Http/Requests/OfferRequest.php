@@ -23,7 +23,7 @@ class OfferRequest extends FormRequest
     {
         return [
             'negotiable_offer_price' => 'required|numeric',
-            'offer_email' => 'required|email'
+            'offer_email' => 'required|email',
         ];
     }
 

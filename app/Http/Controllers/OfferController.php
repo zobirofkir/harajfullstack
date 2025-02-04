@@ -6,7 +6,6 @@ use App\Http\Requests\OfferRequest;
 use App\Mail\CarOfferMail;
 use App\Models\Car;
 use App\Models\Offer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class OfferController extends Controller
@@ -15,7 +14,7 @@ class OfferController extends Controller
     {
         $offerCar = Car::where('slug', $request->route('slug'))->first();
 
-        if (!$offerCar) {
+        if (! $offerCar) {
             return redirect()->back();
         }
 

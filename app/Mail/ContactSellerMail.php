@@ -14,7 +14,7 @@ class ContactSellerMail extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param array $data
+     * @param  array  $data
      */
     public function __construct($data)
     {
@@ -29,7 +29,7 @@ class ContactSellerMail extends Mailable
     public function build()
     {
         return $this->subject('رسالة جديدة عن سيارتك')
-                    ->view('emails.contact-seller')
-                    ->with('data', $this->data);
+            ->view('emails.contact-seller')
+            ->with('data', $this->data);
     }
 }

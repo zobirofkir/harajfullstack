@@ -3,13 +3,11 @@
 namespace App\Services\Services;
 
 use App\Events\MessageSent;
-use App\Http\Requests\ChatRequest;
 use App\Jobs\SendNewMessageNotification;
 use App\Models\Car;
 use App\Models\Chat;
 use App\Models\Message;
 use App\Models\User;
-use App\Notifications\NewMessageNotification;
 use App\Services\Constructors\ChatConstructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,22 +18,21 @@ class ChatService implements ChatConstructor
     {
         $userId = Auth::id();
 
-        $messages = Message::where(fn($q) =>
-                $q->where('user_id', $userId)
-                  ->orWhere('receiver_id', $userId))
-            ->whereHas('chat', fn($q) => $q->whereNotNull('car_id'))
+        $messages = Message::where(fn ($q) => $q->where('user_id', $userId)
+            ->orWhere('receiver_id', $userId))
+            ->whereHas('chat', fn ($q) => $q->whereNotNull('car_id'))
             ->with(['user', 'receiver', 'chat.car'])
             ->latest()
             ->get();
 
-        $conversations = $messages->groupBy(fn($msg) => $msg->chat->car_id);
+        $conversations = $messages->groupBy(fn ($msg) => $msg->chat->car_id);
 
-        $conversationsWithUsers = $conversations->map(fn($msgs) => [
+        $conversationsWithUsers = $conversations->map(fn ($msgs) => [
             'senders' => $msgs->pluck('user')->merge($msgs->pluck('receiver'))
                 ->unique('id')
-                ->reject(fn($user) => $user->id === $userId)
+                ->reject(fn ($user) => $user->id === $userId)
                 ->values(),
-            'messages' => $msgs->sortByDesc('created_at')
+            'messages' => $msgs->sortByDesc('created_at'),
         ]);
 
         return view('pages.chats.index', compact('conversationsWithUsers'));
@@ -60,10 +57,10 @@ class ChatService implements ChatConstructor
             : User::where('id', $car->user_id)->get();
 
         $messages = Message::where(function ($query) use ($userId, $user) {
-                $query->where('user_id', $userId)->where('receiver_id', $user->id);
-            })
-            ->orWhere(fn($query) => $query->where('user_id', $user->id)->where('receiver_id', $userId))
-            ->whereHas('chat', fn($q) => $q->where('car_id', $carId))
+            $query->where('user_id', $userId)->where('receiver_id', $user->id);
+        })
+            ->orWhere(fn ($query) => $query->where('user_id', $user->id)->where('receiver_id', $userId))
+            ->whereHas('chat', fn ($q) => $q->where('car_id', $carId))
             ->with(['user', 'receiver'])
             ->oldest()
             ->get();
@@ -85,9 +82,9 @@ class ChatService implements ChatConstructor
 
         $messages = $chat->messages()
             ->when($isNotCreator, function ($query) use ($userId, $carCreatorId) {
-                $query->where(fn($q) => $q->where('user_id', $userId)
-                                         ->orWhere('user_id', $carCreatorId)
-                                         ->where('receiver_id', $userId));
+                $query->where(fn ($q) => $q->where('user_id', $userId)
+                    ->orWhere('user_id', $carCreatorId)
+                    ->where('receiver_id', $userId));
             })
             ->oldest()
             ->get();
@@ -107,13 +104,13 @@ class ChatService implements ChatConstructor
             'content' => 'required|string',
         ]);
 
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('login');
         }
 
         $receiver = User::where('name', $chat->username)->first();
 
-        if (!$receiver) {
+        if (! $receiver) {
             return back()->withErrors(['error' => 'Receiver not found']);
         }
 
