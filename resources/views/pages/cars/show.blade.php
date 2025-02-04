@@ -188,9 +188,9 @@
     @endphp
 
     <div class="container mx-auto my-10 px-4">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">عروض مشابهة</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">اقتراحات اخرى</h2>
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            @foreach ($cars->take(10) as $car)
+            @foreach ($cars->take(2) as $car)
             <a href="{{ route('cars.show', $car->slug) }}" class="block rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all">
                 <div class="bg-white p-4">
                     <div class="text-start">
