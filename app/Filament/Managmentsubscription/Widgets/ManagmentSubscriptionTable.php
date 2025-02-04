@@ -3,6 +3,7 @@
 namespace App\Filament\Managmentsubscription\Widgets;
 
 use App\Models\User;
+use Filament\Tables\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -18,6 +19,7 @@ class ManagmentSubscriptionTable extends BaseWidget
 
     public function table(Table $table): Table
     {
+        $userCount = User::count();
         return $table
             ->query(
                 User::query()
@@ -32,6 +34,10 @@ class ManagmentSubscriptionTable extends BaseWidget
             ->headerActions([
                 Tables\Actions\ViewAction::make()->label('عرض المستخدمين')->url('/managment/subscriptions/user-managment-subscriptions')->icon('heroicon-s-user')->color('success'),
                 Tables\Actions\ViewAction::make()->label('الصفحة الرئيسية')->url('/admin')->icon('heroicon-s-home')->color('info'),
+                Action::make('user_count')
+                    ->label("إجمالي المستخدمين: $userCount")
+                    ->icon('heroicon-s-chart-bar')
+                    ->extraAttributes(['style' => 'background-color: #cfaa00;']),
             ]);
     }
 }

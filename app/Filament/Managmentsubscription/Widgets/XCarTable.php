@@ -8,6 +8,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Actions\Action;
 
 class XCarTable extends BaseWidget
 {
@@ -17,10 +18,12 @@ class XCarTable extends BaseWidget
 
     public function table(Table $table): Table
     {
+        $carCount = Car::count();
+
         return $table
             ->query(
                 Car::query()
-                )
+            )
             ->defaultSort('created_at', 'desc')
             ->columns([
                 ImageColumn::make('image')
@@ -43,7 +46,17 @@ class XCarTable extends BaseWidget
                     ->sortable(),
             ])
             ->headerActions([
-                Tables\Actions\ViewAction::make()->label('عرض السيارات')->url('/managment/subscriptions/admin-cars')->icon('heroicon-s-truck')->extraAttributes(['style' => 'background-color: #00c6bd;'])->color('success'),
+                Tables\Actions\ViewAction::make()
+                    ->label("عرض السيارات ($carCount)")
+                    ->url('/managment/subscriptions/admin-cars')
+                    ->icon('heroicon-s-truck')
+                    ->extraAttributes(['style' => 'background-color: #00c6bd;'])
+                    ->color('success'),
+
+                Action::make('car_count')
+                    ->label("إجمالي السيارات: $carCount")
+                    ->icon('heroicon-s-chart-bar')
+                    ->extraAttributes(['style' => 'background-color: #cfaa00;']),
             ]);
     }
 }
