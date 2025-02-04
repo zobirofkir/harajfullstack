@@ -55,7 +55,7 @@ class UserManagmentSubscriptionResource extends Resource
         return $table
         ->query(User::where('id', '!=', Auth::id()))
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->searchable(),
                 TextColumn::make('email'),
                 TextColumn::make('plan'),
             ])
