@@ -37,7 +37,7 @@
 
                                     <!-- Car Details -->
                                     <div class="flex-shrink-0 text-right">
-                                        <p class="text-sm text-blue-600 font-medium">🚗 {{ $carTitle }}</p>
+                                        <p class="text-sm text-blue-600 font-medium">🚗 {{ Str::limit($carTitle, 10) }}</p>
                                         <p class="text-xs text-gray-500">{{ $latestMessage ? $latestMessage->created_at->diffForHumans() : 'لا توجد رسائل' }}</p>
                                     </div>
                                 </div>
