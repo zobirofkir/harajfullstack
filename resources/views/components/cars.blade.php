@@ -38,7 +38,7 @@
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px] mt-10">
             @if (!Auth::check())
-            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8">
+            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8 -mt-10">
                 <i class="fas fa-car mr-2"></i> السيارات المتاحة
             </h2>
         @else
@@ -136,10 +136,10 @@
 
         window.addEventListener("scroll", function () {
             if (window.scrollY > lastScrollY) {
-                // يخفي العنوان عند التمرير للأسفل
+
                 header.classList.add("hidden-header");
             } else {
-                // يُظهر العنوان عند التمرير للأعلى
+
                 header.classList.remove("hidden-header");
             }
             lastScrollY = window.scrollY;
