@@ -54,14 +54,4 @@ class AuthController extends Controller
     {
         return AuthFacade::resetPassword($request);
     }
-
-    public function updateProfileForm()
-    {
-        return AuthFacade::updateProfileForm();
-    }
-
-    public function updateProfile(UpdateProfileRequest $request)
-    {
-        return AuthFacade::updateProfile($request);
-    }
 }

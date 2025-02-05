@@ -26,8 +26,4 @@ interface AuthConstructor
     public function showResetPasswordForm($token);
 
     public function resetPassword(Request $request);
-
-    public function updateProfileForm();
-
-    public function updateProfile(UpdateProfileRequest $request);
 }

@@ -13,4 +13,5 @@ return [
     App\Providers\FirebaseServiceProvider::class,
     App\Providers\PaymentServiceProvider::class,
     App\Providers\SearchServiceProvider::class,
+    App\Providers\UpdateProfileServiceProvider::class,
 ];

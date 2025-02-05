@@ -107,36 +107,4 @@ class AuthService implements AuthConstructor
 
         return back()->with('error', 'فشل في إعادة تعيين كلمة المرور. حاول مرة أخرى.');
     }
-
-    public function updateProfileForm()
-    {
-        return view('pages.auth.update-profile');
-    }
-
-    public function updateProfile(UpdateProfileRequest $request)
-    {
-        $user = Auth::user();
-
-        $validated = $request->validated();
-
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-
-        if ($request->has('password') && $request->password) {
-            $user->password = Hash::make($validated['password']);
-        }
-
-        if ($request->hasFile('image')) {
-            if ($user->image && file_exists(storage_path('app/public/'.$user->image))) {
-                unlink(storage_path('app/public/'.$user->image));
-            }
-
-            $imagePath = $request->file('image')->store('profile_images', 'public');
-            $user->image = $imagePath;
-        }
-
-        $user->save();
-
-        return back()->with('success', 'تم تحديث المعلومات بنجاح!');
-    }
 }

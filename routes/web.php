@@ -12,6 +12,7 @@ use App\Http\Controllers\LogoController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UpdateProfileController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -178,12 +179,12 @@ Route::middleware('auth')->group(function () {
     /**
      *Get Profile Form
      */
-    Route::get('/profile/form', [AuthController::class, 'updateProfileForm'])->name('profile.form');
+    Route::get('/profile/form', [UpdateProfileController::class, 'updateProfileForm'])->name('profile.form');
 
     /**
      * Update Current Authenticated User
      */
-    Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/update', [UpdateProfileController::class, 'updateProfile'])->name('profile.update');
 
     /**
      * Start Chat
