@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactSellerController;
+use App\Http\Controllers\FirebaseAuthController;
 use App\Http\Controllers\GasolineController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\OfferController;
@@ -108,6 +109,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
  * Get login
  */
 Route::get('/login', [AuthController::class, 'indexLogin'])->name('index.login');
+
+/**
+ * Firebase login
+ */
+Route::post('/firebase-login', [FirebaseAuthController::class, 'login'])->name('firebase.login');
 
 /**
  * Store login

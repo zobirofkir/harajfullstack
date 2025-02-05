@@ -52,6 +52,70 @@
                     </a>
                 </p>
             </div>
+
+            <div class="mt-6 text-center">
+                <button id="googleSignIn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-500">
+                    تسجيل الدخول باستخدام جوجل
+                </button>
+            </div>
+
         </div>
     </div>
+
+    <!-- Load Firebase compat libraries -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script>
+        // Initialize Firebase using compat syntax
+        const firebaseConfig = {
+            apiKey: "AIzaSyADP6b_PkkkF-4UrO6fpbux7SionpKgyYM",
+            authDomain: "deenalisa.firebaseapp.com",
+            projectId: "deenalisa",
+            storageBucket: "deenalisa.firebasestorage.app",
+            messagingSenderId: "259499355304",
+            appId: "1:259499355304:web:bc2efe9cb52d0e1a4ce69d",
+            measurementId: "G-NBCY3X2E62"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Wait until DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const googleSignInBtn = document.getElementById('googleSignIn');
+            if (googleSignInBtn) {
+                googleSignInBtn.addEventListener('click', function () {
+                    const provider = new firebase.auth.GoogleAuthProvider();
+                    firebase.auth().signInWithPopup(provider)
+                        .then((result) => {
+                            result.user.getIdToken().then((idToken) => {
+                                fetch("{{ route('firebase.login') }}", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                    },
+                                    body: JSON.stringify({ idToken: idToken })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if(data.success) {
+                                        window.location.href = "{{ route('home') }}";
+                                    } else {
+                                        alert("Login failed!");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                });
+                            });
+                        })
+                        .catch((error) => {
+                            console.error("Error during Google Sign In:", error);
+                        });
+                });
+            }
+        });
+    </script>
 </x-app-layout>
