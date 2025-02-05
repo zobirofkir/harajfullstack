@@ -28,7 +28,7 @@
                 </div>
                 <div>
                     <button type="submit"
-                            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105">
                         تسجيل الدخول
                     </button>
                 </div>
@@ -54,8 +54,9 @@
             </div>
 
             <div class="mt-6 text-center">
-                <button id="googleSignIn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-500">
-                    تسجيل الدخول باستخدام جوجل
+                <button id="googleSignIn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-500 flex items-center justify-center gap-4 space-x-2 transition duration-300 ease-in-out transform hover:scale-105">
+                    <i class="fab fa-google"></i>
+                    <span >تسجيل الدخول باستخدام جوجل</span>
                 </button>
             </div>
 
@@ -65,8 +66,8 @@
     <!-- Load Firebase compat libraries -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
     <script>
-        // Initialize Firebase using compat syntax
         const firebaseConfig = {
             apiKey: "AIzaSyADP6b_PkkkF-4UrO6fpbux7SionpKgyYM",
             authDomain: "deenalisa.firebaseapp.com",
@@ -77,11 +78,9 @@
             measurementId: "G-NBCY3X2E62"
         };
 
-        // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Wait until DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             const googleSignInBtn = document.getElementById('googleSignIn');
             if (googleSignInBtn) {
