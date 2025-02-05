@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<header class="flex justify-between items-center bg-white shadow-md p-4 md:px-20 px-8">
+<header class="flex justify-between items-center bg-white shadow-md sticky top-0 left-0 right-0 z-40 p-4 md:px-20 px-8">
     <div>
         <a href="{{url('/')}}" class="flex items-center gap-4">
             <div class="max-w-[100px] max-h-[100px]">
