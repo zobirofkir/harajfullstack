@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FirebaseAuthRequest;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Auth as FirebaseAuth;
 use App\Models\User;
@@ -18,11 +19,9 @@ class FirebaseAuthController extends Controller
         $this->firebaseAuth = $firebaseAuth;
     }
 
-    public function login(Request $request)
+    public function login(FirebaseAuthRequest $request)
     {
-        $data = $request->validate([
-            'idToken' => 'required|string',
-        ]);
+        $data = $request->validated();
 
         try {
             $verifiedIdToken = $this->firebaseAuth->verifyIdToken($data['idToken']);
