@@ -19,7 +19,7 @@
         $query->where('price', '<=', $price);
     }
 
-    $cars = $query->paginate(20);
+    $cars = $query->paginate(10);
 @endphp
 
 <style>
