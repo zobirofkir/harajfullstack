@@ -11,7 +11,7 @@
         @endif
 
         @if (Auth::check() && !Auth::user()->is_active_user)
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex items-center justify-between" role="alert">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex items-center justify-between md:flex flex-col text-center" role="alert">
                 <div>
                     <strong class="font-bold">تنبيه!</strong>
                     <span class="block sm:inline">حسابك غير مفعل. يرجى إدخال رمز التحقق المرسل إلى بريدك الإلكتروني لتفعيله.</span>
