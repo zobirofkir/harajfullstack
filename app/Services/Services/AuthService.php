@@ -5,6 +5,7 @@ namespace App\Services\Services;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\VerifyOtpRequest;
 use App\Models\User;
 use App\Services\Constructors\AuthConstructor;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class AuthService implements AuthConstructor
 
         User::create($validated);
 
-        return redirect()->route('index.login')->with('success', 'تم التسجيل بنجاح! يرجى تسجيل الدخول.');
+        return redirect()->route('index.login');
     }
 
     public function indexLogin()
@@ -44,8 +45,11 @@ class AuthService implements AuthConstructor
 
         $field = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        if (Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']])) {
-            return redirect()->route('home')->with('success', 'تم تسجيل الدخول بنجاح!');
+        $user = User::where($field, $credentials['login'])->first();
+
+        if ($user && Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']])) {
+
+            return redirect()->route('home');
         }
 
         return back()->with('error', 'بيانات الدخول غير صحيحة. حاول مرة أخرى.');
@@ -55,7 +59,7 @@ class AuthService implements AuthConstructor
     {
         Auth::logout();
 
-        return redirect()->route('index.login')->with('success', 'تم تسجيل الخروج بنجاح.');
+        return redirect()->route('index.login');
     }
 
     public function indexForgotPassword()
@@ -106,5 +110,37 @@ class AuthService implements AuthConstructor
         }
 
         return back()->with('error', 'فشل في إعادة تعيين كلمة المرور. حاول مرة أخرى.');
+    }
+
+    public function showOtpForm()
+    {
+        return view('pages.auth.verify-otp');
+    }
+
+    public function verifyOtp(VerifyOtpRequest $request)
+    {
+        $request->validated();
+
+        // التحقق من صحة رمز OTP وتحديث الحالة فقط عند النجاح
+        if (Auth::user() && OtpService::verifyOtp(Auth::user(), Auth::user()->otp)) {
+            Auth::user()->update([
+                'is_active_user' => true,
+                'otp' => null,
+                'otp_expires_at' => null,
+            ]);
+
+            return redirect()->route('home')->with('message', 'لقد تم تفعيل حسابك بنجاح!');
+        }
+
+        return back()->with('error', 'رمز التحقق غير صحيح أو منتهي الصلاحية.');
+    }
+
+    public function resendOtp(Request $request)
+    {
+        $user = User::where('email', Auth::user()->email)->first();
+
+        OtpService::generateOtp($user);
+
+        return response()->json(['success' => true, 'message' => 'تم إرسال الرمز الجديد.']);
     }
 }

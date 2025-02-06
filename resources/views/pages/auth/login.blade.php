@@ -1,4 +1,17 @@
 <x-app-layout title="تسجيل الدخول">
+
+    @if (session('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-lg shadow-lg">
+            <strong class="font-semibold">{{ session('success') }}</strong>
+        </div>
+    @endif
+
+    @if (session('message'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-lg shadow-lg">
+            <strong class="font-semibold">{{ session('message') }}</strong>
+        </div>
+    @endif
+
     <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-center text-3xl font-extrabold text-gray-900 mb-6">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\VerifyOtpRequest;
 use App\Services\Facades\AuthFacade;
 use Illuminate\Http\Request;
 
@@ -54,4 +55,20 @@ class AuthController extends Controller
     {
         return AuthFacade::resetPassword($request);
     }
+
+    public function showOtpForm()
+    {
+        return AuthFacade::showOtpForm();
+    }
+
+    public function verifyOtp(VerifyOtpRequest $request)
+    {
+        return AuthFacade::verifyOtp($request);
+    }
+
+    public function resendOtp(Request $request)
+    {
+        return AuthFacade::resendOtp($request);
+    }
+
 }

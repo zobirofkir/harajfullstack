@@ -30,6 +30,9 @@ class User extends Authenticatable
         'plan',
         'account_type',
         'payment_status',
+        'otp',
+        'otp_expires_at',
+        'is_active_user'
     ];
 
     /**

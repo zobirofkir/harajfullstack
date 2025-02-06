@@ -5,6 +5,7 @@ namespace App\Services\Constructors;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\VerifyOtpRequest;
 use Illuminate\Http\Request;
 
 interface AuthConstructor
@@ -26,4 +27,8 @@ interface AuthConstructor
     public function showResetPasswordForm($token);
 
     public function resetPassword(Request $request);
+
+    public function showOtpForm();
+
+    public function verifyOtp(VerifyOtpRequest $request);
 }

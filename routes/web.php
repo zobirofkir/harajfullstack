@@ -190,4 +190,19 @@ Route::middleware('auth')->group(function () {
      * Start Chat
      */
     Route::get('/chats/start/{userName}/{carId}', [ChatController::class, 'startChat'])->name('chats.start');
+
+    /**
+     * Show verify otp form
+     */
+    Route::get('/verify-otp', [AuthController::class, 'showOtpForm'])->name('verify.otp');
+
+    /**
+     * Verify otp
+     */
+    Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
+
+    /**
+     * Resend otp
+     */
+    Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resend.otp');
 });
