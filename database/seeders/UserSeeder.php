@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'password' => 'deenali123@@@',
             'plan' => 'annual',
             'account_type' => 'مشتري',
+            'is_active_user' => true
         ]);
     }
 }

@@ -1,4 +1,13 @@
 <x-app-layout title="تحقق من الرمز">
+
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative flex items-center justify-between mt-20" role="alert">
+            <div>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
+
     <div class="flex items-center justify-center min-h-screen bg-gray-100">
         <form action="{{ route('verify.otp') }}" method="POST" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
             @csrf
