@@ -27,63 +27,84 @@
 
             <!-- زر إعادة إرسال OTP -->
             <button type="button" id="resendOtpBtn"
-                class="w-full mt-3 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition-all duration-300 disabled:bg-gray-400"
-                onclick="resendOtp()" disabled>
-                إعادة إرسال الرمز <span id="countdown">10</span> ثانية
+                class="w-full mt-3 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition-all duration-300 disabled:bg-gray-400">
+                إرسال الرمز
             </button>
         </form>
     </div>
 
-    <!-- سكريبت لجعل زر إعادة الإرسال متاح بعد 10 ثانية -->
-    <script>
-        let countdownElement = document.getElementById('countdown');
-        let resendButton = document.getElementById('resendOtpBtn');
-        let timeLeft = 10;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const resendOtpBtn = document.getElementById("resendOtpBtn");
 
-        function startCountdown() {
-            let interval = setInterval(() => {
-                timeLeft--;
-                countdownElement.innerText = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(interval);
-                    resendButton.disabled = false;
-                    resendButton.innerText = "إعادة إرسال الرمز";
-                }
-            }, 1000);
-        }
+            // Get the stored data for attempts and the last attempt timestamp
+            let attempts = parseInt(localStorage.getItem("otpAttempts") || 0);
+            let lastAttemptTime = parseInt(localStorage.getItem("lastAttemptTime") || 0);
 
-        function resendOtp() {
-            resendButton.disabled = true;
-            resendButton.innerText = "جارٍ الإرسال...";
+            const currentTime = Date.now();
+            const oneHourInMilliseconds = 3600000;
 
-            fetch("{{ route('resend.otp') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: "{{ session('email') }}" })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("تم إرسال رمز جديد إلى بريدك الإلكتروني");
-                    timeLeft = 10;
-                    countdownElement.innerText = timeLeft;
+            // Reset attempts if more than 1 hour has passed
+            if (currentTime - lastAttemptTime > oneHourInMilliseconds) {
+                attempts = 0;
+                localStorage.setItem("otpAttempts", attempts);
+            }
+
+            function updateButtonState() {
+                if (attempts >= 20) {
+                    resendOtpBtn.disabled = true;
+                    resendOtpBtn.innerText = "تم استنفاد المحاولات لهذا الساعة";
                     startCountdown();
-                } else {
-                    alert("حدث خطأ، حاول مرة أخرى.");
-                    resendButton.disabled = false;
-                    resendButton.innerText = "إعادة إرسال الرمز";
                 }
-            })
-            .catch(() => {
-                alert("حدث خطأ أثناء إعادة إرسال الرمز");
-                resendButton.disabled = false;
-                resendButton.innerText = "إعادة إرسال الرمز";
-            });
-        }
+            }
 
-        startCountdown();
+            // Function to start a countdown timer for the resend button
+            function startCountdown() {
+                const countdownDuration = oneHourInMilliseconds - (currentTime - lastAttemptTime);
+                const countdownInterval = setInterval(() => {
+                    const remainingTime = countdownDuration - (Date.now() - lastAttemptTime);
+                    if (remainingTime <= 0) {
+                        clearInterval(countdownInterval);
+                        resendOtpBtn.disabled = false;
+                        resendOtpBtn.innerText = "إعادة إرسال الرمز";
+                    } else {
+                        const minutes = Math.floor(remainingTime / 60000);
+                        const seconds = Math.floor((remainingTime % 60000) / 1000);
+                        resendOtpBtn.innerText = `انتظر ${minutes}:${seconds < 10 ? '0' : ''}${seconds} دقيقة`;
+                    }
+                }, 1000);
+            }
+
+            updateButtonState();
+
+            resendOtpBtn.addEventListener("click", function () {
+                if (attempts < 3) {
+                    // Increment the attempt count
+                    attempts++;
+                    localStorage.setItem("otpAttempts", attempts);
+
+                    // Update the last attempt time
+                    localStorage.setItem("lastAttemptTime", currentTime);
+
+                    updateButtonState();
+
+                    $.ajax({
+                        url: "{{ route('resend.otp') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            alert("تم إرسال الرمز بنجاح!");
+                        },
+                        error: function(xhr, status, error) {
+                            alert("حدث خطأ أثناء إرسال الرمز.");
+                        }
+                    });
+                }
+            });
+        });
     </script>
+
 </x-app-layout>

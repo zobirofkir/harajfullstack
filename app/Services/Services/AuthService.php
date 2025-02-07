@@ -121,7 +121,6 @@ class AuthService implements AuthConstructor
     {
         $request->validated();
 
-        // التحقق من صحة رمز OTP وتحديث الحالة فقط عند النجاح
         if (Auth::user() && OtpService::verifyOtp(Auth::user(), Auth::user()->otp)) {
             Auth::user()->update([
                 'is_active_user' => true,
@@ -129,10 +128,10 @@ class AuthService implements AuthConstructor
                 'otp_expires_at' => null,
             ]);
 
-            return redirect()->route('home')->with('message', 'لقد تم تفعيل حسابك بنجاح!');
+            return redirect('/')->with('success', 'تم تفعيل حسابك بنجاح!');
         }
 
-        return back()->with('error', 'رمز التحقق غير صحيح أو منتهي الصلاحية.');
+        return redirect('/')->with('error', 'رمز التحقق غير صحيح، يرجى المحاولة مرة أخرى.');
     }
 
     public function resendOtp(Request $request)

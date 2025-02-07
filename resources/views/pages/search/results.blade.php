@@ -1,26 +1,25 @@
 <x-app-layout>
     @php
-
-        $figureFilter = request('figure');
-
+        $titleQuery = request('query');
         $startDate = request('start_date');
         $endDate = request('end_date');
         $price = request('price');
 
-
         $query = App\Models\Car::query()->orderBy('created_at', 'desc');
 
+        if ($titleQuery) {
+            $query->where('title', 'LIKE', '%'.$titleQuery.'%');
+        }
 
         if ($startDate && $endDate) {
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }
 
-
         if ($price) {
             $query->where('price', '<=', $price);
         }
 
-        $cars = $query->paginate(20);
+        $cars = $query->paginate(10);
     @endphp
 
 
