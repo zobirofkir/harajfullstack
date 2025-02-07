@@ -17,6 +17,14 @@
             <h2 class="text-center text-3xl font-extrabold text-gray-900 mb-6">
                 تسجيل الدخول
             </h2>
+
+            <div class="mt-6 text-center">
+                <button id="googleSignIn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-500 flex items-center justify-center gap-4 space-x-2 transition duration-300 ease-in-out transform hover:scale-105">
+                    <i class="fab fa-google"></i>
+                    <span >تسجيل الدخول باستخدام جوجل</span>
+                </button>
+            </div>
+
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
                 <div>
@@ -64,13 +72,6 @@
                         استعادة كلمة المرور
                     </a>
                 </p>
-            </div>
-
-            <div class="mt-6 text-center">
-                <button id="googleSignIn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-500 flex items-center justify-center gap-4 space-x-2 transition duration-300 ease-in-out transform hover:scale-105">
-                    <i class="fab fa-google"></i>
-                    <span >تسجيل الدخول باستخدام جوجل</span>
-                </button>
             </div>
 
         </div>

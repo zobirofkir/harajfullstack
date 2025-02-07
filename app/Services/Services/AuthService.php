@@ -114,6 +114,10 @@ class AuthService implements AuthConstructor
 
     public function showOtpForm()
     {
+        if (Auth::user()->is_active_user) {
+            return redirect()->route('home')->with('success', 'تم تفعيل حسابك بنجاح!');
+        }
+
         return view('pages.auth.verify-otp');
     }
 
