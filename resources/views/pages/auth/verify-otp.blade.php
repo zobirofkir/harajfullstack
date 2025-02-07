@@ -31,7 +31,7 @@
 
             <!-- زر إعادة إرسال OTP -->
             <button type="button" id="resendOtpBtn"
-                class="w-full mt-3 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition-all duration-300 disabled:bg-gray-400 flex items-center justify-center">
+                class="w-full mt-3 bg-red-500 hover:bg-red-500 text-white py-2 rounded-lg font-semibold transition-all duration-300 disabled:bg-gray-400 flex items-center justify-center">
                 <span id="btnText">إرسال الرمز</span>
                 <svg id="loadingIcon" class="hidden ml-2 w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" stroke="white" stroke-width="4" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
@@ -53,7 +53,7 @@
             const oneHour = 3600000;
 
             function updateButtonState() {
-                if (currentTime - lastAttemptTime < oneHour && attempts >= 3) {
+                if (currentTime - lastAttemptTime < oneHour && attempts >= 50) {
                     startCountdown(oneHour - (currentTime - lastAttemptTime));
                 }
             }
