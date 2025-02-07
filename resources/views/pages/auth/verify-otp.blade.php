@@ -75,7 +75,7 @@
             }
 
             resendOtpBtn.addEventListener("click", function () {
-                if (attempts < 3) {
+                if (attempts < 50) {
                     attempts++;
                     localStorage.setItem("otpAttempts", attempts);
                     localStorage.setItem("lastAttemptTime", Date.now());
