@@ -28,11 +28,25 @@ class FirebaseAuthService implements FirebaseAuthConstructor
 
             $firebaseUser = $this->firebaseAuth->getUser($firebaseUid);
 
+            $username = $firebaseUser->displayName ?? $firebaseUser->email;
+            $name = $firebaseUser->displayName ?? $firebaseUser->email;
+            $email = $firebaseUser->email;
+
+            $originalUsername = $username;
+            while (User::where('username', $username)->exists()) {
+                $username = $originalUsername . rand(100, 999);
+            }
+
+            $originalName = $name;
+            while (User::where('name', $name)->exists()) {
+                $name = $originalName . rand(100, 999);
+            }
+
             $user = User::firstOrCreate(
-                ['email' => $firebaseUser->email],
+                ['email' => $email],
                 [
-                    'username' => $firebaseUser->displayName ?? $firebaseUser->email,
-                    'name'     => $firebaseUser->displayName ?? $firebaseUser->email,
+                    'username' => $username,
+                    'name'     => $name,
                     'password' => Hash::make(uniqid()),
                 ]
             );
