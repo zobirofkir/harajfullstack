@@ -19,7 +19,7 @@
         $query->where('price', '<=', $price);
     }
 
-    $cars = $query->paginate(10);
+    $cars = $query->paginate(16);
 @endphp
 
 <style>
@@ -38,7 +38,7 @@
         <!-- Cars Listing -->
         <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px]">
             @if (!Auth::check())
-            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8 -mt-10">
+            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8 -mt-20">
                 <i class="fas fa-car mr-2"></i> السيارات المتاحة
             </h2>
         @else
