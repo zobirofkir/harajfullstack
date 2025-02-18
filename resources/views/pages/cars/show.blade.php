@@ -126,7 +126,7 @@
                 <div class="p-8 flex flex-col justify-start gap-6 md:max-w-[20%] max-w-[100%] mt-2">
                     <button class="bg-blue-600 text-white px-2 py-2 rounded-lg hover:bg-gradient-to-l from-gray-500 via-gray-600 to-gray-700 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg flex items-center gap-3 whitespace-nowrap justify-center" onclick="openContactModal()">
                         <i class="fas fa-user"></i>
-                        اتصل
+                        ارسال طلب تواصل
                     </button>
                     <div class="flex items-center">
                         @if (Auth::check())
