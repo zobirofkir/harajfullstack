@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\Facades\PaymentFacade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PaymentController extends Controller
 {
@@ -13,8 +14,13 @@ class PaymentController extends Controller
         return PaymentFacade::activate($user);
     }
 
-    public function paymentCallback(Request $request)
+    public function showPaymentForm()
     {
-        return PaymentFacade::paymentCallback($request);
+        return view('payment');
+    }
+
+    public function processPayment(Request $request)
+    {
+        return PaymentFacade::processPayment($request);
     }
 }

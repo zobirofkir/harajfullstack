@@ -9,5 +9,5 @@ interface PaymentConstructor
 {
     public function activate(User $user);
 
-    public function paymentCallback(Request $request);
+    public function processPayment(Request $request);
 }

@@ -172,11 +172,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/payments/activate/{user}', [PaymentController::class, 'activate'])->name('moyasar.activate');
 
     /**
-     * Get Payment Callback
-     */
-    Route::get('/update-plan', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
-
-    /**
      *Get Profile Form
      */
     Route::get('/profile/form', [UpdateProfileController::class, 'updateProfileForm'])->name('profile.form');
@@ -205,4 +200,8 @@ Route::middleware('auth')->group(function () {
      * Resend otp
      */
     Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resend.otp');
+
+
+    Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+    Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 });
