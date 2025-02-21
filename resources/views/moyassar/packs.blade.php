@@ -98,17 +98,10 @@
                     <input type="text" name="card_number" id="card_number" class="w-full p-3 mt-2 border rounded-lg" required placeholder="XXXX XXXX XXXX XXXX">
                 </div>
 
-                <!-- Expiry Month -->
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label for="exp_month" class="block text-sm font-semibold text-gray-700">شهر الإنتهاء</label>
-                        <input type="text" name="exp_month" id="exp_month" class="w-full p-3 mt-2 border rounded-lg" required placeholder="MM">
-                    </div>
-                    <!-- Expiry Year -->
-                    <div>
-                        <label for="exp_year" class="block text-sm font-semibold text-gray-700">سنة الإنتهاء</label>
-                        <input type="text" name="exp_year" id="exp_year" class="w-full p-3 mt-2 border rounded-lg" required placeholder="YYYY">
-                    </div>
+                <!-- Expiry Date -->
+                <div class="mb-4">
+                    <label for="exp_date" class="block text-sm font-semibold text-gray-700">تاريخ الإنتهاء</label>
+                    <input type="text" name="exp_date" id="exp_date" class="w-full p-3 mt-2 border rounded-lg" required placeholder="MM/YY">
                 </div>
 
                 <!-- CVC -->
@@ -121,29 +114,6 @@
                 <div class="mb-4">
                     <label for="card_name" class="block text-sm font-semibold text-gray-700">اسم حامل البطاقة</label>
                     <input type="text" name="card_name" id="card_name" class="w-full p-3 mt-2 border rounded-lg" required placeholder="الاسم كما يظهر على البطاقة">
-                </div>
-
-                <!-- Billing Address -->
-                <h3 class="text-lg font-semibold text-gray-700 mt-6">عنوان الفوترة</h3>
-                <div class="mb-4">
-                    <label for="country" class="block text-sm font-semibold text-gray-700">الدولة</label>
-                    <input type="text" name="country" id="country" class="w-full p-3 mt-2 border rounded-lg" required placeholder="الدولة">
-                </div>
-                <div class="mb-4">
-                    <label for="line1" class="block text-sm font-semibold text-gray-700">العنوان (الخط 1)</label>
-                    <input type="text" name="line1" id="line1" class="w-full p-3 mt-2 border rounded-lg" required placeholder="الشارع/المنطقة">
-                </div>
-                <div class="mb-4">
-                    <label for="city" class="block text-sm font-semibold text-gray-700">المدينة</label>
-                    <input type="text" name="city" id="city" class="w-full p-3 mt-2 border rounded-lg" required placeholder="المدينة">
-                </div>
-                <div class="mb-4">
-                    <label for="street" class="block text-sm font-semibold text-gray-700">الشارع</label>
-                    <input type="text" name="street" id="street" class="w-full p-3 mt-2 border rounded-lg" required placeholder="الشارع">
-                </div>
-                <div class="mb-4">
-                    <label for="avenue" class="block text-sm font-semibold text-gray-700">الشارع الفرعي</label>
-                    <input type="text" name="avenue" id="avenue" class="w-full p-3 mt-2 border rounded-lg" required placeholder="الشارع الفرعي">
                 </div>
 
                 <div class="mt-8 text-center">
@@ -174,6 +144,10 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
 
+            const [exp_month, exp_year] = data.exp_date.split('/');
+            data.exp_month = exp_month;
+            data.exp_year = exp_year;
+
             try {
                 const response = await fetch('{{ route('payment.process') }}', {
                     method: 'POST',
@@ -189,8 +163,13 @@
                 console.log('API Response:', result);
 
                 if (response.ok) {
-                    alert('تمت عملية الدفع بنجاح!');
-                    window.location.href = '/';
+                    if (result.redirect_url) {
+                        // Redirect to 3D Secure page
+                        window.location.href = result.redirect_url;
+                    } else {
+                        alert('تمت عملية الدفع بنجاح!');
+                        window.location.href = '/';
+                    }
                 } else {
                     alert('فشل في عملية الدفع: ' + (result.error || 'الرجاء التحقق من البيانات المدخلة.'));
                 }
