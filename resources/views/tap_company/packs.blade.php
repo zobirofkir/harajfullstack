@@ -164,7 +164,7 @@
 
                 if (response.ok) {
                     if (result.redirect_url) {
-                        // Redirect to 3D Secure page
+
                         window.location.href = result.redirect_url;
                     } else {
                         alert('تمت عملية الدفع بنجاح!');

@@ -14,7 +14,7 @@ class PaymentService implements PaymentConstructor
     public function activate(User $user)
     {
         $selectedPlan = $user->plan;
-        return view('moyassar.packs', compact('selectedPlan'));
+        return view('tap_company.packs', compact('selectedPlan'));
     }
 
     public function processPayment(Request $request)
@@ -26,32 +26,11 @@ class PaymentService implements PaymentConstructor
         list($expMonth, $expYear) = explode('/', $expDate);
 
         try {
-            // Step 1: Tokenize the card
-            $tokenResponse = Http::withHeaders([
-                'accept' => 'application/json',
-                'content-type' => 'application/json',
-                'Authorization' => 'Bearer ' . env('TAP_SECRET_KEY'),
-            ])->post('https://api.tap.company/v2/tokens', [
-                'card' => [
-                    'number' => $request->input('card_number'),
-                    'exp_month' => $expMonth,
-                    'exp_year' => $expYear,
-                    'cvc' => $request->input('cvc'),
-                    'name' => $request->input('card_name'),
-                ],
-                'client_ip' => $request->ip(),
-            ]);
 
-            if (!$tokenResponse->successful()) {
-                $errorMessage = $tokenResponse->json()['message'] ?? 'فشلت عملية إنشاء التوكن.';
-                Log::error('Tap Tokenization Error:', ['error' => $errorMessage]);
-                return response()->json(['success' => false, 'error' => $errorMessage], 400);
-            }
+            Log::info('TAP_SECRET_KEY:', ['key' => env('TAP_SECRET_KEY')]);
+            Log::info('TAP_PUBLIC_KEY:', ['key' => env('TAP_PUBLIC_KEY')]);
 
-            $tokenData = $tokenResponse->json();
-            $tokenId = $tokenData['id'];
 
-            // Step 2: Create a charge using the token
             $chargeResponse = Http::withHeaders([
                 'accept' => 'application/json',
                 'content-type' => 'application/json',
@@ -61,7 +40,7 @@ class PaymentService implements PaymentConstructor
                 'currency' => 'SAR',
                 'threeDSecure' => true,
                 'description' => 'Subscription Payment',
-                'statement_descriptor' => 'Moyassar Subscription',
+                'statement_descriptor' => 'Tap Subscription',
                 'metadata' => [
                     'plan' => $plan,
                     'user_id' => $user->id,
@@ -79,30 +58,35 @@ class PaymentService implements PaymentConstructor
                     'email' => $user->email,
                 ],
                 'source' => [
-                    'id' => $tokenId,
+                    'object' => 'src_card',
+                    'number' => $request->input('card_number'),
+                    'exp_month' => $expMonth,
+                    'exp_year' => $expYear,
+                    'cvc' => $request->input('cvc'),
+                    'name' => $request->input('card_name'),
                 ],
                 'redirect' => [
-                    'url' => route('payment.redirect'), // Redirect URL after 3D Secure
+                    'url' => route('home'),
                 ],
             ]);
 
             if (!$chargeResponse->successful()) {
                 $errorMessage = $chargeResponse->json()['message'] ?? 'فشلت عملية الدفع.';
-                Log::error('Tap Charge Error:', ['error' => $errorMessage]);
+                Log::error('Tap Charge Error:', ['error' => $errorMessage, 'response' => $chargeResponse->json()]);
                 return response()->json(['success' => false, 'error' => $errorMessage], 400);
             }
 
             $chargeData = $chargeResponse->json();
 
-            // Step 3: Handle 3D Secure Redirect or Direct Payment
+
             if (isset($chargeData['transaction']['url'])) {
-                // 3D Secure Redirect
+
                 return response()->json([
                     'success' => true,
                     'redirect_url' => $chargeData['transaction']['url'],
                 ]);
             } else {
-                // Direct Payment
+
                 $user->plan = $plan;
                 $user->save();
 
