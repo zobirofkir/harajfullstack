@@ -203,5 +203,11 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+
     Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+    Route::get('/payment/success', function () {
+        return view('tap_company.success');
+    })->name('payment.success');
+
 });

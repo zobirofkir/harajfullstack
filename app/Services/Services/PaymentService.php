@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class PaymentService implements PaymentConstructor
 {
@@ -19,82 +20,67 @@ class PaymentService implements PaymentConstructor
 
     public function processPayment(Request $request)
     {
-        $plan = $request->input('plan');
         $user = Auth::user();
+        $plan = $request->input('plan');
 
-        $expDate = $request->input('exp_date');
-        list($expMonth, $expYear) = explode('/', $expDate);
+        $validator = Validator::make($request->all(), [
+            'plan' => 'required|in:monthly,semi_annual,annual',
+        ]);
+
+        if ($validator->fails()) {
+            Log::error('Validation Error:', ['errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'error' => $validator->errors()->first()], 400);
+        }
 
         try {
-
-            Log::info('TAP_SECRET_KEY:', ['key' => env('TAP_SECRET_KEY')]);
-            Log::info('TAP_PUBLIC_KEY:', ['key' => env('TAP_PUBLIC_KEY')]);
-
-
-            $chargeResponse = Http::withHeaders([
-                'accept' => 'application/json',
-                'content-type' => 'application/json',
+            $amount = $plan === 'semi_annual' ? 34500 : 57500;
+            $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . env('TAP_SECRET_KEY'),
+                'Content-Type' => 'application/json',
             ])->post('https://api.tap.company/v2/charges', [
-                'amount' => $plan === 'semi_annual' ? 34500 : 57500, // Amount in halalas
+                'amount' => $amount,
                 'currency' => 'SAR',
                 'threeDSecure' => true,
-                'description' => 'Subscription Payment',
-                'statement_descriptor' => 'Tap Subscription',
+                'description' => 'اختبار الدفع عبر Tap',
+                'statement_descriptor' => 'Test Payment',
                 'metadata' => [
                     'plan' => $plan,
-                    'user_id' => $user->id,
+                    'user_id' => $user->id
                 ],
                 'reference' => [
                     'transaction' => 'txn_' . time(),
-                    'order' => 'ord_' . time(),
+                    'order' => 'ord_' . time()
                 ],
                 'receipt' => [
                     'email' => $user->email,
-                    'sms' => true,
+                    'sms' => true
                 ],
                 'customer' => [
                     'first_name' => $user->name,
                     'email' => $user->email,
                 ],
                 'source' => [
-                    'object' => 'src_card',
-                    'number' => $request->input('card_number'),
-                    'exp_month' => $expMonth,
-                    'exp_year' => $expYear,
-                    'cvc' => $request->input('cvc'),
-                    'name' => $request->input('card_name'),
+                    'id' => 'src_all'
                 ],
                 'redirect' => [
-                    'url' => route('home'),
-                ],
+                    'url' => route('payment.success') 
+                ]
             ]);
 
-            if (!$chargeResponse->successful()) {
-                $errorMessage = $chargeResponse->json()['message'] ?? 'فشلت عملية الدفع.';
-                Log::error('Tap Charge Error:', ['error' => $errorMessage, 'response' => $chargeResponse->json()]);
-                return response()->json(['success' => false, 'error' => $errorMessage], 400);
+            $data = $response->json();
+            if (!$response->successful()) {
+                Log::error('Payment API Error:', ['response' => $data]);
+                return response()->json(['success' => false, 'error' => $data['errors'][0]['description'] ?? 'فشلت عملية الدفع.'], 400);
             }
 
-            $chargeData = $chargeResponse->json();
-
-
-            if (isset($chargeData['transaction']['url'])) {
-
-                return response()->json([
-                    'success' => true,
-                    'redirect_url' => $chargeData['transaction']['url'],
-                ]);
-            } else {
-
-                $user->plan = $plan;
-                $user->save();
-
-                return response()->json(['success' => true, 'message' => 'تمت معالجة الدفع بنجاح وتم تحديث خطتك.']);
-            }
+            // Return the Tap URL for redirection
+            return response()->json([
+                'success' => true,
+                'redirect_url' => $data['transaction']['url'] ?? null,
+            ]);
         } catch (\Exception $e) {
-            Log::error('Payment Processing Error:', ['error' => $e->getMessage()]);
-            return response()->json(['success' => false, 'error' => 'حدث خطأ أثناء معالجة الدفع.'], 500);
+            Log::error('Payment Error:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'error' => 'حدث خطأ أثناء الدفع.'], 500);
         }
     }
 }
