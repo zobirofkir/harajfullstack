@@ -24,7 +24,7 @@ class PaymentService implements PaymentConstructor
         $plan = $request->input('plan');
 
         $validator = Validator::make($request->all(), [
-            'plan' => 'required|in:monthly,semi_annual,annual',
+            'plan' => 'required|in:free,semi_annual,annual',
         ]);
 
         if ($validator->fails()) {
@@ -33,7 +33,7 @@ class PaymentService implements PaymentConstructor
         }
 
         try {
-            $amount = $plan === 'semi_annual' ? 34500 : 57500;
+            $amount = $plan === 'semi_annual' ? 34500 : ($plan === 'annual' ? 57500 : 0);
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . env('TAP_SECRET_KEY'),
                 'Content-Type' => 'application/json',
@@ -60,10 +60,10 @@ class PaymentService implements PaymentConstructor
                     'email' => $user->email,
                 ],
                 'source' => [
-                    'id' => 'src_all'
+                    'id' => 'src_all' // Use 'src_all' to allow all payment methods
                 ],
                 'redirect' => [
-                    'url' => route('payment.success')
+                    'url' => route('payment.success') // Redirect to the success page
                 ]
             ]);
 
@@ -73,9 +73,13 @@ class PaymentService implements PaymentConstructor
                 return response()->json(['success' => false, 'error' => $data['errors'][0]['description'] ?? 'فشلت عملية الدفع.'], 400);
             }
 
+            // Update the user's plan after successful payment
+            $user->plan = $plan;
+            $user->save();
+
             return response()->json([
                 'success' => true,
-                'redirect_url' => $data['transaction']['url'] ?? null,
+                'redirect_url' => $data['transaction']['url'] ?? route('payment.success'),
             ]);
         } catch (\Exception $e) {
             Log::error('Payment Error:', ['error' => $e->getMessage()]);

@@ -46,15 +46,24 @@
     <div class="container mx-auto p-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             @foreach([['الخطة المجانية', '0 ريال سعودي', 'free'], ['الخطة نصف السنوية', '345 ريال سعودي', 'semi_annual'], ['الخطة السنوية', '575 ريال سعودي', 'annual']] as $plan)
-                <div class="bg-white border border-gray-300 rounded-xl shadow-lg p-6 hover:scale-105 transition-transform duration-300" onclick="selectPlan('{{ $plan[2] }}')">
+                <div class="bg-white border border-gray-300 rounded-xl shadow-lg p-6 hover:scale-105 transition-transform duration-300
+                            @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) opacity-50 cursor-not-allowed @endif"
+                     onclick="@if(Auth::user()->plan !== $plan[2] && !(Auth::user()->plan !== 'free' && $plan[2] === 'free')) selectPlan('{{ $plan[2] }}') @endif">
                     <h2 class="text-xl font-bold text-gray-600 text-center">{{ $plan[0] }}</h2>
                     <p class="text-center text-gray-500 mt-2">عدد لا محدود من الإعلانات.</p>
-                    <button class="w-full bg-{{ $loop->index === 0 ? 'gray-300 text-gray-700' : ($loop->index === 1 ? 'orange-500 text-white' : 'blue-500 text-white') }} px-4 py-2 rounded-lg font-bold mt-4">اختيار هذه الخطة</button>
+                    <button class="w-full bg-{{ $loop->index === 0 ? 'gray-300 text-gray-700' : ($loop->index === 1 ? 'orange-500 text-white' : 'blue-500 text-white') }} px-4 py-2 rounded-lg font-bold mt-4
+                                  @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) cursor-not-allowed @endif">
+                        @if(Auth::user()->plan === $plan[2])
+                            الخطة الحالية
+                        @else
+                            اختيار هذه الخطة
+                        @endif
+                    </button>
                 </div>
             @endforeach
         </div>
     </div>
-
+    
     <div id="success-alert" class="custom-alert success">تمت عملية الدفع بنجاح!</div>
     <div id="error-alert" class="custom-alert error"></div>
 
