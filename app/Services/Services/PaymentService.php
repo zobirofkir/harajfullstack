@@ -63,7 +63,7 @@ class PaymentService implements PaymentConstructor
                     'id' => 'src_all'
                 ],
                 'redirect' => [
-                    'url' => route('payment.success') 
+                    'url' => route('payment.success')
                 ]
             ]);
 
@@ -73,7 +73,6 @@ class PaymentService implements PaymentConstructor
                 return response()->json(['success' => false, 'error' => $data['errors'][0]['description'] ?? 'فشلت عملية الدفع.'], 400);
             }
 
-            // Return the Tap URL for redirection
             return response()->json([
                 'success' => true,
                 'redirect_url' => $data['transaction']['url'] ?? null,
