@@ -9,36 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>خيارات الدفع</title>
-    <style>
-        .custom-alert {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-        .custom-alert.success {
-            background-color: #4CAF50;
-        }
-        .custom-alert.error {
-            background-color: #F44336;
-        }
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-    </style>
 </head>
 <body class="bg-gray-100">
     @include('components.header')
@@ -46,13 +16,16 @@
     <div class="container mx-auto p-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             @foreach([['الخطة المجانية', '0 ريال سعودي', 'free'], ['الخطة نصف السنوية', '345 ريال سعودي', 'semi_annual'], ['الخطة السنوية', '575 ريال سعودي', 'annual']] as $plan)
-                <div class="bg-white border border-gray-300 rounded-xl shadow-lg p-6 hover:scale-105 transition-transform duration-300
-                            @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) opacity-50 cursor-not-allowed @endif"
+                <div class="bg-white rounded-2xl shadow-lg p-6 text-center relative overflow-hidden flex flex-col justify-between h-72 hover:transform hover:translate-y-2 hover:shadow-xl transition-all
+                    @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) opacity-50 cursor-not-allowed @endif"
                      onclick="@if(Auth::user()->plan !== $plan[2] && !(Auth::user()->plan !== 'free' && $plan[2] === 'free')) selectPlan('{{ $plan[2] }}') @endif">
-                    <h2 class="text-xl font-bold text-gray-600 text-center">{{ $plan[0] }}</h2>
-                    <p class="text-center text-gray-500 mt-2">عدد لا محدود من الإعلانات.</p>
-                    <button class="w-full bg-{{ $loop->index === 0 ? 'gray-300 text-gray-700' : ($loop->index === 1 ? 'orange-500 text-white' : 'blue-500 text-white') }} px-4 py-2 rounded-lg font-bold mt-4
-                                  @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) cursor-not-allowed @endif">
+                    <h2 class="text-lg font-bold text-gray-800">{{ $plan[0] }}</h2>
+                    <p class="text-sm text-gray-500 mt-2">عدد لا محدود من الإعلانات.</p>
+                    <div class="text-2xl font-semibold text-gray-800 mt-3 {{ $plan[2] === 'free' ? 'text-gray-600' : '' }}">
+                        {{ $plan[1] }}
+                    </div>
+                    <button class="bg-green-500 text-white font-bold py-2 px-5 rounded-full mt-5 w-full transition-colors
+                        @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) bg-gray-400 cursor-not-allowed @else hover:bg-green-600 @endif">
                         @if(Auth::user()->plan === $plan[2])
                             الخطة الحالية
                         @else
@@ -63,9 +36,11 @@
             @endforeach
         </div>
     </div>
-    
-    <div id="success-alert" class="custom-alert success">تمت عملية الدفع بنجاح!</div>
-    <div id="error-alert" class="custom-alert error"></div>
+
+    <div id="success-alert" class="fixed top-5 right-5 p-4 bg-green-500 text-white font-bold rounded-lg shadow-lg opacity-0 transform translate-x-full transition-all duration-500">
+        تمت عملية الدفع بنجاح!
+    </div>
+    <div id="error-alert" class="fixed top-5 right-5 p-4 bg-red-500 text-white font-bold rounded-lg shadow-lg opacity-0 transform translate-x-full transition-all duration-500"></div>
 
     <script>
         function selectPlan(plan) {
@@ -80,7 +55,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = data.redirect_url; // Redirect to Tap URL
+                    window.location.href = data.redirect_url;
                 } else {
                     showAlert(document.getElementById('error-alert'), 'فشلت عملية الدفع: ' + data.error);
                 }
@@ -93,9 +68,11 @@
 
         function showAlert(alertElement, message) {
             if (message) alertElement.innerText = message;
-            alertElement.style.display = 'block';
+            alertElement.classList.remove('opacity-0', 'translate-x-full');
+            alertElement.classList.add('opacity-100', 'translate-x-0');
             setTimeout(() => {
-                alertElement.style.display = 'none';
+                alertElement.classList.remove('opacity-100', 'translate-x-0');
+                alertElement.classList.add('opacity-0', 'translate-x-full');
             }, 3000);
         }
     </script>
