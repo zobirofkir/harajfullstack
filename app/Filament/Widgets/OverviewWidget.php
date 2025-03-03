@@ -25,6 +25,20 @@ class OverviewWidget extends BaseWidget
             ->icon('heroicon-o-home')
             ->url(route('home'));
 
+        if ($user->plan === 'semi_annual') {
+            $stats[] = Stat::make('الخطة', 'نصف سنوية')
+                ->icon('heroicon-o-star')
+                ->extraAttributes(['style' => 'text-align: center; background: #6fff2c;'])
+                ->label('الخطة المختارة');
+        }
+
+        if ($user->plan === 'annual') {
+            $stats[] = Stat::make('الخطة', 'سنوية')
+                ->icon('heroicon-o-star')
+                ->extraAttributes(['style' => 'text-align: center; background: #6fff2c;'])
+                ->label('الخطة المختارة');
+        }
+
         if ($user->name === 'دينالي' && $user->email === 'deenali@admin.com') {
             $stats[] = Stat::make('إدارة المستخدمين ', 'إدارة المستخدمين')
                 ->description('إدارة المستخدمين ')
