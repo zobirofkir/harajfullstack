@@ -24,7 +24,14 @@
 
                 <div class="flex flex-col items-center gap-2">
                     <img src="{{ $car->user->image ? asset('storage/' . $car->user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}" alt="{{ $car->title }}" class="rounded-full object-cover w-16 h-16 border-2 border-gray-300 shadow-md">
-                    <h1 class="text-lg text-gray-800 font-semibold text-center truncate max-w-lg mt-2">{{ $car->user->name }}</h1>
+                    <div class="flex flex-row items-center gap-4">
+                        @if ($car->user->plan === 'semi_annual' || $car->user->plan === 'annual')
+                            <i class="fa-solid fa-circle-check fa-2xl" style="color: #00ff0d;"></i>
+                        @else
+                            
+                        @endif
+                        <h1 class="text-lg text-gray-800 font-semibold text-center truncate max-w-lg mt-2">{{ $car->user->name }}</h1>
+                    </div>
                 </div>
             </div>
         </div>
