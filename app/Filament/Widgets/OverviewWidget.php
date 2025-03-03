@@ -24,6 +24,22 @@ class OverviewWidget extends BaseWidget
             ->icon('heroicon-o-home')
             ->url(route('home'));
 
+            if ($user->plan === 'semi_annual') {
+                $stats[] = Stat::make('الخطة', 'نصف سنوية')
+                    ->description('عدد لا محدود من الإعلانات')
+                    ->color('danger')
+                    ->icon('heroicon-o-star');
+            }
+
+            if ($user->plan === 'annual') {
+                $stats[] = Stat::make('الخطة', 'سنوية')
+                    ->description('عدد لا محدود من الإعلانات')
+                    ->color('danger')
+                    ->icon('heroicon-o-star')
+                    ->url(route('moyasar.activate', ['user' => $user->id]));
+            }
+
+
         if ($user->name === 'دينالي' && $user->email === 'deenali@admin.com') {
             $stats[] = Stat::make('إدارة المستخدمين ', 'إدارة المستخدمين')
                 ->description('إدارة المستخدمين ')
@@ -36,6 +52,7 @@ class OverviewWidget extends BaseWidget
             ->description('عدد السيارات المرتبطة بك')
             ->color('success')
             ->icon('heroicon-o-truck');
+
 
         /**
          * Users Plans
