@@ -66,7 +66,7 @@
                                 <div class="flex items-center justify-end">
                                     <div class="text-sm text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center justify-between w-full">
                                         <h4 class="font-bold text-green-400">
-                                            شامل جميع التكاليف
+                                            {{$car->cost_type}}
                                         </h4>
 
                                         <span>

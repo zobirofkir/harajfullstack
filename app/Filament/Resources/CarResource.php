@@ -42,14 +42,14 @@ class CarResource extends Resource
 
                 FileUpload::make('images')->label('صور السيارة')->multiple()->image()->required(),
 
-                Select::make('price_type')
-                    ->label('نوع السعر')
-                    ->options([
-                        'negotiable' => 'قابل للتفاوض',
-                        'fixed' => 'ثابت',
-                    ])
-                    ->required()
-                    ->reactive(),
+                // Select::make('price_type')
+                //     ->label('نوع السعر')
+                //     ->options([
+                //         'negotiable' => 'قابل للتفاوض',
+                //         'fixed' => 'ثابت',
+                //     ])
+                //     ->required()
+                //     ->reactive(),
 
                 TextInput::make('price')
                     ->label('السعر')
@@ -57,11 +57,21 @@ class CarResource extends Resource
                     ->numeric()
                     ->maxLength(10),
 
-                TextInput::make('negotiable_price')
-                    ->label('قابل للتفاوض')
-                    ->numeric()
-                    ->maxLength(255)
-                    ->visible(fn ($get) => $get('price_type') === 'negotiable'),
+                // TextInput::make('negotiable_price')
+                //     ->label('قابل للتفاوض')
+                //     ->numeric()
+                //     ->maxLength(255)
+                //     ->visible(fn ($get) => $get('price_type') === 'negotiable'),
+
+                Select::make('cost_type')
+                ->label('نوع التكلفة')
+                    ->options([
+                        'شامل جميع التكاليف' => 'شامل جميع التكاليف',
+                        'مخصص' => 'مخصص',
+                    ])
+                    ->nullable()
+                    ->searchable()
+                ->preload(),
 
                 Hidden::make('user_id')->default(Auth::user()->id),
             ])

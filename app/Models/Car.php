@@ -14,6 +14,7 @@ class Car extends Model
         'email',
         'description',
         'negotiable_price',
+        'cost_type',
         'slug',
     ];
 
