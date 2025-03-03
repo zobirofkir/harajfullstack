@@ -67,7 +67,7 @@ class CarResource extends Resource
                 ->label('نوع التكلفة')
                     ->options([
                         'شامل جميع التكاليف' => 'شامل جميع التكاليف',
-                        'مخصص' => 'مخصص',
+                        'شامل الشحن' => 'شامل الشحن',
                     ])
                     ->nullable()
                     ->searchable()

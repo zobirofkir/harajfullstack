@@ -65,12 +65,22 @@
                             <div class="mt-1">
                                 <div class="flex items-center justify-end">
                                     <div class="text-sm text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center justify-between w-full">
-                                        <h4 class="font-bold text-green-400">
-                                            {{$car->cost_type}}
-                                        </h4>
+                                            @if ($car->cost_type == 'شامل جميع التكاليف')
+                                                <h4 class="font-bold text-green-400">
+                                                    {{$car->cost_type}}
+                                                </h4>
 
-                                        <span>
-                                            <i class="fas fa-money-bill-wave"></i> {{ number_format($car->price) }} ريال
+                                                @elseif ($car->cost_type == 'شامل الشحن')
+                                                <h4 class="font-bold text-black">
+                                                    {{$car->cost_type}}
+                                                </h4>
+                                            @endif
+
+                                        <span class="flex flex-row items-center gap-1">
+                                            <h1 class="text-lg">
+                                                {{ number_format($car->price) }}
+                                            </h1>
+                                            <img src="{{asset('assets/images/logo/saudi_riyal.png')}}" alt="{{$car->title}}" class="max-w-[20px] max-h-[20px]">
                                         </span>
                                     </div>
                                 </div>
