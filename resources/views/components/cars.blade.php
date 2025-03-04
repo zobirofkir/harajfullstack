@@ -36,7 +36,7 @@
 <div class="py-12 px-6">
     <div class="flex flex-col lg:flex-row gap-8 justify-center">
         <!-- Cars Listing -->
-        <div class="lg:w-3/4 w-full md:-mt-0 -mt-[70px]">
+        <div class="lg:w-3/4 w-full mt-10 ">
             @if (!Auth::check())
             <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8 -mt-20">
                 <i class="fas fa-car mr-2"></i> السيارات المتاحة
