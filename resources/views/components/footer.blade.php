@@ -5,13 +5,13 @@
         </p>
         <div class="flex justify-center gap-6 mt-4">
             <!-- Social Media Links -->
-            <a href="https://tiktok.com" class="text-gray-600 hover:text-gray-800">
+            <a href="https://www.tiktok.com/@deenali.sa?_t=ZS-8uP7CvLHq8V&_r=1" class="text-gray-600 hover:text-gray-800">
                 <i class="fa-brands fa-tiktok"></i>
             </a>
-            <a href="https://twitter.com" class="text-gray-600 hover:text-gray-800">
+            {{-- <a href="https://twitter.com" class="text-gray-600 hover:text-gray-800">
                 <i class="fa-brands fa-twitter-square"></i>
-            </a>
-            <a href="https://instagram.com" class="text-gray-600 hover:text-gray-800">
+            </a> --}}
+            <a href="https://www.instagram.com/deenali.sa?igsh=MzkwMHk3czFxMzBq" class="text-gray-600 hover:text-gray-800">
                 <i class="fa-brands fa-instagram-square"></i>
             </a>
         </div>
