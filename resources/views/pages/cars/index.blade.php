@@ -1,5 +1,5 @@
 <x-app-layout title="السيارات">
-   <div>
+   <div class="mt-20">
 
         @include('components.search')
 

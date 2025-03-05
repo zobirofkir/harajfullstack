@@ -64,14 +64,14 @@
 
                             <div class="mt-1">
                                 <div class="flex items-center justify-end">
-                                    <div class="text-sm text-center font-bold text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center justify-between w-full">
+                                    <div class="text-sm text-center font_tajawal text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center justify-between w-full">
                                             @if ($car->cost_type == 'شامل جميع التكاليف')
-                                                <h4 class="font-bold text-green-400 font-tajawal">
+                                                <h4 class="font-bold md:text-sm text-[10px] text-green-400 font_tajawal">
                                                     {{$car->cost_type}}
                                                 </h4>
 
                                                 @elseif ($car->cost_type == 'شامل الشحن')
-                                                <h4 class="font-bold text-black font-tajawal">
+                                                <h4 class="font-bold md:text-sm text-[10px] text-black font_tajawal">
                                                     {{$car->cost_type}}
                                                 </h4>
                                             @endif
