@@ -56,6 +56,14 @@
                         </p>
                     @endif
 
+                    <!-- Add new feature for annual plan only -->
+                    @if($plan[2] === 'annual')
+                        <p class="text-sm text-gray-500 mt-1 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.758l1.071 2.143 2.143 1.071H17a1 1 0 011 1v2a1 1 0 01-1 1h-1.758l-2.143 1.071L11 15.242V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-1.758l-1.071-2.143L4.786 12H3a1 1 0 01-1-1v-2a1 1 0 011-1h1.758l2.143-1.071L9 4.758V3a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            استقبال طلبات التواصل من العملاء
+                        </p>
+                    @endif
+
                     <div class="text-2xl font-semibold text-gray-800 mt-3 {{ $plan[2] === 'free' ? 'text-gray-600' : '' }}">
                         {{ $plan[1] }}
                     </div>
