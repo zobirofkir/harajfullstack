@@ -64,19 +64,21 @@
 
                             <div class="mt-1">
                                 <div class="flex items-center justify-end">
-                                    <div class="text-sm text-center font_tajawal text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center justify-between w-full">
+                                    <div class="text-sm text-center font_tajawal text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center w-full">
                                             @if ($car->cost_type == 'شامل جميع التكاليف')
-                                                <h4 class="font-bold md:text-xl text-[15px] text-green-400 font_tajawal">
+                                                <h4 class="w-[35%] font-bold md:text-xl text-[15px] text-green-400 font_tajawal">
                                                     {{$car->cost_type}}
                                                 </h4>
 
                                                 @elseif ($car->cost_type == 'شامل الشحن')
-                                                <h4 class="font-bold md:text-xl text-[15px] text-black font_tajawal">
+                                                <h4 class="w-[35%] font-bold md:text-xl text-[15px] text-black font_tajawal">
                                                     {{$car->cost_type}}
                                                 </h4>
                                             @endif
 
-                                        <span class="flex flex-row items-center gap-1">
+                                        <div class="w-[5%]"></div>
+
+                                        <span class="w-[60%] flex flex-row items-center gap-1 justify-end">
                                             <h1 class="text-lg">
                                                 {{ number_format($car->price) }}
                                             </h1>
