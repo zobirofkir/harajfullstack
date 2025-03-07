@@ -79,10 +79,10 @@
                                         <div class="w-[5%]"></div>
 
                                         <span class="w-[60%] flex flex-row items-center gap-1 justify-end">
-                                            <h1 class="text-lg">
+                                            <h1 class="text-xl">
                                                 {{ $car->price }}
                                             </h1>
-                                            <img src="{{asset('assets/images/logo/saudi_riyal.png')}}" alt="{{$car->title}}" class="max-w-[20px] max-h-[20px]">
+                                            <img src="{{asset('assets/images/logo/saudi_riyal.png')}}" alt="{{$car->title}}" class="max-w-[15px] max-h-[15px]">
                                         </span>
                                     </div>
                                 </div>
