@@ -33,7 +33,7 @@ class PaymentService implements PaymentConstructor
         }
 
         try {
-            $amount = $plan === 'semi_annual' ? 34500 : ($plan === 'annual' ? 57500 : 0);
+            $amount = $plan === 'semi_annual' ? 345 : ($plan === 'annual' ? 575 : 0);
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . env('TAP_SECRET_KEY'),
                 'Content-Type' => 'application/json',
