@@ -63,7 +63,7 @@ class PaymentService implements PaymentConstructor
                     'id' => 'src_all' // Use 'src_all' to allow all payment methods
                 ],
                 'redirect' => [
-                    'url' => route('payment.success') // Redirect to the success page
+                    'url' => route('payment.callback') // Change to callback route instead of success
                 ]
             ]);
 
@@ -73,17 +73,53 @@ class PaymentService implements PaymentConstructor
                 return response()->json(['success' => false, 'error' => $data['errors'][0]['description'] ?? 'فشلت عملية الدفع.'], 400);
             }
 
-            // Update the user's plan after successful payment
-            $user->plan = $plan;
-            $user->save();
+            // Store payment intent in session for verification
+            session(['payment_intent' => [
+                'plan' => $plan,
+                'charge_id' => $data['id'] ?? null
+            ]]);
 
             return response()->json([
                 'success' => true,
-                'redirect_url' => $data['transaction']['url'] ?? route('payment.success'),
+                'redirect_url' => $data['transaction']['url'] ?? null,
             ]);
         } catch (\Exception $e) {
             Log::error('Payment Error:', ['error' => $e->getMessage()]);
             return response()->json(['success' => false, 'error' => 'حدث خطأ أثناء الدفع.'], 500);
+        }
+    }
+
+    public function handleCallback(Request $request)
+    {
+        $tap_id = $request->query('tap_id');
+
+        try {
+            // Verify payment status with Tap
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . env('TAP_SECRET_KEY'),
+                'Content-Type' => 'application/json',
+            ])->get('https://api.tap.company/v2/charges/' . $tap_id);
+
+            $data = $response->json();
+
+            if ($data['status'] === 'CAPTURED') {
+                $paymentIntent = session('payment_intent');
+                $user = Auth::user();
+
+                // Update the user's plan only after successful payment
+                $user->plan = $paymentIntent['plan'];
+                $user->save();
+
+                session()->forget('payment_intent');
+                return redirect()->route('payment.success');
+            }
+
+            // Payment failed or is pending
+            return redirect()->route('payment.error')->with('error', 'فشلت عملية الدفع. الرجاء المحاولة مرة أخرى.');
+
+        } catch (\Exception $e) {
+            Log::error('Payment Callback Error:', ['error' => $e->getMessage()]);
+            return redirect()->route('payment.error')->with('error', 'حدث خطأ أثناء التحقق من الدفع.');
         }
     }
 }

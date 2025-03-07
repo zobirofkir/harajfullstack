@@ -13,6 +13,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UpdateProfileController;
+use App\Services\Services\PaymentService;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -209,5 +210,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment/success', function () {
         return view('tap_company.success');
     })->name('payment.success');
+
+    Route::get('/payment/callback', [PaymentService::class, 'handleCallback'])->name('payment.callback');
+    Route::get('/payment/error', function() {
+        return view('tap_company.payment_error');
+    })->name('payment.error');
 
 });
