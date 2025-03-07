@@ -80,7 +80,7 @@
 
                                         <span class="w-[60%] flex flex-row items-center gap-1 justify-end">
                                             <h1 class="text-lg">
-                                                {{ number_format($car->price) }}
+                                                {{ $car->price }}
                                             </h1>
                                             <img src="{{asset('assets/images/logo/saudi_riyal.png')}}" alt="{{$car->title}}" class="max-w-[20px] max-h-[20px]">
                                         </span>
