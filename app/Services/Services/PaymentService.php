@@ -24,7 +24,7 @@ class PaymentService implements PaymentConstructor
         $plan = $request->input('plan');
 
         $validator = Validator::make($request->all(), [
-            'plan' => 'required|in:free,semi_annual,annual',
+            'plan' => 'required|in:free,basic,pro,best',
         ]);
 
         if ($validator->fails()) {
@@ -33,7 +33,26 @@ class PaymentService implements PaymentConstructor
         }
 
         try {
-            $amount = $plan === 'semi_annual' ? 345 : ($plan === 'annual' ? 575 : 0);
+            // Define plan prices
+            $planPrices = [
+                'free' => 0,
+                'basic' => 345,
+                'pro' => 575,
+                'best' => 999
+            ];
+
+            $amount = $planPrices[$plan] ?? 0;
+
+            // Don't process payment for free plan
+            if ($plan === 'free') {
+                $user->plan = 'free';
+                $user->save();
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => route('payment.success')
+                ]);
+            }
+
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . env('TAP_SECRET_KEY'),
                 'Content-Type' => 'application/json',
@@ -41,8 +60,8 @@ class PaymentService implements PaymentConstructor
                 'amount' => $amount,
                 'currency' => 'SAR',
                 'threeDSecure' => true,
-                'description' => 'اختبار الدفع عبر Tap',
-                'statement_descriptor' => 'Test Payment',
+                'description' => "اشتراك في خطة $plan",
+                'statement_descriptor' => 'Subscription Payment',
                 'metadata' => [
                     'plan' => $plan,
                     'user_id' => $user->id

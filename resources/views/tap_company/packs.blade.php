@@ -14,62 +14,92 @@
     @include('components.header')
 
     <div class="container mx-auto p-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-            @foreach([['الخطة المجانية', '0 ريال سعودي', 'free'], ['الخطة نصف السنوية', '345 ريال سعودي', 'semi_annual'], ['الخطة السنوية', '575 ريال سعودي', 'annual']] as $plan)
-                <div class="bg-white rounded-2xl shadow-lg p-6 text-center relative overflow-hidden flex flex-col justify-between h-80 hover:transform hover:translate-y-2 hover:shadow-xl transition-all
-                    @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) opacity-50 cursor-not-allowed @endif"
-                     onclick="@if(Auth::user()->plan !== $plan[2] && !(Auth::user()->plan !== 'free' && $plan[2] === 'free')) selectPlan('{{ $plan[2] }}') @endif">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 max-w-6xl mx-auto">
+            @foreach([
+                ['الخطة المجانية', '0 ريال سعودي', 'free', [
+                    'عدد محدود من الإعلانات (3)',
+                    'بدون شارة توثيق',
+                    'عرض محدود للإعلان'
+                ]],
+                ['الخطة الأساسية', '345 ريال سعودي', 'basic', [
+                    'عدد لا محدود من الإعلانات',
+                    'شارة توثيق الحساب',
+                    'عرض مميز للإعلان',
+                    'دعم فني على مدار الساعة'
+                ]],
+                ['الخطة المميزة', '575 ريال سعودي', 'pro', [
+                    'كل مميزات الخطة الأساسية',
+                    'إعلانات مميزة في الصفحة الرئيسية',
+                    'أولوية في نتائج البحث',
+                    'تقارير تحليلية شهرية',
+                    'استقبال طلبات التواصل'
+                ]]
+            ] as $plan)
+                <div class="bg-white rounded-2xl shadow-lg p-6 text-center relative overflow-hidden flex flex-col justify-between min-h-[500px]
+                    @if($plan[2] === 'pro')
+                        transform scale-105 border-2 border-blue-500 shadow-2xl bg-gradient-to-b from-white to-blue-50
+                    @else
+                        hover:transform hover:scale-102 hover:shadow-xl
+                    @endif
+                    transition-all duration-300 ease-in-out
+                    @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free'))
+                        opacity-50 cursor-not-allowed
+                    @endif"
+                    onclick="@if(Auth::user()->plan !== $plan[2] && !(Auth::user()->plan !== 'free' && $plan[2] === 'free')) selectPlan('{{ $plan[2] }}') @endif">
+
+                    @if($plan[2] === 'pro')
+                        <div class="absolute -top-4 -right-12 bg-blue-500 text-white px-12 py-1 transform rotate-45">الأكثر شعبية</div>
+                    @endif
 
                     <!-- Plan Icon -->
-                    <div class="text-4xl text-gray-800 mb-4">
+                    <div class="text-5xl mb-6 @if($plan[2] === 'pro') text-blue-500 @else text-gray-800 @endif">
                         @if($plan[2] === 'free')
                             <i class="fas fa-user"></i>
-                        @elseif($plan[2] === 'semi_annual')
+                        @elseif($plan[2] === 'basic')
                             <i class="fas fa-star-half-alt"></i>
-                        @else
-                            <i class="fas fa-star"></i>
+                        @elseif($plan[2] === 'pro')
+                            <i class="fas fa-crown animate-pulse"></i>
                         @endif
                     </div>
 
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center justify-center gap-2">
-                        @if($plan[2] === 'semi_annual' || $plan[2] === 'annual')
-                            <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        @endif
+                    <h2 class="text-2xl font-bold @if($plan[2] === 'pro') text-blue-600 @else text-gray-800 @endif mb-4">
                         {{ $plan[0] }}
                     </h2>
 
-                    <p class="text-sm text-gray-500 mt-2">عدد لا محدود من الإعلانات.</p>
-
-                    <!-- Verification Badge Section -->
-                    @if($plan[2] === 'semi_annual' || $plan[2] === 'annual')
-                        <p class="text-sm text-gray-500 mt-1 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.758l1.071 2.143 2.143 1.071H17a1 1 0 011 1v2a1 1 0 01-1 1h-1.758l-2.143 1.071L11 15.242V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-1.758l-1.071-2.143L4.786 12H3a1 1 0 01-1-1v-2a1 1 0 011-1h1.758l2.143-1.071L9 4.758V3a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                            الحصول على شارة توثيق الحساب
-                        </p>
-                    @endif
-
-                    <!-- Commitment Text -->
-                    @if($plan[2] === 'semi_annual' || $plan[2] === 'annual')
-                        <p class="text-sm text-gray-500 mt-1 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.758l1.071 2.143 2.143 1.071H17a1 1 0 011 1v2a1 1 0 01-1 1h-1.758l-2.143 1.071L11 15.242V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-1.758l-1.071-2.143L4.786 12H3a1 1 0 01-1-1v-2a1 1 0 011-1h1.758l2.143-1.071L9 4.758V3a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                            نلتزم بضمان وصولكم لكامل الفتره
-                        </p>
-                    @endif
-
-                    <!-- Add new feature for annual plan only -->
-                    @if($plan[2] === 'annual')
-                        <p class="text-sm text-gray-500 mt-1 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.758l1.071 2.143 2.143 1.071H17a1 1 0 011 1v2a1 1 0 01-1 1h-1.758l-2.143 1.071L11 15.242V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-1.758l-1.071-2.143L4.786 12H3a1 1 0 01-1-1v-2a1 1 0 011-1h1.758l2.143-1.071L9 4.758V3a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                            استقبال طلبات التواصل من العملاء
-                        </p>
-                    @endif
-
-                    <div class="text-2xl font-semibold text-gray-800 mt-3 {{ $plan[2] === 'free' ? 'text-gray-600' : '' }}">
+                    <div class="text-3xl font-bold @if($plan[2] === 'pro') text-blue-600 @else text-gray-800 @endif mb-6">
                         {{ $plan[1] }}
+                        @if($plan[2] !== 'free')
+                            <div class="text-sm text-gray-500 mt-1">سنوياً</div>
+                        @endif
                     </div>
 
-                    <button class="bg-green-500 text-white font-bold py-2 px-5 rounded-full mt-5 w-full transition-colors
-                        @if(Auth::user()->plan === $plan[2] || (Auth::user()->plan !== 'free' && $plan[2] === 'free')) bg-gray-400 cursor-not-allowed @else hover:bg-green-600 @endif">
+                    <div class="flex-grow">
+                        <ul class="text-sm space-y-4">
+                            @foreach($plan[3] as $feature)
+                                <li class="flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5 @if($plan[2] === 'pro') text-blue-500 @else text-green-500 @endif" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                    <span class="@if($plan[2] === 'pro') text-gray-700 @else text-gray-600 @endif">
+                                        {{ $feature }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <button class="mt-6 w-full px-6 py-4 rounded-full font-bold text-white transition-all duration-300
+                        @if(Auth::user()->plan === $plan[2])
+                            bg-gray-400 cursor-not-allowed
+                        @else
+                            @if($plan[2] === 'pro')
+                                bg-blue-500 hover:bg-blue-600 hover:shadow-lg transform hover:-translate-y-1
+                            @elseif($plan[2] === 'basic')
+                                bg-green-500 hover:bg-green-600
+                            @else
+                                bg-gray-500 hover:bg-gray-600
+                            @endif
+                        @endif">
                         @if(Auth::user()->plan === $plan[2])
                             الخطة الحالية
                         @else
