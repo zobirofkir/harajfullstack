@@ -120,7 +120,7 @@
 
                             <!-- Action Button -->
                             <div class="mt-4 md:mt-0 md:mr-4">
-                                <a href="{{ route('cars.show', $car) }}"
+                                <a href="{{ route('cars.show', $car->slug) }}"
                                    class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                                     عرض التفاصيل
                                     <i class="fas fa-arrow-left mr-2"></i>
