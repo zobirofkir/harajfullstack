@@ -14,6 +14,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UpdateProfileController;
 use App\Services\Services\PaymentService;
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -222,3 +223,5 @@ Route::middleware('auth')->group(function () {
  * Show user's cars
  */
 Route::get('/user/{id}/cars', [CarController::class, 'userCars'])->name('user.cars');
+
+Route::post('/follow/{user}', [FollowController::class, 'toggleFollow'])->name('follow.toggle');

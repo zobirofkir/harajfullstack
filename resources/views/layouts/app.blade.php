@@ -42,5 +42,7 @@
     <script src="{{asset('assets/js/sidebare.js')}}"></script>
     <script src="{{asset('assets/js/cars.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    @stack('scripts')
 </body>
 </html>

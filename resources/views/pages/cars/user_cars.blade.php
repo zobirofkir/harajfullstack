@@ -61,10 +61,24 @@
 
                 <!-- Action Buttons -->
                 <div class="flex justify-center gap-4 mt-6">
-                    <button class="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2">
-                        <i class="fas fa-user-plus"></i>
-                        <span>متابعة</span>
-                    </button>
+                    @auth
+                        @if(auth()->id() !== $user->id)
+                            <button
+                                onclick="toggleFollow({{ $user->id }})"
+                                class="follow-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2"
+                                data-following="{{ auth()->user()->isFollowing($user) ? 'true' : 'false' }}"
+                            >
+                                <i class="fas fa-user-plus"></i>
+                                <span>{{ auth()->user()->isFollowing($user) ? 'إلغاء المتابعة' : 'متابعة' }}</span>
+                            </button>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" class="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2">
+                            <i class="fas fa-user-plus"></i>
+                            <span>متابعة</span>
+                        </a>
+                    @endauth
+
                     <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition-colors duration-200 flex items-center gap-2">
                         <a href="{{ route('chats.index') }}">
                             <i class="fas fa-envelope"></i>
@@ -145,4 +159,76 @@
             }
         }
     </style>
+
+    @push('scripts')
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            window.toggleFollow = function(userId) {
+                fetch(`/follow/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const btn = document.querySelector('.follow-btn');
+                        const span = btn.querySelector('span');
+                        const icon = btn.querySelector('i');
+
+                        if (data.isFollowing) {
+                            span.textContent = 'إلغاء المتابعة';
+                            btn.dataset.following = 'true';
+                            btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                            btn.classList.add('bg-gray-500', 'hover:bg-gray-600');
+                        } else {
+                            span.textContent = 'متابعة';
+                            btn.dataset.following = 'false';
+                            btn.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                            btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                        }
+
+                        // Show success message using a nicer alert (you can customize this)
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                        alertDiv.textContent = data.message;
+                        document.body.appendChild(alertDiv);
+
+                        // Remove alert after 3 seconds
+                        setTimeout(() => {
+                            alertDiv.remove();
+                        }, 3000);
+                    } else {
+                        // Show error message
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                        alertDiv.textContent = data.message;
+                        document.body.appendChild(alertDiv);
+
+                        // Remove alert after 3 seconds
+                        setTimeout(() => {
+                            alertDiv.remove();
+                        }, 3000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Show error message
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                    alertDiv.textContent = 'حدث خطأ أثناء تنفيذ العملية';
+                    document.body.appendChild(alertDiv);
+
+                    // Remove alert after 3 seconds
+                    setTimeout(() => {
+                        alertDiv.remove();
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+    @endpush
 </x-app-layout>
