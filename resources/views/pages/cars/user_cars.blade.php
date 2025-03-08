@@ -29,41 +29,6 @@
                     <p class="text-gray-500">{{ '@' . $user->username }}</p>
                 </div>
 
-                <!-- User Status Badges -->
-                {{-- <div class="flex justify-center gap-6 mt-4">
-                    <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
-                        <span class="{{ $user->is_active && $user->is_active_user ? 'text-green-500' : 'text-gray-400' }}">
-                            <i class="fas fa-circle text-xs"></i>
-                        </span>
-                        <span class="text-sm text-gray-600">
-                            {{ $user->is_active && $user->is_active_user ? 'نشط' : 'غير نشط' }}
-                        </span>
-                    </div>
-
-                    @if($user->account_type)
-                    <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
-                        <span class="text-blue-500">
-                            <i class="fas fa-user-shield"></i>
-                        </span>
-                        <span class="text-sm text-gray-600">{{ $user->account_type }}</span>
-                    </div>
-                    @endif
-
-                    @if($user->plan)
-                    <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
-                        <span class="text-purple-500">
-                            <i class="fas fa-crown"></i>
-                        </span>
-                        @if ($user->plan === 'خطة مجانية')
-                            <span class="text-sm text-gray-600">خطة مجانية</span>
-                        @elseif ($user->plan === 'semi_annual')
-                            <span class="text-sm text-gray-600">خطة نصف سنوية</span>
-                        @elseif ($user->plan === 'annual')
-                            <span class="text-sm text-gray-600">خطة سنوية</span>
-                        @endif
-                    </div>
-                    @endif
-                </div> --}}
 
                 <!-- Action Buttons -->
                 <div class="flex justify-center gap-4 mt-6">
@@ -99,18 +64,18 @@
                 <div class="max-w-5xl mx-auto">
                     <h2 class="text-xl font-bold mb-6 text-gray-900">السيارات المعروضة</h2>
 
-                    <div class="grid gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($cars as $car)
-                        <div class="flex flex-col md:flex-row items-center bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
+                        <div class="flex flex-col bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
                             <!-- Car Image -->
-                            <div class="w-full md:w-48 h-48 md:h-32 flex-shrink-0 mb-4 md:mb-0">
+                            <div class="w-full h-48 flex-shrink-0 mb-4">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}"
                                      class="w-full h-full object-cover rounded-lg shadow-sm"
                                      alt="{{ $car->title }}">
                             </div>
 
                             <!-- Car Details -->
-                            <div class="flex-grow px-0 md:px-6">
+                            <div class="flex-grow">
                                 <h3 class="text-lg font-semibold text-gray-900">{{ $car->title }}</h3>
                                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-2">
                                     <span class="flex items-center gap-1">
@@ -129,9 +94,9 @@
                             </div>
 
                             <!-- Action Button -->
-                            <div class="mt-4 md:mt-0 md:mr-4">
+                            <div class="mt-4">
                                 <a href="{{ route('cars.show', $car->slug) }}"
-                                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                   class="inline-flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                                     عرض التفاصيل
                                     <i class="fas fa-arrow-left mr-2"></i>
                                 </a>
