@@ -64,41 +64,42 @@
                 <div class="max-w-5xl mx-auto">
                     <h2 class="text-xl font-bold mb-6 text-gray-900">السيارات المعروضة</h2>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                         @foreach ($cars as $car)
-                        <div class="flex flex-col bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
+                        <div class="flex flex-col bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden border border-gray-100">
                             <!-- Car Image -->
-                            <div class="w-full h-48 flex-shrink-0 mb-4">
+                            <div class="relative w-full aspect-[4/3] flex-shrink-0">
                                 <img src="{{ asset('storage/'.$car->images[0]) }}"
-                                     class="w-full h-full object-cover rounded-lg shadow-sm"
+                                     class="w-full h-full object-cover"
                                      alt="{{ $car->title }}">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-medium text-gray-700 shadow-sm">
+                                        {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
+                                    </span>
+                                </div>
                             </div>
 
                             <!-- Car Details -->
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-semibold text-gray-900">{{ $car->title }}</h3>
-                                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-2">
-                                    <span class="flex items-center gap-1">
-                                        <i class="far fa-clock"></i>
-                                        <span>
-                                            {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
-                                        </span>
+                            <div class="flex-grow md:p-4 p-0 space-y-3 flex flex-col justify-center items-center">
+                                <h3 class="text-lg font-semibold text-gray-900 line-clamp-1 mt-2">{{ Str::limit($car->title, 8) }}</h3>
+                                <div class="flex flex-col space-y-2 text-sm text-gray-500">
+                                    <span class="inline-flex items-center gap-2 md:block hidden">
+                                        <i class="far fa-clock text-gray-400 w-4"></i>
+                                        <span>نُشر {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}</span>
                                     </span>
-                                    <span class="flex items-center gap-1">
-                                        <i class="fas fa-pen-to-square"></i>
-                                        <span>
-                                            {{ Carbon\Carbon::parse($car->updated_at)->diffForHumans() }}
-                                        </span>
+                                    <span class="inline-flex items-center gap-2 md:block hidden">
+                                        <i class="fas fa-pen-to-square text-gray-400 w-4"></i>
+                                        <span>تحديث {{ Carbon\Carbon::parse($car->updated_at)->diffForHumans() }}</span>
                                     </span>
                                 </div>
                             </div>
 
                             <!-- Action Button -->
-                            <div class="mt-4">
+                            <div class="p-4 pt-0">
                                 <a href="{{ route('cars.show', $car->slug) }}"
-                                   class="inline-flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                   class="group inline-flex items-center justify-center w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:border-gray-300 transition-all duration-200 whitespace-nowrap">
                                     عرض التفاصيل
-                                    <i class="fas fa-arrow-left mr-2"></i>
+                                    <i class="fas fa-arrow-left mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
                                 </a>
                             </div>
                         </div>
@@ -111,6 +112,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
