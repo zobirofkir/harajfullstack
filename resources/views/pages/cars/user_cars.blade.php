@@ -30,7 +30,7 @@
                 </div>
 
                 <!-- User Status Badges -->
-                <div class="flex justify-center gap-6 mt-4">
+                {{-- <div class="flex justify-center gap-6 mt-4">
                     <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
                         <span class="{{ $user->is_active && $user->is_active_user ? 'text-green-500' : 'text-gray-400' }}">
                             <i class="fas fa-circle text-xs"></i>
@@ -63,7 +63,7 @@
                         @endif
                     </div>
                     @endif
-                </div>
+                </div> --}}
 
                 <!-- Action Buttons -->
                 <div class="flex justify-center gap-4 mt-6">
