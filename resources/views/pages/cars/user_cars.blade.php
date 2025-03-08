@@ -66,8 +66,10 @@
                         <span>متابعة</span>
                     </button>
                     <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition-colors duration-200 flex items-center gap-2">
-                        <i class="fas fa-envelope"></i>
-                        <span>مراسلة</span>
+                        <a href="{{ route('chats.index') }}">
+                            <i class="fas fa-envelope"></i>
+                            <span>مراسلة</span>
+                        </a>
                     </button>
                 </div>
             </div>
