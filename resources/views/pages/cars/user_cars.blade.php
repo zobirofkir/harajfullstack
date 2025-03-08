@@ -32,11 +32,11 @@
                 <!-- User Status Badges -->
                 <div class="flex justify-center gap-6 mt-4">
                     <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
-                        <span class="{{ $user->is_active ? 'text-green-500' : 'text-gray-400' }}">
+                        <span class="{{ $user->is_active && $user->is_active_user ? 'text-green-500' : 'text-gray-400' }}">
                             <i class="fas fa-circle text-xs"></i>
                         </span>
                         <span class="text-sm text-gray-600">
-                            {{ $user->is_active ? 'نشط' : 'غير نشط' }}
+                            {{ $user->is_active && $user->is_active_user ? 'نشط' : 'غير نشط' }}
                         </span>
                     </div>
 

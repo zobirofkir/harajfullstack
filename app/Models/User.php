@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
+use Illuminate\Support\Facades\Event;
 
 class User extends Authenticatable
 {
@@ -126,5 +129,16 @@ class User extends Authenticatable
     public function isFollowing(User $user): bool
     {
         return $this->following()->where('following_id', $user->id)->exists();
+    }
+
+    protected static function booted()
+    {
+        Event::listen(Login::class, function ($event) {
+            $event->user->update(['is_active' => true]);
+        });
+
+        Event::listen(Logout::class, function ($event) {
+            $event->user->update(['is_active' => false]);
+        });
     }
 }
