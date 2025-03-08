@@ -54,7 +54,13 @@
                         <span class="text-purple-500">
                             <i class="fas fa-crown"></i>
                         </span>
-                        <span class="text-sm text-gray-600">{{ $user->plan }}</span>
+                        @if ($user->plan === 'خطة مجانية')
+                            <span class="text-sm text-gray-600">خطة مجانية</span>
+                        @elseif ($user->plan === 'semi_annual')
+                            <span class="text-sm text-gray-600">خطة نصف سنوية</span>
+                        @elseif ($user->plan === 'annual')
+                            <span class="text-sm text-gray-600">خطة سنوية</span>
+                        @endif
                     </div>
                     @endif
                 </div>
