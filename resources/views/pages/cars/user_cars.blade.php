@@ -109,11 +109,15 @@
                                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-2">
                                     <span class="flex items-center gap-1">
                                         <i class="far fa-clock"></i>
-                                        <span>قبل ١ ساعة</span>
+                                        <span>
+                                            {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
+                                        </span>
                                     </span>
                                     <span class="flex items-center gap-1">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>الرياض</span>
+                                        <i class="fas fa-pen-to-square"></i>
+                                        <span>
+                                            {{ Carbon\Carbon::parse($car->updated_at)->diffForHumans() }}
+                                        </span>
                                     </span>
                                 </div>
                             </div>
