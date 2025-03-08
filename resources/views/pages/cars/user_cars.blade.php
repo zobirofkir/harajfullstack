@@ -6,16 +6,16 @@
                 <!-- Banner Image with Gradient Overlay -->
                 <div class="w-full h-[250px] relative">
                     <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60"></div>
-                    <img src="{{ asset('images/kings-banner.jpg') }}"
+                    <img src="{{ $user->cars->first() ? asset('storage/' . $user->cars->first()->images[0]) : asset('images/kings-banner.jpg') }}"
                          class="w-full h-full object-cover"
-                         alt="Banner">
+                         alt="{{ $user->cars->first() ? $user->cars->first()->name : 'Banner' }}">
                 </div>
 
                 <!-- Profile Info Overlay -->
                 <div class="absolute -bottom-20 w-full flex flex-col items-center">
                     <!-- Profile Image -->
                     <div class="w-36 h-36 rounded-full ring-4 ring-white shadow-lg overflow-hidden bg-white">
-                        <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('images/logo.png') }}"
+                        <img src="{{ $user->image ? asset('storage/' . $user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
                              class="w-full h-full object-cover"
                              alt="{{ $user->name }}">
                     </div>
