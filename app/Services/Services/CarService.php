@@ -31,4 +31,23 @@ class CarService implements CarConstructor
 
         return $car;
     }
+
+    /**
+     * Get all cars by user
+     *
+     * @param int $userId
+     * @return array
+     */
+    public function getUserCars(int $userId): array
+    {
+        $user = \App\Models\User::findOrFail($userId);
+        $cars = Car::where('user_id', $userId)
+                  ->orderBy('created_at', 'desc')
+                  ->paginate(10);
+
+        return [
+            'cars' => $cars,
+            'user' => $user
+        ];
+    }
 }

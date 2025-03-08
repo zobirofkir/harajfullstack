@@ -217,3 +217,8 @@ Route::middleware('auth')->group(function () {
     })->name('payment.error');
 
 });
+
+/**
+ * Show user's cars
+ */
+Route::get('/user/{id}/cars', [CarController::class, 'userCars'])->name('user.cars');
