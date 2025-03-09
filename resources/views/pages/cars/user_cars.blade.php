@@ -6,9 +6,9 @@
                 <!-- Banner Image with Gradient Overlay -->
                 <div class="w-full h-[150px] md:h-[400px] relative">
                     <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60"></div>
-                    <img src="{{ $user->cars->first() ? asset('storage/' . $user->cars->first()->images[0]) : asset('images/kings-banner.jpg') }}"
+                    <img src="{{ $user->cover_photo ? asset('storage/' . $user->cover_photo) : ($user->cars->first() ? asset('storage/' . $user->cars->first()->images[0]) : asset('images/kings-banner.jpg')) }}"
                          class="w-full h-full object-cover"
-                         alt="{{ $user->cars->first() ? $user->cars->first()->name : 'Banner' }}">
+                         alt="{{ $user->name }}">
                 </div>
 
                 <!-- Profile Info Overlay -->

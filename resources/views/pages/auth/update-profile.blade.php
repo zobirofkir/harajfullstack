@@ -8,53 +8,53 @@
             </div>
         @endif
 
-        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <!-- Name -->
-            <div class="mb-4">
+            <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">الاسم</label>
-                <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" class="mt-1 block w-full px-4 py-2 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 @error('name') border-red-500 @enderror">
-                @error('name')
-                    <p class="text-sm text-red-500 mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Email -->
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
-                <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" class="mt-1 block w-full px-4 py-2 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 @error('email') border-red-500 @enderror">
-                @error('email')
-                    <p class="text-sm text-red-500 mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Password -->
-            <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">كلمة المرور الجديدة (اختياري)</label>
-                <input type="password" id="password" name="password" class="mt-1 block w-full px-4 py-2 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 @error('password') border-red-500 @enderror">
-                @error('password')
-                    <p class="text-sm text-red-500 mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mb-4">
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">تأكيد كلمة المرور</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" class="mt-1 block w-full px-4 py-2 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
 
             <!-- Profile Image -->
-            <div class="mb-4">
-                <label for="image" class="block text-sm font-medium text-gray-700">صورة الملف الشخصي (اختياري)</label>
-                <input type="file" id="image" name="image" class="mt-1 block w-full px-4 py-2 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 @error('image') border-red-500 @enderror">
-                @error('image')
-                    <p class="text-sm text-red-500 mt-2">{{ $message }}</p>
-                @enderror
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">الصورة الشخصية</label>
+                <input type="file" name="image" id="image" class="mt-1 block w-full">
+                @if(auth()->user()->image)
+                    <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="Profile" class="mt-2 h-20 w-20 rounded-full object-cover">
+                @endif
             </div>
 
-            <div class="mt-6 text-center">
-                <button type="submit" class="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+            <!-- Cover Photo -->
+            <div>
+                <label for="cover_photo" class="block text-sm font-medium text-gray-700">صورة الغلاف</label>
+                <input type="file" name="cover_photo" id="cover_photo" class="mt-1 block w-full">
+                @if(auth()->user()->cover_photo)
+                    <img src="{{ asset('storage/' . auth()->user()->cover_photo) }}" alt="Cover" class="mt-2 h-32 w-full object-cover rounded-lg">
+                @endif
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">كلمة المرور الجديدة (اختياري)</label>
+                <input type="password" name="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+
+            <!-- Password Confirmation -->
+            <div>
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">تأكيد كلمة المرور</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     حفظ التغييرات
                 </button>
             </div>

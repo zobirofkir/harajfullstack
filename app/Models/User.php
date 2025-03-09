@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
+        'cover_photo',
         'moyasar_account_id',
         'is_active',
         'plan',
