@@ -105,7 +105,7 @@
                                      class="w-full h-full object-cover"
                                      alt="{{ $car->title }}">
                                 <div class="absolute top-3 right-3">
-                                    <span class="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-medium text-gray-700 shadow-sm">
+                                    <span class="bg-white/90 backdrop-blur-sm px-2 rounded-full text-sm font-medium text-gray-700 shadow-sm">
                                         {{ Carbon\Carbon::parse($car->created_at)->diffForHumans() }}
                                     </span>
                                 </div>
