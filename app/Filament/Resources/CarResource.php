@@ -54,9 +54,8 @@ class CarResource extends Resource
                 TextInput::make('price')
                     ->label('السعر')
                     ->required()
-                    ->maxLength(10)
-                    ->inputMode('decimal')
-                    ->step('0.01'),
+                    ->numeric()
+                    ->maxLength(10),
 
                 // TextInput::make('negotiable_price')
                 //     ->label('قابل للتفاوض')
