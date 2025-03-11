@@ -12,26 +12,58 @@
                 </div>
 
                 <!-- Profile Info Overlay -->
-                <div class="absolute -bottom-20 w-full flex flex-col items-center">
+                <div class="absolute -bottom-20 w-full flex md:flex-col flex-row md:justify-center justify-between w-full md:items-center items-start md:px-0 px-4">
                     <!-- Profile Image -->
-                    <div class="w-36 h-36 rounded-full ring-4 ring-white shadow-lg overflow-hidden bg-white">
+                    <div class="md:w-36 w-20 md:h-36 h-20 rounded-full ring-4 ring-white shadow-lg overflow-hidden bg-white">
                         <img src="{{ $user->image ? asset('storage/' . $user->image) : 'https://icons.iconarchive.com/icons/icons8/windows-8/512/Users-Guest-icon.png' }}"
                              class="w-full h-full object-cover"
                              alt="{{ $user->name }}">
                     </div>
+
+                    <div class="space-y-2 md:hidden block">
+                        <h1 class="text-2xl font-bold text-gray-900">{{ $user->name }}</h1>
+                        <p class="text-gray-500">{{ '@' . $user->username }}</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-center gap-4 mt-6 md:hidden block">
+                        @auth
+                            @if(auth()->id() !== $user->id)
+                                <button
+                                    onclick="toggleFollow({{ $user->id }})"
+                                    class="follow-btn py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2"
+                                    data-following="{{ auth()->user()->isFollowing($user) ? 'true' : 'false' }}"
+                                >
+                                    <i class="fas fa-user-plus"></i>
+                                </button>
+                            @endif
+                        @else
+                            <a href="{{ route('login') }}" class="py-1 px-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2">
+                                <i class="fas fa-user-plus"></i>
+                            </a>
+                        @endauth
+
+                        <button class="py-1 px-2border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition-colors duration-200 flex items-center gap-2">
+                            <a href="{{ route('chats.index') }}">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </button>
+                    </div>
+
+
                 </div>
             </div>
 
             <!-- User Info Section -->
             <div class="mt-24 text-center px-4">
-                <div class="space-y-2">
+                <div class="space-y-2 md:block hidden">
                     <h1 class="text-2xl font-bold text-gray-900">{{ $user->name }}</h1>
                     <p class="text-gray-500">{{ '@' . $user->username }}</p>
                 </div>
 
 
                 <!-- Action Buttons -->
-                <div class="flex justify-center gap-4 mt-6">
+                <div class="flex justify-center gap-4 mt-6 md:block hidden">
                     @auth
                         @if(auth()->id() !== $user->id)
                             <button
