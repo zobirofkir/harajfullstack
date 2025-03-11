@@ -63,7 +63,7 @@
 
 
                 <!-- Action Buttons -->
-                <div class="flex justify-center gap-4 mt-6 md:block hidden">
+                <div class="flex justify-center gap-4 mt-6 hidden md:flex">
                     @auth
                         @if(auth()->id() !== $user->id)
                             <button
