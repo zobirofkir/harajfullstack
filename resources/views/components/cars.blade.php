@@ -36,55 +36,51 @@
 <div class="py-12 px-6">
     <div class="flex flex-col lg:flex-row gap-8 justify-center">
         <!-- Cars Listing -->
-        <div class="lg:w-3/4 w-full mt-10 ">
+        <div class="lg:w-3/4 w-full mt-10">
             @if (!Auth::check())
-            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8 -mt-20">
-                <i class="fas fa-car mr-2"></i> السيارات المتاحة
-            </h2>
-        @else
-            <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8">
-                <i class="fas fa-hand mr-2"></i> مرحبًا بعودتك {{ Auth::user()->name }}
-            </h2>
-        @endif
+                <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8">
+                    <i class="fas fa-car mr-2"></i> السيارات المتاحة
+                </h2>
+            @else
+                <h2 id="dynamic-header" class="text-2xl font-semibold text-center text-gray-500 mb-8">
+                    <i class="fas fa-hand ml-2"></i> مرحبًا بعودتك {{ Auth::user()->name }}
+                </h2>
+            @endif
 
-        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
                 @foreach ($cars as $car)
-                    <a href="{{ route('cars.show', $car->slug) }}" class="group block relative">
-                        <div class="bg-white rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2">
-
-                            <div class="mt-1">
-                                <h1 class="text-md font-semibold text-gray-400 whitespace-nowrap truncate group-hover:text-primary-700 transition-colors duration-300 text-start">
+                    <a href="{{ route('cars.show', $car->slug) }}" class="group">
+                        <div class="bg-white rounded-lg shadow-sm hover:shadow-md p-2 sm:p-3 transform transition-all duration-300 hover:-translate-y-1">
+                            <div class="mb-2 sm:mb-3">
+                                <h1 class="text-xs sm:text-sm font-semibold text-gray-600 group-hover:text-primary-600 transition-colors duration-300 truncate">
                                     {{ Str::limit($car->title, 30) }}
                                 </h1>
                             </div>
 
-                            <div class="relative h-48 lg:h-64">
-                                <img src="{{ asset('storage/'.$car->images[0]) }}" alt="{{ $car->title }}" class="w-full h-full object-cover rounded-md">
+                            <div class="relative aspect-[4/3] rounded-lg overflow-hidden mb-2 sm:mb-3">
+                                <img src="{{ asset('storage/'.$car->images[0]) }}"
+                                     alt="{{ $car->title }}"
+                                     class="w-full h-full object-cover">
                             </div>
 
-                            <div class="mt-1">
-                                <div class="flex items-center justify-end">
-                                    <div class="text-sm text-center font_tajawal text-gray-400 group-hover:text-primary-700 whitespace-nowrap flex items-center w-full">
-                                            @if ($car->cost_type == 'شامل جميع التكاليف')
-                                                <h4 class="w-[35%] font-bold md:text-xl text-[15px] text-green-400 font_tajawal">
-                                                    {{$car->cost_type}}
-                                                </h4>
+                            <div class="flex items-center justify-between">
+                                @if ($car->cost_type == 'شامل جميع التكاليف')
+                                    <span class="text-[10px] sm:text-xs font-bold text-green-500">
+                                        {{$car->cost_type}}
+                                    </span>
+                                @elseif ($car->cost_type == 'شامل الشحن')
+                                    <span class="text-[10px] sm:text-xs font-bold text-gray-700">
+                                        {{$car->cost_type}}
+                                    </span>
+                                @endif
 
-                                                @elseif ($car->cost_type == 'شامل الشحن')
-                                                <h4 class="w-[35%] font-bold md:text-xl text-[15px] text-black font_tajawal">
-                                                    {{$car->cost_type}}
-                                                </h4>
-                                            @endif
-
-                                        <div class="w-[5%]"></div>
-
-                                        <span class="w-[60%] flex flex-row items-center gap-1 justify-end">
-                                            <h1 class="text-xl text-black">
-                                                {{ number_format($car->price) }}
-                                            </h1>
-                                            <img src="{{asset('assets/images/logo/saudi_riyal.png')}}" alt="{{$car->title}}" class="max-w-[15px] max-h-[15px]">
-                                        </span>
-                                    </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm sm:text-lg font-semibold text-gray-800">
+                                        {{ number_format($car->price) }}
+                                    </span>
+                                    <img src="{{asset('assets/images/logo/saudi_riyal.png')}}"
+                                         alt="ريال"
+                                         class="w-3 h-3 sm:w-4 sm:h-4">
                                 </div>
                             </div>
                         </div>
@@ -92,37 +88,40 @@
                 @endforeach
             </div>
 
-            <div class="mt-8 text-center rtl">
-                <nav class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+            <div class="mt-12 flex justify-center">
+                <nav class="inline-flex items-center gap-2 rounded-lg bg-white p-1 shadow-sm">
                     @if ($cars->onFirstPage())
-                        <span class="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
-                            <i class="fas fa-angle-right"></i> السابق
+                        <span class="px-3 py-2 text-gray-400 cursor-not-allowed">
+                            <i class="fas fa-angle-right"></i>
                         </span>
                     @else
-                        <a href="{{ $cars->previousPageUrl() }}" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">
-                            <i class="fas fa-angle-right"></i> السابق
+                        <a href="{{ $cars->previousPageUrl() }}"
+                           class="px-3 py-2 text-gray-600 hover:text-primary-600 transition-colors">
+                            <i class="fas fa-angle-right"></i>
                         </a>
                     @endif
 
                     @foreach ($cars->getUrlRange(1, $cars->lastPage()) as $page => $url)
                         @if ($page == $cars->currentPage())
-                            <span class="px-3 py-1 bg-primary-600 text-white rounded-md">
+                            <span class="px-3 py-2 bg-primary-600 text-white rounded-md">
                                 {{ $page }}
                             </span>
                         @else
-                            <a href="{{ $url }}" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">
+                            <a href="{{ $url }}"
+                               class="px-3 py-2 text-gray-600 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
                                 {{ $page }}
                             </a>
                         @endif
                     @endforeach
 
                     @if ($cars->hasMorePages())
-                        <a href="{{ $cars->nextPageUrl() }}" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">
-                            التالي <i class="fas fa-angle-left"></i>
+                        <a href="{{ $cars->nextPageUrl() }}"
+                           class="px-3 py-2 text-gray-600 hover:text-primary-600 transition-colors">
+                            <i class="fas fa-angle-left"></i>
                         </a>
                     @else
-                        <span class="px-3 py-1 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
-                            التالي <i class="fas fa-angle-left"></i>
+                        <span class="px-3 py-2 text-gray-400 cursor-not-allowed">
+                            <i class="fas fa-angle-left"></i>
                         </span>
                     @endif
                 </nav>
