@@ -11,7 +11,7 @@
         <div class="flex flex-col gap-6 md:px-12 px-8 bg-blue-50 rounded-lg shadow-lg py-4 mt-6">
             <div class="flex justify-between items-center w-full">
                 <div class="w-full md:w-auto flex flex-col gap-4">
-                    <h1 class="text-2xl text-gray-800 font-semibold text-start truncate max-w-lg">
+                    <h1 class="md:text-2xl text-sm text-gray-800 font-semibold text-start break-words max-w-lg">
                         {{ $car->title }}
                     </h1>
 
